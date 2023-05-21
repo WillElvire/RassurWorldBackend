@@ -7,4 +7,6 @@ export class Role extends BaseEntity {
   id: string;
   @Column()
   libelle: string;
+  @Column({unique : true})
+  flag : number;
 }
