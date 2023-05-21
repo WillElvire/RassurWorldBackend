@@ -1,18 +1,24 @@
-import { Entity, PrimaryGeneratedColumn, Column,BaseEntity } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column,BaseEntity, OneToMany, JoinColumn, OneToOne } from "typeorm"
+import { Role } from "./Role";
 
-@Entity()
+@Entity("User")
 export class User  extends BaseEntity {
 
     @PrimaryGeneratedColumn("uuid")
-    id: string
-
+    protected id: string
     @Column()
-    firstName: string
-
+    protected firstname: string
     @Column()
-    lastName: string
-
+    protected lastname: string
+    @Column({unique : true})
+    protected email: string;
+    @Column({unique : true}) 
+    protected phone : string;
+    @OneToOne(()=> Role)
+    @JoinColumn()
+    protected role : string;
     @Column()
-    age: number
+    protected password : string;
+    
 
 }

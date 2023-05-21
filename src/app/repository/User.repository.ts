@@ -1,2 +1,2 @@
 import { User } from "../entities/User";
-export const  UserRepository  =  User;
+export  const  UserRepository = User;

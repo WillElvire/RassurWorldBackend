@@ -1,8 +1,10 @@
-import { PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
-import { Entity } from 'typeorm';
+import { PrimaryGeneratedColumn, BaseEntity, Column } from "typeorm";
+import { Entity } from "typeorm";
 
 @Entity()
 export class Role extends BaseEntity {
-    @PrimaryGeneratedColumn("uuid")
-   id : string;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
+  @Column()
+  libelle: string;
 }

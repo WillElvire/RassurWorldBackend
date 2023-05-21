@@ -4,8 +4,8 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import expressFileupload from "express-fileupload";
-import loginRoutes from "./app/feature/auth/login/login.routes";
 import { DatabaseSourceManager } from "./app/core/classes/init";
+import authRoutes from "./app/feature/auth/auth.routes";
 const express = require("express");
 
 const boostraping = {
@@ -15,7 +15,7 @@ const boostraping = {
     app.use(express.static(__dirname + "/uploads"));
     app.use(bodyParser.json());
     app.use(cors());
-    app.use(loginRoutes);
+    app.use(authRoutes);
    // app.use(guessRoutes);
    // app.use(servicesRoutes);
     app.use(morgan("combined"));
