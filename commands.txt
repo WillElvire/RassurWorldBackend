@@ -1,0 +1,11 @@
+## generate migration
+typeorm migration:generate PostRefactoring -d path-to-datasource-config
+
+## generate migration
+typeorm migration:generate -d <path/to/datasource> path/to/migrations/<migration-name>
+
+## data source
+typeorm -d <your-data-source-path> migration:{run|revert}
+
+
+npm run typeorm migration:generate src/database/migration/userMigration  -- -d src/database/source/data-source.ts 

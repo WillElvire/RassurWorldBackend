@@ -1,0 +1,6 @@
+FROM mysql:8.0
+EXPOSE 3306
+ENV MYSQL_USER=dev
+ENV MYSQL_ALLOW_EMPTY_PASSWORD=true
+ENV DOCKER_HOSTNAME=127.0.0.1
+COPY script.sql user.sql /docker-entrypoint-initdb.d/
