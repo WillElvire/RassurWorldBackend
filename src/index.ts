@@ -4,8 +4,8 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import expressFileupload from "express-fileupload";
-import { DatabaseSourceManager } from "./app/core/classes/init";
-import authRoutes from "./app/feature/auth/auth.routes";
+import { DatabaseSourceManager } from "./app/common/classes/init";
+import authRoutes from "./app/modules/auth/auth.routes";
 const express = require("express");
 
 const boostraping = {

@@ -1,8 +1,10 @@
 import "reflect-metadata";
-import { DataSource, createConnection } from "typeorm";
+import { DataSource, DataSourceOptions } from "typeorm";
+import { SeederOptions } from "typeorm-extension";
+import { MainSeeder } from "./seeds/main.seed";
 
 
-export const AppDataSource = createConnection({
+export const options : DataSourceOptions & SeederOptions = {
   host: "127.0.0.1",
   type: "mysql",
   username: "root",
@@ -14,7 +16,11 @@ export const AppDataSource = createConnection({
   migrationsTableName : "migrations",
   migrations : [ __dirname + "./database/migrations/**/*.ts"] ,
   dropSchema : true,
-});
+  seeds : [MainSeeder]
+}
+
+export const AppDataSource = new DataSource(options);
+
 
 /*export const AppDataSource  = createConnection({
     

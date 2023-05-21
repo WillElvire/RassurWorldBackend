@@ -1,34 +1,44 @@
 {
-   "name": "RassurBackend",
-   "version": "0.0.1",
-   "description": "Awesome project developed with TypeORM.",
-   "type": "commonjs",
-   "devDependencies": {
-      "@types/express": "^4.17.17",
-      "@types/node": "^16.11.10",
-      "ts-node": "10.7.0",
-      "typescript": "4.5.2"
-   },
-   "dependencies": {
-      "body-parser": "^1.20.2",
-      "cors": "^2.8.5",
-      "express": "^4.18.2",
-      "express-fileupload": "^1.4.0",
-      "helmet": "^7.0.0",
-      "http-status-codes": "^2.2.0",
-      "morgan": "^1.10.0",
-      "mysql2": "^3.3.1",
-      "nodemon": "^2.0.22",
-      "reflect-metadata": "^0.1.13",
-      "typeorm": "0.3.16"
-   },
-   "scripts": {
-      "start": "nodemon app.ts",
-      "typeorm": "typeorm-ts-node-commonjs",
-      "typeorm:sync": "npm run typeorm schema:sync  -- -d src/app/database/data-source.ts",
-      "migration:create": "npm run typeorm migration:create --  src/app/database/data-source.ts",
-      "migration:run": "npm run typeorm migration:run -- -d src/app/database/data-source.ts",
-      "migration:revert": "npm run typeorm migration:revert -- -d src/app/database/data-source.ts",
-      "migration:run:fake": "npm run typeorm migration:run --fake"
-   }
+  "name": "RassurBackend",
+  "version": "0.0.1",
+  "description": "Awesome project developed with TypeORM.",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/faker": "^6.6.9",
+    "@types/node": "^16.11.10",
+    "ts-node": "10.7.0",
+    "typescript": "4.5.2"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
+    "faker": "^6.6.6",
+    "helmet": "^7.0.0",
+    "http-status-codes": "^2.2.0",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.22",
+    "passport": "^0.5.2",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "reflect-metadata": "^0.1.13",
+    "swagger-ui-express": "^4.3.0",
+    "typeorm": "^0.3.7",
+    "typeorm-extension": "^2.1.5"
+  },
+  "scripts": {
+    "start": "nodemon app.ts",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "typeorm:sync": "npm run typeorm schema:sync  -- -d src/app/database/data-source.ts",
+    "migration:create": "npm run typeorm migration:create --  src/app/database/data-source.ts",
+    "migration:run": "npm run typeorm migration:run -- -d src/app/database/data-source.ts",
+    "migration:revert": "npm run typeorm migration:revert -- -d src/app/database/data-source.ts",
+    "migration:run:fake": "npm run typeorm migration:run --fake",
+    "seed": "ts-node ./node_modules/typeorm-extension/dist/cli/index.js seed -d src/app/database/data-source.ts",
+    "db:refresh": "npm run typeorm:cli schema:drop && npm run migration:run && npm run seed:run"
+  }
 }

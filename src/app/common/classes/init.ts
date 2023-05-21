@@ -25,7 +25,7 @@ export  class DatabaseSourceManager {
     }
 
     async initializeDB() {
-        return await AppDataSource//.initialize();
+        return await AppDataSource.initialize();
     }
 }
 

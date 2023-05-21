@@ -1,11 +1,12 @@
 import { OK } from "http-status-codes";
-import { ReturnMessage } from "../../core/classes/message";
+import { ReturnMessage } from "../../common/classes/message";
 import { UserRepository } from "../../repository/User.repository";
 
 export class AuthService {
   private _rUserRepository = UserRepository;
 
-  login(data): ReturnMessage {
+  async login(data): Promise<ReturnMessage> {
+
     let returnMessage = new ReturnMessage();
 
     if (!data.firstName || !data.lastName || !data.age) {
@@ -14,15 +15,22 @@ export class AuthService {
       return returnMessage;
     }
 
-    try {
-      this._rUserRepository.save(data);
-      returnMessage.message = "Utilisateur crée";
-      returnMessage.code = OK;
-    } catch (Exception) {
-      returnMessage.message = Exception.message;
-      returnMessage.code = 500;
-    }
+    
+    const result  = await this._rUserRepository.save(data);
+    console.log(result);
+    //returnMessage.message = "Utilisateur crée";
+    //returnMessage.code = OK;
+     
+   
+    
+    returnMessage.message = result;
+    returnMessage.code = 500;
+     
+    
+
     return returnMessage;
+    
+    
   }
 
 
