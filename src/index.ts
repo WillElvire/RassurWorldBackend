@@ -6,6 +6,7 @@ import morgan from "morgan";
 import expressFileupload from "express-fileupload";
 import { DatabaseSourceManager } from "./app/common/classes/init";
 import authRoutes from "./app/modules/auth/auth.routes";
+import roleRoutes  from "./app/modules/roles/roles.routes";
 const express = require("express");
 
 const boostraping = {
@@ -16,7 +17,7 @@ const boostraping = {
     app.use(bodyParser.json());
     app.use(cors());
     app.use(authRoutes);
-   // app.use(guessRoutes);
+    app.use(roleRoutes);
    // app.use(servicesRoutes);
     app.use(morgan("combined"));
     app.use((req: any, res: any, next: any) => {

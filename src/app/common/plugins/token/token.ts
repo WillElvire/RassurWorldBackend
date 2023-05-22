@@ -9,9 +9,9 @@ export class TokenManager {
       {expiresIn: "24h"}
     );
   }
-  
+
   verify(token){
-    return jwt.verify(token, token);
+    return jwt.verify(token, this.token);
   }
 
  

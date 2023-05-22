@@ -49,6 +49,7 @@ export  class AuthPersistence {
         data.role = role?.id;
         try 
         {
+            // recuperer l'utilisateur existant en fonction de son email et son téléphone
             const userExists = await this._rUserRepository.createQueryBuilder().where("email = :email OR phone = :phone",{
                 email : data.email,
                 phone : data.phone

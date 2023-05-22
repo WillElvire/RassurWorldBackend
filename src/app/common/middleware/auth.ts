@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const config = process.env;
 
-const verifyToken = (req, res, next) => {
+export const authMiddleware = (req, res, next) => {
   const token =
     req.body.token || req.query.token || req.headers["x-access-token"];
 
@@ -13,6 +13,7 @@ const verifyToken = (req, res, next) => {
   }
   try {
     const decoded = new TokenManager().verify(token);
+    console.log(decoded);
     // jwt.verify(token, config.TOKEN_KEY);
     req.user = decoded;
   } catch (err) {
@@ -20,5 +21,3 @@ const verifyToken = (req, res, next) => {
   }
   return next();
 };
-
-module.exports = verifyToken;
