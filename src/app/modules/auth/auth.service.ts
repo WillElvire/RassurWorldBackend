@@ -1,56 +1,48 @@
+import { UserDto } from './../user/dto/user.dto';
 import { OK } from "http-status-codes";
 import { ReturnMessage } from "../../common/classes/message";
-import { UserRepository } from "../../repository/User.repository";
+import { authLoginDto } from "./dto/auth.dto";
+import { AuthPersistence } from "./auth.persistence";
+import { TokenManager } from "../../common/plugins/token/token";
+
 
 export class AuthService {
-  private _rUserRepository = UserRepository;
+  private authPersistance = new AuthPersistence;
 
-  async login(data): Promise<ReturnMessage> {
+  async login(data : authLoginDto): Promise<ReturnMessage> {
 
     let returnMessage = new ReturnMessage();
 
-    if (!data.firstName || !data.lastName || !data.age) {
+    if (!data.email || !data.password) {
       returnMessage.message = "Veuillez verifier les données renseigné";
       returnMessage.code = 500;
       return returnMessage;
     }
 
-    
-    const result  = await this._rUserRepository.save(data);
-    console.log(result);
-    //returnMessage.message = "Utilisateur crée";
-    //returnMessage.code = OK;
-     
-   
-    
-    returnMessage.message = result;
-    returnMessage.code = 500;
-     
-    
+    const result  = await this.authPersistance.login(data);
 
-    return returnMessage;
-    
-    
+    if(result.code != OK) {
+      return result;
+    }
+    const token = new TokenManager().sign(data);
+    result.returnObject = {user  : result.returnObject , token};
+    return result;
   }
 
 
-  register(data): ReturnMessage {
+
+
+  async register(data : UserDto): Promise<ReturnMessage> {
+
     let returnMessage = new ReturnMessage();
 
-    if (!data.firstName || !data.lastName || !data.age) {
+    if (!data.firstname || !data.lastname || !data.email || !data.password  || !data.phone) {
       returnMessage.message = "Veuillez verifier les données renseigné";
       returnMessage.code = 500;
       return returnMessage;
     }
 
-    try {
-      this._rUserRepository.save(data);
-      returnMessage.message = "Utilisateur crée";
-      returnMessage.code = OK;
-    } catch (Exception) {
-      returnMessage.message = Exception.message;
-      returnMessage.code = 500;
-    }
+    returnMessage = await this.authPersistance.register(data);
     return returnMessage;
   }
 }

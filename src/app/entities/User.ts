@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column,BaseEntity, OneToMany, JoinColumn, OneToOne, CreateDateColumn } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column,BaseEntity, OneToMany, JoinColumn, OneToOne, CreateDateColumn, ManyToOne } from "typeorm"
 import { Role } from "./Role";
 
 @Entity("User")
@@ -14,7 +14,7 @@ export class User  extends BaseEntity {
     public email: string;
     @Column({unique : true}) 
     public phone : string;
-    @OneToOne(()=> Role)
+    @ManyToOne(()=> Role)
     @JoinColumn()
     public role : string;
     @Column({nullable : true})

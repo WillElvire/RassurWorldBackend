@@ -2,7 +2,7 @@ import {StatusCodes} from  "http-status-codes";
 
 
 export class ReturnMessage {
-    returnObject : object;
+    returnObject : any;
     message : string;
     code :  StatusCodes ;   
 }

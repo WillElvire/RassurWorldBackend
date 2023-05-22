@@ -1,3 +1,4 @@
+import { RoleCreatedSeed } from './role.create.seed';
 import { DataSource } from 'typeorm'
 import { runSeeder, Seeder, SeederFactoryManager } from 'typeorm-extension'
 import { UserCreateSeed } from './user.create.seed'
@@ -8,6 +9,7 @@ export class MainSeeder implements Seeder {
 		dataSource: DataSource,
 		factoryManager: SeederFactoryManager
 	): Promise<void> {
+		await runSeeder(dataSource,RoleCreatedSeed),
 		await runSeeder(dataSource, UserCreateSeed)
 	}
 }
