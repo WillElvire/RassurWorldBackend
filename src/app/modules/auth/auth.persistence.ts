@@ -15,8 +15,10 @@ export  class AuthPersistence {
 
         let message = new ReturnMessage();
 
-        const userCreated = await this._rUserRepository.findOneBy({
-            email : data.email
+        const userCreated = await this._rUserRepository.findOne({
+            where: { email : data.email},
+            relations :["role"]
+            
         });
 
         if(!userCreated) {
