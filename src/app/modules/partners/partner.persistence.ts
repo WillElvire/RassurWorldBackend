@@ -1,10 +1,17 @@
 import { ReturnMessage } from './../../common/classes/message';
 import { PartnersRepository } from "../../repository/Partners.repository";
 import { OK } from 'http-status-codes';
+import { PartnerRateDto } from './dto/partner.dto';
+import { RateRepository } from '../../repository/Rate.repository';
 
 const partnersRepository = PartnersRepository;
+const rateRepository     = RateRepository;
 
 export class PartnerPersistence {
+
+   /********************************************************/ 
+   /*                      ADD PARTNER                     */
+   /********************************************************/
 
     async addPartner(partner) {
 
@@ -26,12 +33,58 @@ export class PartnerPersistence {
        }
        
        message.message = "Partner with this phone number already Exists";
-       message.code = 500.
+       message.code = 500;
        return message;
       
        
     }
 
+   /********************************************************/ 
+   /*                      ADD RATE                        */
+   /********************************************************/
+
+    async addRate(partnerRateDto : PartnerRateDto) {
+
+        let message        = new ReturnMessage();
+        const partnerExist = await partnersRepository.findOneBy({id : partnerRateDto.partners});
+
+        if(!partnerExist) {
+            message.message = "Partner doesn't exist";
+            message.code = 500;
+            return message;
+        }
+        
+        const rateExists = await rateRepository.createQueryBuilder().where("partnersId = :partner AND price = :price OR day = :day",{
+            partner : partnerRateDto.partners,
+            price : partnerRateDto.price,
+            day : partnerRateDto.day
+        }).getCount();
+
+        if(rateExists == 0) {
+            try {
+
+                const newRate = rateRepository.create({...partnerRateDto,isActive : 1} as any);
+                const result  = await rateRepository.save(newRate);
+              
+                message.code = OK;
+                message.message = "Rate created successfully !";
+                message.returnObject = result;
+
+            }catch(Exception) {
+                message.message = Exception.message;
+                message.code = 500;
+            }
+           
+            return message;
+        }
+
+        message.code = 500;
+        message.message = "Rate already exists !"; 
+    }
+
+   /********************************************************/ 
+   /*                     GET PARTNERS                     */
+   /********************************************************/
     async getPartners() {
         let message = new ReturnMessage();
         try {
