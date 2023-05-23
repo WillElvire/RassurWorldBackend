@@ -1,13 +1,15 @@
-
 import bodyParser from "body-parser";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import expressFileupload from "express-fileupload";
 import { DatabaseSourceManager } from "./app/common/classes/init";
-import authRoutes from "./app/modules/auth/auth.routes";
-import roleRoutes  from "./app/modules/roles/roles.routes";
+import authRoutes from "./app/routes/auth.routes";
+import roleRoutes from "./app/routes/roles.routes";
+import swaggerDocs from "./app/utils/swagger";
 const express = require("express");
+
+
 
 const boostraping = {
   init: (app: any, port: number = 3001) => {
@@ -18,7 +20,8 @@ const boostraping = {
     app.use(cors());
     app.use(authRoutes);
     app.use(roleRoutes);
-   // app.use(servicesRoutes);
+    swaggerDocs(app,port);
+    // app.use(servicesRoutes);
     app.use(morgan("combined"));
     app.use((req: any, res: any, next: any) => {
       res.header(
