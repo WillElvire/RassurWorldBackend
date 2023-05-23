@@ -1,5 +1,6 @@
-import { PrimaryGeneratedColumn, BaseEntity, Column } from "typeorm";
+import { PrimaryGeneratedColumn, BaseEntity, Column, OneToMany } from "typeorm";
 import { Entity } from "typeorm";
+import { Rate } from "./Rate";
 
 @Entity()
 export class Partners extends BaseEntity {
@@ -11,4 +12,6 @@ export class Partners extends BaseEntity {
   public phone: string;
   @Column({ nullable: true })
   public description: string;
+  @OneToMany(()=>Rate,(rate) => rate.id)
+  public rate : Rate;
 }

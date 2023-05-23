@@ -3,8 +3,7 @@ import { Seeder, SeederFactoryManager } from "typeorm-extension";
 import { Offer } from "../../entities/Offer";
 
 export class OfferCreatedSeed implements Seeder {
-    async  run(dataSource: DataSource, factoryManager: SeederFactoryManager): Promise<any> {
-
+    async run(dataSource: DataSource, factoryManager: SeederFactoryManager): Promise<any> {
         const offerRepository  = dataSource.getRepository(Offer);
         const offers = [
             {
@@ -29,12 +28,13 @@ export class OfferCreatedSeed implements Seeder {
             }
         ]
 
-        offers.forEach((offer)=> {
-            const existOffre = offerRepository.findOneBy({libelle : offer.libelle});
+        offers.forEach(async (offer,index)=> {
+            const  existOffre = await offerRepository.findOneBy({libelle : offer.libelle});
             if(!existOffre) {
                 const newOffer = offerRepository.create(offer as any);
                 offerRepository.save(newOffer);
             }
+            console.log({index,existOffre})
            
         })
 
