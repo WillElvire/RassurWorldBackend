@@ -7,6 +7,7 @@ import { DatabaseSourceManager } from "./app/common/classes/init";
 import authRoutes from "./app/routes/auth.routes";
 import roleRoutes from "./app/routes/roles.routes";
 import swaggerDocs from "./app/utils/swagger";
+import partnersRoute from "./app/routes/partners.routes";
 const express = require("express");
 
 
@@ -20,6 +21,7 @@ const boostraping = {
     app.use(cors());
     app.use(authRoutes);
     app.use(roleRoutes);
+    app.use(partnersRoute);
     swaggerDocs(app,port);
     // app.use(servicesRoutes);
     app.use(morgan("combined"));

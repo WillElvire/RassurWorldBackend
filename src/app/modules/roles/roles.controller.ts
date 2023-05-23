@@ -1,11 +1,11 @@
 import { RoleService } from './roles.service';
-import { ReturnMessage } from './../../common/classes/message';
 import { RoleDto } from "./dto/role.dto";
 
+/******************************************* */
 const roleService  = new RoleService();
-export class RoleController {
+/******************************************* */
 
-  
+export class RoleController {
 
     async addRole(req : any , res : any) {
       const role = req.body as RoleDto;

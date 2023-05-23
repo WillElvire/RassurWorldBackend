@@ -11,20 +11,20 @@ export class RolePersistence {
        let message = new ReturnMessage();
        try {
 
-          const roleFlagExists = await this._rRoleRepository.findOneBy({
+         const roleFlagExists = await this._rRoleRepository.findOneBy({
             flag : role.flag
-          });
+         });
 
-          if(!roleFlagExists) {
+         if(!roleFlagExists) {
             this._rRoleRepository.save(role);
             message.code = OK;
             message.message = "Role enregisté avec succes";
             return message;
-          }
+         }
 
-          message.code = 500;
-          message.message = "Role deja existant";
-          return message;
+         message.code = 500;
+         message.message = "Role deja existant";
+         return message;
          
 
        }catch(Exception) {
