@@ -1,5 +1,3 @@
 import { Assurance } from "../entities/Assurance";
 
-export class AssuranceRepository extends Assurance {
-
-}
+export const AssuranceRepository = Assurance;

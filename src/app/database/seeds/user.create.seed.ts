@@ -18,7 +18,7 @@ export class UserCreateSeed implements Seeder {
       flag : 1
     });
 
-    console.log(role);
+    
     if(!!role) {
 
       const userData : UserDto = {

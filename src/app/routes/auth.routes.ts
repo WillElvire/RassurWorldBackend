@@ -17,7 +17,12 @@ const authController = new AuthController();
    *     description: Responds if the app is up and running
    *     responses:
    *       200:
-   *         description: App is up and running
+   *         description: App is up and running 
+   *     parameters:
+   *      - name: id
+   *        in: body
+   *        description: The id of the product
+   *        required: true
    */
 authRoutes.post("/api/login",authController.login);
  /**

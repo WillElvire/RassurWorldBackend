@@ -1,12 +1,14 @@
-import { PrimaryGeneratedColumn, BaseEntity, Column } from "typeorm";
+import { PrimaryGeneratedColumn, BaseEntity, Column, CreateDateColumn } from "typeorm";
 import { Entity } from "typeorm";
 
 @Entity()
 export class Role extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
-  id: string;
+  public id: string;
   @Column()
-  libelle: string;
+  public libelle: string;
   @Column({unique : true})
-  flag : number;
+  public flag : number;
+  @CreateDateColumn({nullable : true})
+  public createdAt : string;
 }

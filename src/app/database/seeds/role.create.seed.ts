@@ -8,8 +8,7 @@ export class RoleCreatedSeed implements Seeder {
     async run(dataSource: DataSource, factoryManager: SeederFactoryManager): Promise<any> {
        
         const roleRepository  = dataSource.getRepository(Role);
-
-
+        
         const admin : Omit<RoleDto,'id'> = {
             flag : UserRoles.ADMIN,
             libelle : "admin"
