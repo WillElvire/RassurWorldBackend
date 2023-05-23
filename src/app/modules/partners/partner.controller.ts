@@ -19,6 +19,12 @@ export class PartnerController {
 
     async addRate(req , res) {
         const result = await partnerService.addRate(req.body);
+        res.status(result?.code).send(result);
+    }
+
+    async getPartnerById(req , res) {
+        console.log(req.params)
+        const result = await partnerService.getPartnerById(req.params.id);
         res.status(result.code).send(result);
     }
 }

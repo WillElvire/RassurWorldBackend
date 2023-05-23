@@ -11,7 +11,6 @@ export class PartnerService {
 
     async addPartner(partner : PartnerDto) {
 
-      
       let message = new ReturnMessage();
 
       if(!partner?.description || !partner?.fullName || !partner?.phone ){
@@ -43,5 +42,12 @@ export class PartnerService {
 
        message = await partnerPersistence.addRate(partnerRateDto);
        return message;
+    }
+
+
+    async getPartnerById(idPartner : string) {
+        let message = new ReturnMessage();
+        message = await partnerPersistence.getPartnerById(idPartner);
+        return message;
     }
 }

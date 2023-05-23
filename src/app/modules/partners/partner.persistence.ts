@@ -20,11 +20,14 @@ export class PartnerPersistence {
 
        if(!existPartner) {
         try {
+
             const newPartner = partnersRepository.create(partner as any);
             const result     = await partnersRepository.save(newPartner);
-            message.code = OK;
-            message.message = "Partner created successfully !";
+            
+            message.code         = OK;
+            message.message      = "Partner created successfully !";
             message.returnObject = result;
+
         }catch(Exception){
             message.message = Exception.message;
             message.code = 500;
@@ -61,12 +64,13 @@ export class PartnerPersistence {
         }).getCount();
 
         if(rateExists == 0) {
+
             try {
 
                 const newRate = rateRepository.create({...partnerRateDto,isActive : 1} as any);
                 const result  = await rateRepository.save(newRate);
               
-                message.code = OK;
+                message.code = 200;
                 message.message = "Rate created successfully !";
                 message.returnObject = result;
 
@@ -89,6 +93,24 @@ export class PartnerPersistence {
         let message = new ReturnMessage();
         try {
             const result = await partnersRepository.find();
+            message.code = OK;
+            message.returnObject = result;
+  
+         }catch(Exception) {
+            message.code = 500;
+            message.message = Exception.message;
+         }
+  
+         return message; 
+    }
+
+   /********************************************************/ 
+   /*                     GET PARTNER BY ID                */
+   /********************************************************/
+    async getPartnerById(id) {
+        let message = new ReturnMessage();
+        try {
+            const result = await partnersRepository.findOne({where:{id},relations :["rate"]});
             message.code = OK;
             message.returnObject = result;
   

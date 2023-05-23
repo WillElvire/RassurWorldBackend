@@ -6,7 +6,6 @@ import { Rate } from './Rate';
 export class Detail  extends BaseEntity {
     @PrimaryGeneratedColumn("uuid")
    id : string;
-  
    @Column({nullable:true})
    destination : string;
    @Column({nullable:true})

@@ -18,8 +18,8 @@ export class RoleController {
     }
 
     async find(req :  any , res : any) {
-        const result = await roleService.findAll();
-        res.status(result.code).send(result);
+      const result = await roleService.findAll();
+      res.status(result.code).send(result);
     }
 
     deleteOne(req : any , res  : any) {
