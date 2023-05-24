@@ -2,13 +2,13 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import expressFileupload from "express-fileupload";
 import { DatabaseSourceManager } from "./app/common/classes/init";
 import authRoutes from "./app/routes/auth.routes";
 import roleRoutes from "./app/routes/roles.routes";
 import swaggerDocs from "./app/utils/swagger";
 import partnersRoute from "./app/routes/partners.routes";
-const express = require("express");
+import { fileUploader } from "./app/utils/fileUpload";
+const multer     = require('multer');
 
 
 
@@ -16,7 +16,7 @@ const boostraping = {
   init: (app: any, port: number = 3001) => {
     DatabaseSourceManager.getInstance();
     app.use(helmet());
-    app.use(express.static(__dirname + "/uploads"));
+    fileUploader(app);
     app.use(bodyParser.json());
     app.use(cors());
     app.use(authRoutes);
@@ -32,12 +32,6 @@ const boostraping = {
       );
       next();
     });
-
-    app.use(
-      expressFileupload({
-        createParentPath: true,
-      })
-    );
     app.listen(port, () => console.warn(`listening on port ${port}`));
   },
 };
