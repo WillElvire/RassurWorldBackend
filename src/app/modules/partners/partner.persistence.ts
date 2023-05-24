@@ -84,6 +84,7 @@ export class PartnerPersistence {
 
         message.code = 500;
         message.message = "Rate already exists !"; 
+        return message;
     }
 
    /********************************************************/ 

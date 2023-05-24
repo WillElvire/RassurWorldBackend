@@ -15,7 +15,7 @@ export class AuthService {
 
     if (!data.email || !data.password) {
       returnMessage.message = "Veuillez verifier les données renseigné";
-      returnMessage.code = 500;
+      returnMessage.code = 421;
       return returnMessage;
     }
 
@@ -38,7 +38,7 @@ export class AuthService {
 
     if (!data.firstname || !data.lastname || !data.email || !data.password  || !data.phone) {
       returnMessage.message = "Veuillez verifier les données renseigné";
-      returnMessage.code = 500;
+      returnMessage.code = 421;
       return returnMessage;
     }
 

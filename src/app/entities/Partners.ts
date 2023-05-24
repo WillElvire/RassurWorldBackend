@@ -1,4 +1,4 @@
-import { PrimaryGeneratedColumn, BaseEntity, Column, OneToMany } from "typeorm";
+import { PrimaryGeneratedColumn, BaseEntity, Column, OneToMany, JoinColumn } from "typeorm";
 import { Entity } from "typeorm";
 import { Rate } from "./Rate";
 
@@ -13,5 +13,6 @@ export class Partners extends BaseEntity {
   @Column({ nullable: true })
   public description: string;
   @OneToMany(()=>Rate,(rate) => rate.id)
+  @JoinColumn()
   public rate : Rate;
 }

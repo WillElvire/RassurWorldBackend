@@ -15,7 +15,7 @@ export class PartnerService {
 
       if(!partner?.description || !partner?.fullName || !partner?.phone ){
         message.message = "Kindly fill all requested fields";
-        message.code = 400;
+        message.code = 421;
         return message;
       }
 
@@ -36,7 +36,7 @@ export class PartnerService {
 
        if(!partnerRateDto?.day || !partnerRateDto.partners || !partnerRateDto.price) {
         message.message = "Kindly fill all requested fields";
-        message.code = 400;
+        message.code = 421;
         return message;
        }
 

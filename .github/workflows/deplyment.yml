@@ -1,0 +1,42 @@
+on:
+  pull_request:
+    branches:
+      - main
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    env:
+      working-directory : ./build
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
+      - name: Use Node 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Install dependencies ⌨️
+        run: |
+          npm install
+      - name: Build 🏗️
+        run: |
+          npm run build
+      - name: Add package
+        uses: canastro/copy-file-action@master
+        with:
+          source: "./package.json"
+          target: "./build/package.json"
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.3.2
+        with:
+          server: ${{ secrets.ftp_server }}
+          username: ${{ secrets.ftp_username }}
+          password: ${{ secrets.ftp_password }}
+          dangerous-clean-slate  : true
+          local-dir : ./build/
+          server-dir: ./api.bcgauto.com/
+          
+
+
+       
