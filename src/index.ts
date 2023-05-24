@@ -8,6 +8,7 @@ import roleRoutes from "./app/routes/roles.routes";
 import swaggerDocs from "./app/utils/swagger";
 import partnersRoute from "./app/routes/partners.routes";
 import { fileUploader } from "./app/utils/fileUpload";
+import assuranceRoutes from "./app/routes/assurance.routes";
 const multer     = require('multer');
 
 
@@ -22,8 +23,8 @@ const boostraping = {
     app.use(authRoutes);
     app.use(roleRoutes);
     app.use(partnersRoute);
+    app.use(assuranceRoutes);
     swaggerDocs(app,port);
-    // app.use(servicesRoutes);
     app.use(morgan("combined"));
     app.use((req: any, res: any, next: any) => {
       res.header(

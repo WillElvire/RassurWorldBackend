@@ -48,4 +48,40 @@ export class RolePersistence {
  
         return message; 
     }
+
+    async isRoleExist(id) {
+      let message  = new ReturnMessage();
+      try {
+
+         const result = await this._rRoleRepository.createQueryBuilder().where("id =  :id or libelle  = :id or flag = :id",{
+            id
+         }).getExists();
+
+         message.code = 200;
+         message.returnObject = result;
+
+      }catch(Exception) {
+         message.code = 500;
+         message.message = Exception.message;
+      }
+      return message; 
+    }
+
+    async getRole(id) {
+      let message  = new ReturnMessage();
+      try {
+
+         const result = await this._rRoleRepository.createQueryBuilder().where("id =  :id or libelle  = :id or flag = :id",{
+            id
+         }).getOne();
+
+         message.code = 200;
+         message.returnObject = result;
+
+      }catch(Exception) {
+         message.code = 500;
+         message.message = Exception.message;
+      }
+      return message; 
+    }
 }

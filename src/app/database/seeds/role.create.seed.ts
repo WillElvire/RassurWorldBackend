@@ -17,8 +17,12 @@ export class RoleCreatedSeed implements Seeder {
             flag : UserRoles.MEMBER,
             libelle : "member"
         }
+        const customer : Omit<RoleDto , 'id'> = {
+            flag : UserRoles.CUSTOMER,
+            libelle : "customer"
+        }
 
-        const roles = [{...admin} , {...member}];
+        const roles = [{...admin} , {...member},{...customer}];
 
         console.log(roles);
 

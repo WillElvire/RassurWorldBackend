@@ -17,6 +17,14 @@ export class RoleService {
 
     }
 
+    isRoleExist(id) {
+        return this.rolePersistence.isRoleExist(id);
+    }
+
+    getRole(id) {
+        return this.rolePersistence.getRole(id);
+    }
+
     findRoleByFlag() {
 
     }

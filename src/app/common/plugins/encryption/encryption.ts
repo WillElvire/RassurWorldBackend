@@ -1,6 +1,6 @@
 import bcryptjs from 'bcryptjs';
 
-export  const hash  = (text :string ) =>{
+export  const hash  = (text :string | number ) =>{
   return bcryptjs.hashSync(text,10)
 }
 

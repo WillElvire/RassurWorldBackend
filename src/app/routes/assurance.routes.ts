@@ -15,3 +15,8 @@ const voyageController = new VoyageController();
 
 
 /******************** ASSURANCE VOYAGE ***************** */
+
+assuranceRoutes.post("/api/assur/voyage/first-user-step",voyageController.firstStep);
+
+
+export default assuranceRoutes;

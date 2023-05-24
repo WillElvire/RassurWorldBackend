@@ -7,6 +7,6 @@ export interface UserDto {
   date_naissance?: string;
   tryCount?: number;
   lastConnection?: number;
-  role: string;
+  role: any;
   id?: string;
 }

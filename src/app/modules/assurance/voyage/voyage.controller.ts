@@ -1,7 +1,12 @@
+import { VoyageService } from "./voyage.service";
+const voyageService  = new VoyageService();
 export class VoyageController {
       
-  firstStep(req,res) {
-    
+  
+
+  async firstStep(req,res) {
+    const result = await voyageService.setupFirstStep(req.body);
+    res.status(result.code).send(result);
   }
 
   secondStep(req,res){
@@ -9,6 +14,6 @@ export class VoyageController {
   }
 
   thirdStep(req,res){
-    
+
   }
 }
