@@ -1,8 +1,7 @@
-import { JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import { ManyToOne } from 'typeorm';
 import { PrimaryGeneratedColumn, BaseEntity, Column, CreateDateColumn } from 'typeorm';
 import { Entity } from 'typeorm';
 import { Partners } from './Partners';
-import { Detail } from './Detail';
 
 @Entity()
 export class Rate  extends BaseEntity{

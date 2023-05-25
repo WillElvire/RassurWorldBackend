@@ -19,7 +19,8 @@ partnersRoute.post("/api/partner",authMiddleware,partnerController.addPartner);
    *       200:
    *         description: App is up and running 
    */
-partnersRoute.get("/api/partner",authMiddleware,partnerController.getPartners);
+partnersRoute.get("/api/partner",partnerController.getPartners);
 partnersRoute.post("/api/partner/rate",authMiddleware,partnerController.addRate);
 partnersRoute.get("/api/partner/:id",authMiddleware,partnerController.getPartnerById);
+partnersRoute.post("/api/partner/find",authMiddleware,partnerController.getPartnerByFullName);
 export default partnersRoute;

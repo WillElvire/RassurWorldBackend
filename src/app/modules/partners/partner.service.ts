@@ -50,4 +50,10 @@ export class PartnerService {
         message = await partnerPersistence.getPartnerById(idPartner);
         return message;
     }
+
+    async getPartnerByFullName(fullName : string){
+      let message  = new ReturnMessage();
+      message = await partnerPersistence.getPartnerByFullName(fullName);
+      return message;
+    }
 }

@@ -27,6 +27,7 @@ export class User  extends BaseEntity {
     public tryCount !: number;
     @CreateDateColumn({nullable : true}) 
     public lastConnection !: string
-
+    @Column({nullable:true})
+    country  : string;
 
 }

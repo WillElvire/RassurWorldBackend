@@ -3,6 +3,7 @@ import { PartnersRepository } from "../../repository/Partners.repository";
 import { OK } from 'http-status-codes';
 import { PartnerRateDto } from './dto/partner.dto';
 import { RateRepository } from '../../repository/Rate.repository';
+import { Rate } from '../../entities/Rate';
 
 const partnersRepository = PartnersRepository;
 const rateRepository     = RateRepository;
@@ -57,7 +58,7 @@ export class PartnerPersistence {
             return message;
         }
         
-        const rateExists = await rateRepository.createQueryBuilder().where("partnersId = :partner AND price = :price OR day = :day",{
+        const rateExists = await rateRepository.createQueryBuilder().where("( partnersId = :partner AND price = :price )  OR ( partnersId = :partner AND day = :day )",{
             partner : partnerRateDto.partners,
             price : partnerRateDto.price,
             day : partnerRateDto.day
@@ -90,6 +91,7 @@ export class PartnerPersistence {
    /********************************************************/ 
    /*                     GET PARTNERS                     */
    /********************************************************/
+
     async getPartners() {
         let message = new ReturnMessage();
         try {
@@ -105,13 +107,18 @@ export class PartnerPersistence {
          return message; 
     }
 
-   /********************************************************/ 
-   /*                     GET PARTNER BY ID                */
-   /********************************************************/
-    async getPartnerById(id) {
+
+    /********************************************************/ 
+    /*                   GET PARTNER BY NAME                */
+    /********************************************************/
+
+    async getPartnerByFullName(query : string){
+
         let message = new ReturnMessage();
+
         try {
-            const result = await partnersRepository.findOne({where:{id},relations :["rate"]});
+
+            const result = await partnersRepository.createQueryBuilder().where(`fullName LIKE '%${query}%' OR description LIKE '%${query}%' `).getMany();
             message.code = OK;
             message.returnObject = result;
   
@@ -122,5 +129,42 @@ export class PartnerPersistence {
   
          return message; 
     }
+
+   /********************************************************/ 
+   /*                     GET PARTNER BY ID                */
+   /********************************************************/
+
+    async getPartnerById(id) {
+
+        let message = new ReturnMessage();
+
+        try {
+
+            const partner = await partnersRepository.findOne({
+                where : {id }
+            });
+
+             const rate = await partnersRepository.createQueryBuilder('partners')
+             .select("r.price as price,r.day as day , r.id  as id ")
+             .where('partners.id = :id' , {id})
+             .innerJoin(Rate,'r',"partners.id = r.partnersId")
+             .getRawMany();
+        
+            message.code = OK;
+            message.returnObject = {
+                ...partner,
+                rate : [ ...rate]
+            };
+  
+         }catch(Exception) {
+            message.code = 500;
+            message.message = Exception.message;
+         }
+  
+         return message; 
+    }
+
+
+   
 
 }

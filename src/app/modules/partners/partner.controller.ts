@@ -22,6 +22,11 @@ export class PartnerController {
         res.status(result?.code).send(result);
     }
 
+    async getPartnerByFullName(req , res){
+        const result = await partnerService.getPartnerByFullName(req.body.fullName);
+        res.status(result.code).send(result);
+    }
+
     async getPartnerById(req , res) {
         console.log(req.params)
         const result = await partnerService.getPartnerById(req.params.id);

@@ -11,8 +11,6 @@ export class Detail  extends BaseEntity {
    @Column({nullable:true})
    country : string;
    @Column({nullable:true})
-   nationality : string;
-   @Column({nullable:true})
    dateOfLeft : string;
    @Column({nullable:true})
    deteOfBack : string;
