@@ -60,8 +60,8 @@ export class PartnerPersistence {
         
         const rateExists = await rateRepository.createQueryBuilder().where("( partnersId = :partner AND price = :price )  OR ( partnersId = :partner AND day = :day )",{
             partner : partnerRateDto.partners,
-            price : partnerRateDto.price,
-            day : partnerRateDto.day
+            price   : partnerRateDto.price,
+            day     : partnerRateDto.day
         }).getCount();
 
         if(rateExists == 0) {
