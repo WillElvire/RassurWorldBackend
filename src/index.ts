@@ -22,6 +22,10 @@ const boostraping = {
     app.use(roleRoutes);
     app.use(partnersRoute);
     app.use(assuranceRoutes);
+    app.get('*', function(req, res){
+      res.status(404).send('what???');
+      logger.info("page not found : ",`${req.protocol}://${req.get('host')}${req.originalUrl}`);
+    });
     swaggerDocs(app,port);
     app.use(morgan("combined"));
     app.use((req: any, res: any, next: any) => {

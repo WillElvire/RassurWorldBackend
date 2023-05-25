@@ -7,7 +7,7 @@ configure({
     console: { type: 'stdout', layout: { type: 'colored' } },
     dateFile: {
       type: 'dateFile',
-      filename: `${environment.logDir}/${environment.logFile}`,
+      filename: `${environment.logDir}/${new Date().getDate() +"_"+ (new Date().getMonth()+1) +"_"+ new Date().getFullYear()}.log`,
       layout: { type: 'basic' },
       compress: true,
       daysToKeep: 14,
