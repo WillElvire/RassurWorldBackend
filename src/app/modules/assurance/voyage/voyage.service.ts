@@ -16,7 +16,7 @@ export class VoyageService {
         return message;
       }
 
-      return await userService.addPartialUser(user);
+      return await userService.addPartialUser(user,"voyage");
     }
 
     setupSecondStep() {

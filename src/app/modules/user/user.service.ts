@@ -20,7 +20,7 @@ export class UserService {
 
     }
 
-    async addPartialUser(user : userVoyageFirstStepDto | userAutoFirstStepDto) {
+    async addPartialUser(user : userVoyageFirstStepDto | userAutoFirstStepDto, source ?: string) {
 
         let   message  = new ReturnMessage();
 
@@ -30,7 +30,6 @@ export class UserService {
             return message;
         }
 
-       
         message = await roleService.getRole(UserRoles.CUSTOMER);
 
         if(message.code != 200) {
@@ -47,11 +46,39 @@ export class UserService {
 
         const matcheUser  : UserDto = {...user , password : hash("1234"), role : role.id };
 
+
+        if(!!source) {
+
+            message = await userPersistence.getUserByEmail(user.email);
+            
+            if(!message.returnObject) {
+
+                message = await userPersistence.getUserByPhone(user.phone);
+
+                if(!message.returnObject) {
+                    message = await  userPersistence.addPartialUser(matcheUser);
+                    return message;
+                }
+
+                return message;
+              
+            }
+            return message;
+        }
+
         message = await userPersistence.isEmailExists(matcheUser.email);
 
         if(message.returnObject) {
-            message.message = "User found";
             message.code = 500;
+            message.message = "User with this email already exsits";
+            return message;
+        }
+
+        message = await userPersistence.isPhoneExists(matcheUser.phone);
+
+        if(message.returnObject) {
+            message.code = 500;
+            message.message = "User with this phone already exsits";
             return message;
         }
 
