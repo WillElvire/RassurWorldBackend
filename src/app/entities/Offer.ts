@@ -1,4 +1,4 @@
-import { PrimaryGeneratedColumn, BaseEntity, Column, CreateDateColumn } from 'typeorm';
+import { PrimaryGeneratedColumn, BaseEntity, Column, CreateDateColumn, Generated } from 'typeorm';
 import { Entity, } from 'typeorm';
 
 @Entity()
@@ -13,5 +13,8 @@ export class Offer extends BaseEntity {
    isActive : boolean;
    @CreateDateColumn({nullable : true})
    createdAt !: string;
+   @Column({unique : true})
+   @Generated("increment")
+   flag !:number;
 
 }
