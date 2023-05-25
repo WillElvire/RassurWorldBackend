@@ -9,8 +9,9 @@ export class VoyageController {
     res.status(result.code).send(result);
   }
 
-  secondStep(req,res){
-
+  async secondStep(req,res){
+    const result = await voyageService.setupSecondStep(req.body);
+    res.status(result.code).send(result);
   }
 
   thirdStep(req,res){
