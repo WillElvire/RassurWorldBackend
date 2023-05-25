@@ -9,9 +9,7 @@ import swaggerDocs from "./app/utils/swagger";
 import partnersRoute from "./app/routes/partners.routes";
 import { fileUploader } from "./app/utils/fileUpload";
 import assuranceRoutes from "./app/routes/assurance.routes";
-const multer     = require('multer');
-
-
+import { logger } from "./app/utils/logger";
 
 const boostraping = {
   init: (app: any, port: number = 3001) => {
@@ -33,7 +31,7 @@ const boostraping = {
       );
       next();
     });
-    app.listen(port, () => console.warn(`listening on port ${port}`));
+    app.listen(port, () => logger.info(`listening on port ${port}`));
   },
 };
 
