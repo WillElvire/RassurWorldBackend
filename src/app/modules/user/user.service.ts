@@ -12,12 +12,16 @@ export class UserService {
 
     
     async isEmailExists(email : string) {
-
+      return await userPersistence.isEmailExists(email);
     } 
 
     async isPhoneExists(phone : string) {
 
+        return await userPersistence.isPhoneExists(phone);
+    }
 
+    async getUserById(id : string) {
+        return await userPersistence.getUserById(id);
     }
 
     async addPartialUser(user : userVoyageFirstStepDto | userAutoFirstStepDto, source ?: string) {

@@ -1,3 +1,4 @@
+import { VoyageController } from './../modules/assurance/voyage/voyage.controller';
 
 import { Express } from 'express';
 
@@ -29,5 +30,8 @@ export const fileUploader = (app : Express)=> {
         }
         res.send({path : file.path , message : "fichier enregistré",...file}) 
     });
+
+
+    app.post('/api/assur/voyage/upload',upload.single("file"),new VoyageController().thirdStep)
     /****************************************************** */
 }

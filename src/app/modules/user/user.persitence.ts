@@ -42,6 +42,23 @@ export class UserPersistence{
     } 
 
 
+    async getUserById(id : string) {
+        let message = new ReturnMessage();
+        try {
+
+            const result = await userRepository.createQueryBuilder().where("id=:id",{id}).getOne();
+            message.code = 200;
+            message.returnObject = result;
+
+        }catch(Exception ) {
+            message.message = Exception.message;
+            message.code =  500;
+        }
+        return message;
+
+    } 
+
+
     async getUserByEmail(email : string) {
         let message = new ReturnMessage();
         try {

@@ -12,18 +12,18 @@ export class OfferController {
     async getOfferById(req , res) {
         const result = await offerService.getOfferById(req.params.id);
         res.status(result.code).send(result);
-     }
+    }
 
-     async getOfferByQuery(req , res) {
+    async getOfferByQuery(req , res) {
         const result = await offerService.getOfferByParamsLike(req.params.query);
         res.status(result.code).send(result);
-     }
+    }
 
 
-     async getOffers(req , res) {
+    async getOffers(req , res) {
         const result = await offerService.getOffers();
         res.status(result.code).send(result);
-     }
+    }
 
 
 }

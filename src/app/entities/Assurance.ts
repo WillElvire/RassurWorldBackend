@@ -1,4 +1,4 @@
-import { JoinColumn, ManyToOne, OneToOne } from 'typeorm';
+import { CreateDateColumn, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 import { Column, PrimaryGeneratedColumn } from 'typeorm';
 import { Entity,BaseEntity } from 'typeorm';
 import { User } from './User';
@@ -13,8 +13,8 @@ export class Assurance  extends BaseEntity{
    isPayed : boolean;
    @Column()
    isActive  : boolean;
-   @Column()
-   date : Date;
+   @CreateDateColumn({nullable : true}) 
+   date : string;
    @ManyToOne(()=> User)
    user : User;
    @ManyToOne(()=>Offer)
@@ -22,7 +22,7 @@ export class Assurance  extends BaseEntity{
    @OneToOne(()=>Detail)
    @JoinColumn()
    detail : Detail;
-   @Column()
+   @CreateDateColumn({nullable : true}) 
    createdAt : Date;
 }
 

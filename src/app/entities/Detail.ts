@@ -13,7 +13,7 @@ export class Detail  extends BaseEntity {
    @Column({nullable:true})
    dateOfLeft : string;
    @Column({nullable:true})
-   deteOfBack : string;
+   dateOfBack : string;
    @Column({nullable:true})
    passportNub : string;
    @Column({nullable:true})
@@ -24,6 +24,8 @@ export class Detail  extends BaseEntity {
    agentName : string;
    @Column({nullable:true})
    tripMotif : string; 
+   @Column({nullable : true})
+   passportDayOfCreation : string;
    @Column({nullable:true}) 
    passportPhoto : string;
    @CreateDateColumn()

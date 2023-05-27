@@ -13,8 +13,10 @@ export class VoyageController {
     const result = await voyageService.setupSecondStep(req.body);
     res.status(result.code).send(result);
   }
+  
 
-  thirdStep(req,res){
-
-  }
+  async thirdStep(req,res){
+    const result = await voyageService.setupThirdStep({file : req.file , data : req.body});
+    res.status(result.code).send(result);
+  } 
 }

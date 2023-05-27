@@ -8,3 +8,10 @@ export interface TripFieldDto {
     destination : string,
     relationship : string
 }
+
+export interface fullTripDetail {
+    user  : string ,
+    offer : string,
+    trip : TripFieldDto
+
+}
