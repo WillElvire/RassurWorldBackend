@@ -10,6 +10,10 @@ const detailRepository    = DetailRepository;
 
 export class AssurancePersistence {
 
+  async addNewAutoRequest(autoDetail )  {
+
+  }
+  
   async addNewTripRequest(tripDetail : fullTripDetail) {
 
     const queryRunner = DatabaseSourceManager.getInstance().source().createQueryRunner();
@@ -54,6 +58,9 @@ export class AssurancePersistence {
       }
     return message;
   }
+
+
+
 
   async addTripFile(tripDetail : any){
     let message  = new ReturnMessage();
