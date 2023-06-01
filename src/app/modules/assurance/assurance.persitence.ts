@@ -82,4 +82,25 @@ export class AssurancePersistence {
     return message;
   }
 
+
+  async addAutoFile(tripDetail : any){
+    let message  = new ReturnMessage();
+    try {
+
+      const newDetail  = await detailRepository.createQueryBuilder().update().set({
+        cartePhoto : tripDetail.file
+      }).where("id = :id",{id : tripDetail.detail}).execute();
+
+      message.returnObject = newDetail;
+      message.message = "Carte grise  updloaded";
+      message.code = 200;
+
+    }catch(Exception ) {
+      message.message = Exception.message;
+      message.code    = 500;
+    }
+
+    return message;
+  }
+
 }

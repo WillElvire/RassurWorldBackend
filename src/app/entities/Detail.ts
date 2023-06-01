@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, JoinColumn, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Entity ,BaseEntity } from 'typeorm';
 import { Rate } from './Rate';
 
@@ -28,8 +28,22 @@ export class Detail  extends BaseEntity {
    passportDayOfCreation : string;
    @Column({nullable:true}) 
    passportPhoto : string;
+   @Column({nullable : true})
+   cartePhoto : string;
+   @Column({nullable : true})
+   typeTiers : string;
+   @Column({nullable : true})
+   date_a_effet : string;
+   @Column({nullable : true})
+   valeur_a_neuf : string;
+   @Column({nullable : true})
+   periodicity : string;
+   @Column({nullable : true})
+   price : string;
    @CreateDateColumn()
    public createdAt !: string;
    @ManyToOne(()=>Rate)
    rate : Rate;
+
+  
 }

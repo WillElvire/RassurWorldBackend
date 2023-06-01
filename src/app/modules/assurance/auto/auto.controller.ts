@@ -13,12 +13,22 @@ export class AutoController {
     res.status(result.code).send(result);
   }
 
-  secondStep(req,res){
-
+  async secondStep(req,res){
+    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    logger.info(req.body);
+    const result = await autoService.setupSecondStep(req.body);
+    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    logger.info(result);
+    res.status(result.code).send(result);
   }
 
-  thirdStep(req,res){
-    
+  async thirdStep(req,res){
+    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    logger.info(req.body);
+    const result = await autoService.setupThirdStep({file : req.file , data : req.body});
+    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    logger.info(result);
+    res.status(result.code).send(result);
   }
 
 }
