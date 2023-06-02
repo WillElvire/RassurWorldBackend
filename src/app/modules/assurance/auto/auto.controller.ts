@@ -31,4 +31,15 @@ export class AutoController {
     res.status(result.code).send(result);
   }
 
+
+  async getInsurrance(req,res) {
+    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    logger.info(req.params.id);
+    const result = await autoService.getInsurrance(req.params.id);
+    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    logger.info(result);
+    res.status(result.code).send(result);
+
+  }
+
 }

@@ -16,6 +16,8 @@ assuranceRoutes.post("/api/assur/auto/third-user-step", autoController.thirdStep
 /********************************************************/
 
 
+assuranceRoutes.get("/api/assur/get/:id", autoController.getInsurrance);
+
 /******************** ASSURANCE VOYAGE ***************** */
 assuranceRoutes.post("/api/assur/voyage/first-user-step", voyageController.firstStep);
 assuranceRoutes.post("/api/assur/voyage/second-user-step",voyageController.secondStep);

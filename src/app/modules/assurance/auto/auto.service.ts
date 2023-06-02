@@ -43,6 +43,15 @@ export class AutoService {
       return message;
     }
     return await assurancePersistence.addTripFile({...data.data,file : data.file?.filename})
-  
+  }
+
+  async getInsurrance(assurId) {
+    let message =  new ReturnMessage();
+    if(!assurId){
+      message.code    = 421;
+      message.message = "Kindly fill requested fields";
+      return message;
+    }
+    return await assurancePersistence.getInsurrance(assurId);
   }
 }

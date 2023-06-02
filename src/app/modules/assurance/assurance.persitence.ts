@@ -60,6 +60,19 @@ export class AssurancePersistence {
   }
 
 
+  async getInsurrance(inssuranceId : any) {
+    let message  = new ReturnMessage();
+    try{
+      const assurance = await assuranceRepository.findOne({where : {id : inssuranceId},relations : ["detail","user","offer"]});
+      message.returnObject = assurance;
+      message.code = 200;
+    }
+    catch(Exception) {
+      message.message = Exception.message;
+      message.code    = 500;
+    } 
+    return message;
+  }
 
 
   async addTripFile(tripDetail : any){
