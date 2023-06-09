@@ -13,6 +13,28 @@ export class AssurancePersistence {
   async addNewAutoRequest(autoDetail )  {
 
   }
+
+
+  async statistics() {
+    
+    let message = new ReturnMessage();
+    const statics = {
+      dailyRequest     : "",
+      monthlyResquest  : "",
+      activatedRequest : ""
+    }
+
+    try {
+      statics.activatedRequest = (await assuranceRepository.count({where : {isActive : true}})).toString();
+      //statics.monthlyResquest  = 
+    }
+    catch(Exception){
+      message.message = Exception.message;
+      message.code    = 500;
+    }
+    return message;
+
+  }
   
   async addNewTripRequest(tripDetail : fullTripDetail) {
 
