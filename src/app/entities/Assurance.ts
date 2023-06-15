@@ -1,4 +1,4 @@
-import { CreateDateColumn, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
+import { CreateDateColumn, JoinColumn, ManyToOne, OneToOne, Transaction } from 'typeorm';
 import { Column, PrimaryGeneratedColumn } from 'typeorm';
 import { Entity,BaseEntity } from 'typeorm';
 import { User } from './User';
@@ -22,6 +22,9 @@ export class Assurance  extends BaseEntity{
    @OneToOne(()=>Detail)
    @JoinColumn()
    detail : Detail;
+   @OneToOne(()=>Transaction)
+   @JoinColumn()
+   transaction  : Transaction;
    @CreateDateColumn({nullable : true}) 
    createdAt : Date;
 }

@@ -1,3 +1,4 @@
+import { TransactionRepository } from './../../repository/Transaction.repository';
 import { DatabaseSourceManager } from './../../common/classes/init';
 import { AssuranceRepository } from './../../repository/Assurance.repository';
 import { ReturnMessage } from './../../common/classes/message';
@@ -5,8 +6,9 @@ import { DetailRepository } from '../../repository/Detail.repository';
 import { fullTripDetail } from './voyage/dto/field.dto';
 
 
-const assuranceRepository = AssuranceRepository;
-const detailRepository    = DetailRepository;
+const assuranceRepository   = AssuranceRepository;
+const detailRepository      = DetailRepository;
+const transactionRepository = TransactionRepository;
 
 export class AssurancePersistence {
 
@@ -49,21 +51,35 @@ export class AssurancePersistence {
         
       try {
 
-        const newInsurance = assuranceRepository.create({
-          isPayed : false,
-          isActive : true,
-          user : tripDetail.user,
-          offer : tripDetail.offer,
-          detail : detail.id,
-        }as any)
+        const newTransaction = transactionRepository.create();
+        const transaction = await queryRunner.manager.save(newTransaction);
 
-        const insurance = await  queryRunner.manager.save(newInsurance);
-        message.code = 200;
-        message.returnObject = {
-          ...insurance,
+        try {
+          
+          const newInsurance = assuranceRepository.create({
+            isPayed : false,
+            isActive : true,
+            user : tripDetail.user,
+            offer : tripDetail.offer,
+            detail : detail.id,
+            transaction : transaction.id
+          }as any)
+  
+          const insurance = await  queryRunner.manager.save(newInsurance);
+          message.code = 200;
+          message.returnObject = {
+            ...insurance,
+          }
+          message.message = "Insurance saved";
+          await queryRunner.commitTransaction();
+
+        }catch(Exception) {
+          await queryRunner.rollbackTransaction();
+          message.message = Exception.message;
+          message.code    = 500;
         }
-        message.message = "Insurance saved";
-        await queryRunner.commitTransaction();
+
+        return message;
           
       }catch(Exception) {
         await queryRunner.rollbackTransaction();
