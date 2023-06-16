@@ -55,7 +55,7 @@ export class AssurancePersistence {
         const transaction = await queryRunner.manager.save(newTransaction);
 
         try {
-          
+
           const newInsurance = assuranceRepository.create({
             isPayed : false,
             isActive : true,
@@ -101,7 +101,7 @@ export class AssurancePersistence {
   async getInsurrance(inssuranceId : any) {
     let message  = new ReturnMessage();
     try{
-      const assurance = await assuranceRepository.findOne({where : {id : inssuranceId},relations : ["detail","user","offer"]});
+      const assurance = await assuranceRepository.findOne({where : {id : inssuranceId},relations : ["detail","user","offer","transaction"]});
       message.returnObject = assurance;
       message.code = 200;
     }

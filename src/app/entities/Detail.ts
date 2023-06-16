@@ -14,18 +14,18 @@ export class Detail  extends BaseEntity {
    dateOfLeft : string;
    @Column({nullable:true})
    dateOfBack : string;
-   @Column({nullable:true})
-   passportNub : string;
-   @Column({nullable:true})
-   passportValidity : string;
+   //@Column({nullable:true})
+   //passportNub : string;
+   //@Column({nullable:true})
+  // passportValidity : string;
    @Column({nullable:true})
    relationship : string;
    @Column({nullable:true})
    agentName : string;
    @Column({nullable:true})
    tripMotif : string; 
-   @Column({nullable : true})
-   passportDayOfCreation : string;
+   //@Column({nullable : true})
+   //passportDayOfCreation : string;
    @Column({nullable:true}) 
    passportPhoto : string;
    @Column({nullable : true})

@@ -1,3 +1,3 @@
-import { Transaction } from "../entities/Transaction";
+import { Transactions } from "../entities/Transactions";
 
-export const TransactionRepository = Transaction; 
+export const TransactionRepository = Transactions; 

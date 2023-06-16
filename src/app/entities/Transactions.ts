@@ -1,7 +1,7 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Transaction  extends BaseEntity{
+export class Transactions  extends BaseEntity{
     @PrimaryGeneratedColumn("uuid")
     id : string;
     @Column("text",{nullable: true})
