@@ -113,6 +113,24 @@ export class AssurancePersistence {
   }
 
 
+  async getAllInsuranceRequestByStatus(isPayed :boolean,isActive : boolean) {
+    let message = new ReturnMessage();
+    try {
+
+      const assurance = await assuranceRepository.find({where : {isPayed  , isActive},relations :["detail","user","offer","transaction"]});
+      message.returnObject = assurance;
+      message.code = 200;
+
+    }catch(Exception) {
+      message.message = Exception.message;
+      message.code    = 500;
+    }
+    return message;
+  }
+
+
+ 
+
   async addTripFile(tripDetail : any){
     let message  = new ReturnMessage();
     try {

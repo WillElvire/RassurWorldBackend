@@ -21,7 +21,7 @@ export  class AuthPersistence {
         });
 
         if(!userCreated) {
-           message.message = "Not found";
+           message.message = "Aucun utilisateur avec ces données n'a été trouvé :( ! ";
            message.code = NOT_FOUND;
            return message;
         }
