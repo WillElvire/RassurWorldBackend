@@ -8,7 +8,7 @@ export class AdminController {
     async fetchAllInsuranceByStatus(req : any ,res : any){
         logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         logger.info(req.body);
-        const result = await adminService.fetchAllInsuranceByStatus(req.body.active ,req.body.payed);
+        const result = await adminService.fetchAllInsuranceByStatus(req.body.active ,req.body.payed,req.body.limit);
         logger.info(result);
         res.status(result.code).send(result);
     }

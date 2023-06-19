@@ -113,11 +113,11 @@ export class AssurancePersistence {
   }
 
 
-  async getAllInsuranceRequestByStatus(isPayed :boolean,isActive : boolean) {
+  async getAllInsuranceRequestByStatus(isPayed :boolean,isActive : boolean, limit : number ) {
     let message = new ReturnMessage();
     try {
 
-      const assurance = await assuranceRepository.find({where : {isPayed  , isActive},relations :["detail","user","offer","transaction"]});
+      const assurance = await assuranceRepository.find({where : {isPayed  , isActive},relations :["detail","user","offer","transaction"],take : limit});
       message.returnObject = assurance;
       message.code = 200;
 

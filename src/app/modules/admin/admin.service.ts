@@ -4,7 +4,7 @@ export class AdminService{
 
     private assurancePersistence = new AssurancePersistence;
 
-    async fetchAllInsuranceByStatus(active : string = "active",payed : string = "unpaid"){
+    async fetchAllInsuranceByStatus(active : string = "active",payed : string = "unpaid",limit : number = 2){
 
         let message = new ReturnMessage();
         const keywordArray = ["active","inactive","payed","unpaid"];
@@ -12,7 +12,8 @@ export class AdminService{
         if(keywordArray.includes(active.toLowerCase()) && keywordArray.includes(payed.toLowerCase())) {
           const result  = await this.assurancePersistence.getAllInsuranceRequestByStatus(
           this.insuranceStatusConvertion(payed),
-          this.insuranceStatusConvertion(active)
+          this.insuranceStatusConvertion(active),
+          limit
           );
           return result;
         }
