@@ -11,6 +11,7 @@ import { fileUploader } from "./app/utils/fileUpload";
 import assuranceRoutes from "./app/routes/assurance.routes";
 import { logger } from "./app/utils/logger";
 import offerRoutes from "./app/routes/offer.routes";
+import path from "path";
 
 const boostraping = {
   init: (app: any, port: number = 3001) => {
@@ -23,6 +24,7 @@ const boostraping = {
     app.use(partnersRoute);
     app.use(assuranceRoutes);
     app.use(offerRoutes);
+    
     fileUploader(app);
     swaggerDocs(app,port);
     app.get('*', function(req, res){
