@@ -4,12 +4,12 @@ export class AdminService{
 
     private assurancePersistence = new AssurancePersistence;
 
-    async fetchAllInsuranceByStatus(active : string = "active",payed : string = "unpaid",limit : number = 2){
+    async fetchAllInsuranceByStatus(active : string ,payed : string ,limit : number = 2){
 
         let message = new ReturnMessage();
         const keywordArray = ["active","inactive","payed","unpaid"];
 
-        if(keywordArray.includes(active.toLowerCase()) && keywordArray.includes(payed.toLowerCase())) {
+        if(keywordArray.includes(active?.toLowerCase()) && keywordArray.includes(payed?.toLowerCase())) {
           const result  = await this.assurancePersistence.getAllInsuranceRequestByStatus(
           this.insuranceStatusConvertion(payed),
           this.insuranceStatusConvertion(active),
@@ -18,8 +18,7 @@ export class AdminService{
           return result;
         }
 
-        message.code = 421;
-        message.message = "Kindly fill all required fields";
+        message = await this.assurancePersistence.findAll();
         return message;
     }
 

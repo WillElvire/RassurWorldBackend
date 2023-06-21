@@ -98,6 +98,20 @@ export class AssurancePersistence {
   }
 
 
+  async findAll(){
+    let message  = new ReturnMessage();
+    try{
+      const assurance = await assuranceRepository.find({relations : ["detail","user","offer","transaction"]});
+      message.returnObject = assurance;
+      message.code = 200;
+    }
+    catch(Exception) {
+      message.message = Exception.message;
+      message.code    = 500;
+    } 
+    return message;
+  }
+
   async getInsurrance(inssuranceId : any) {
     let message  = new ReturnMessage();
     try{
