@@ -22,6 +22,10 @@ export class AdminService{
         return message;
     }
 
+    async getAppStatistics(){
+      return await this.assurancePersistence.statistics();
+    }
+
 
     private insuranceStatusConvertion(status : string) {
         switch(status){

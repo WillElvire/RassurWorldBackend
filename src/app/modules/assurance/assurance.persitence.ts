@@ -21,14 +21,16 @@ export class AssurancePersistence {
     
     let message = new ReturnMessage();
     const statics = {
-      dailyRequest     : "",
-      monthlyResquest  : "",
+      approvedPayment  : "",
+      waitingPayment   : "",
       activatedRequest : ""
     }
-
     try {
       statics.activatedRequest = (await assuranceRepository.count({where : {isActive : true}})).toString();
-      //statics.monthlyResquest  = 
+      statics.approvedPayment  = (await  assuranceRepository.count({where  : {isPayed : true , isActive : true}})).toString();
+      statics.waitingPayment   = (await assuranceRepository.count({where : {isPayed : false , isActive : true}})).toString();
+      message.code = 200;
+      message.returnObject = statics;
     }
     catch(Exception){
       message.message = Exception.message;

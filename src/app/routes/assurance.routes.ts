@@ -3,12 +3,15 @@ import { VoyageController } from './../modules/assurance/voyage/voyage.controlle
 import  express  from 'express';
 import { AutoController } from '../modules/assurance/auto/auto.controller';
 import { AdminController } from '../modules/admin/admin.controller';
+import { Transaction } from 'typeorm';
+import { TransactionController } from '../modules/transaction/transaction.controller';
 
 /********************************************************/
 const assuranceRoutes  = express.Router();
 const autoController   = new AutoController();
 const voyageController = new VoyageController();
 const adminController  = new AdminController();
+const transactionController = new TransactionController();
 /********************************************************/
 
 
@@ -31,6 +34,8 @@ assuranceRoutes.post("/api/assur/voyage/third-user-step", voyageController.third
 
 /******************** ADMIN ROUTES ***************** */
 assuranceRoutes.post("/api/admin/get-from-status",authMiddleware,adminController.fetchAllInsuranceByStatus);
+assuranceRoutes.get("/api/admin/statistics",authMiddleware,adminController.getAppStatistics);
+assuranceRoutes.put("/api/admin/transaction",authMiddleware,transactionController.update);
 /********************************************************/
 
 export default assuranceRoutes;

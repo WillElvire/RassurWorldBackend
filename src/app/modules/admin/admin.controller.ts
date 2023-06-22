@@ -13,4 +13,12 @@ export class AdminController {
         res.status(result.code).send(result);
     }
 
+    async getAppStatistics(req : any , res : any) {
+        logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        logger.info(req.body);
+        const result = await adminService.getAppStatistics();
+        logger.info(result);
+        res.status(result.code).send(result);
+    }
+
 }

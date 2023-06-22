@@ -1,3 +1,5 @@
+import { defaultWhatsappMessage, relationShipMailler } from "../../../__moock__/message";
+import { WhatsappService } from "../../../services/mailing/message.service";
 import { logger } from "../../../utils/logger";
 import { AutoService } from "./auto.service";
 
@@ -10,6 +12,10 @@ export class AutoController {
     const result = await autoService.setupFirstStep(req.body);
     logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     logger.info(result);
+    new WhatsappService()
+    .setBody(relationShipMailler(result.returnObject.firstName,result.returnObject.lastName))
+    .setReceiver(result.returnObject.phone)
+    .send();
     res.status(result.code).send(result);
   }
 

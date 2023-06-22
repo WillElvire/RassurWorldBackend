@@ -33,10 +33,11 @@ export class TransactionPersistence  {
         try {
 
             const newTransaction  = await this._rTransactionRepository.createQueryBuilder().update().set({
-               apiResponse : transactionDto.apiResponse,
-               meanOfPayment : transactionDto.meanOfPayment,
-               quantity : transactionDto.quantity,
-               transactionNumb : transactionDto.transactionNumb
+               apiResponse : transactionDto?.apiResponse,
+               meanOfPayment : transactionDto?.meanOfPayment,
+               quantity : transactionDto?.quantity,
+               transactionNumb : transactionDto?.transactionNumb,
+               total : transactionDto.total
             }).where("id = :id",{id : transactionDto.id}).execute();
 
             message.returnObject = newTransaction;
