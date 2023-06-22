@@ -11,8 +11,8 @@ export class MailService {
       let message = new ReturnMessage();
       try {
         const result = await mailBuilder.addData(data).send();
-        message.returnObject = result;
-        message.code = 200;
+        message.returnObject = result.data;
+        message.code = result.status;
       }catch(Exception) {
          message.code    = 500;
          message.message = Exception.message;
@@ -26,8 +26,8 @@ export class MailService {
       let message = new ReturnMessage();
       try {
         const result = await mailBuilder.addData(data).send();
-        message.returnObject = result;
-        message.code = 200;
+        message.returnObject = result.data;
+        message.code = result.status;
       }catch(Exception) {
          message.code    = 500;
          message.message = Exception.message;
@@ -40,8 +40,8 @@ export class MailService {
       let message = new ReturnMessage();
       try {
         const result = await mailBuilder.addData(data).send();
-        message.returnObject = result;
-        message.code = 200;
+        message.returnObject = result.data;
+        message.code = result.status;
       }catch(Exception) {
          message.code    = 500;
          message.message = Exception.message;

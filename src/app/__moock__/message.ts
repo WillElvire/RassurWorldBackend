@@ -23,7 +23,7 @@ export const paymentMessage = (data : mailData)=> {
     Cher client .
   Une cotation a été ajouté a votre demande.
   Vous pouvez des a present consulter payer votre demande de souscription via le lien ci dessous : .
-  https://rassurworld/payment/${data.id}
+  http://localhost:4200/payment/${data.id}
   N'hesistez pas a nous contacter si vous avez un quelconque probleme
   Equipe Rassur
   `
