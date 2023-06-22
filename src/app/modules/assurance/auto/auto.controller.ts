@@ -1,21 +1,22 @@
 import { defaultWhatsappMessage, relationShipMailler } from "../../../__moock__/message";
 import { WhatsappService } from "../../../services/mailing/message.service";
 import { logger } from "../../../utils/logger";
+import { MailService } from "../../mail/mail.service";
 import { AutoService } from "./auto.service";
 
 const autoService = new AutoService();
+const mailService = new MailService();
 export class AutoController {
     
   async firstStep(req , res ) {
     logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     logger.info(req.body);
     const result = await autoService.setupFirstStep(req.body);
+    const mail   = await mailService.sendMailBienvenue({firstname : result.returnObject?.firstname ,lastname : result.returnObject?.lastname , phone : result.returnObject?.phone});
     logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     logger.info(result);
-    new WhatsappService()
-    .setBody(relationShipMailler(result.returnObject.firstName,result.returnObject.lastName))
-    .setReceiver(result.returnObject.phone)
-    .send();
+    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    logger.info("Envoi de mail  ====>",mail);
     res.status(result.code).send(result);
   }
 

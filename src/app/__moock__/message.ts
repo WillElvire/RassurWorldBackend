@@ -1,6 +1,7 @@
-export  const defaultWhatsappMessage  = (nom :  string , prenom : string)=> {
+import { mailData } from './../modules/mail/dto/mail.dto';
+export  const defaultWhatsappMessage  = (data : mailData)=> {
     return `
-      Bienvenue chez Rassur ${nom} ${prenom}.
+      Bienvenue chez Rassur ${data.firstname} ${data.lastname}.
     Cher client votre demande de souscription est en cours de traitement .
     Nos equipes se chargeront de vous contacter afin de nous fournir les indications nécessaire a votre demande .
     passez une agréable journée .
@@ -8,21 +9,21 @@ export  const defaultWhatsappMessage  = (nom :  string , prenom : string)=> {
     `;
 }
 
-export const relationShipMailler = (nom :  string , prenom : string)=>{
+export const relationShipMailler = (data : mailData)=>{
     return `
-      Bienvenue chez Rassur ${nom} ${prenom}.
+      Bienvenue chez Rassur ${data.firstname} ${data.lastname}.
       Plus qu'une etape vers la fin de souscription.
       nous sommes heureux de vous compter parmis nos clients.
       Equipe Rassur
     `;
 }
 
-export const paymentMessage = (id : string = null)=> {
+export const paymentMessage = (data : mailData)=> {
     return `
     Cher client .
   Une cotation a été ajouté a votre demande.
   Vous pouvez des a present consulter payer votre demande de souscription via le lien ci dessous : .
-  https://rassurworld/payment/${id}
+  https://rassurworld/payment/${data.id}
   N'hesistez pas a nous contacter si vous avez un quelconque probleme
   Equipe Rassur
   `

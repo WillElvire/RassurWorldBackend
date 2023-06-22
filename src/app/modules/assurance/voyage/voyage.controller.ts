@@ -1,8 +1,10 @@
 import { defaultWhatsappMessage, relationShipMailler } from "../../../__moock__/message";
 import { WhatsappService } from "../../../services/mailing/message.service";
 import { logger } from "../../../utils/logger";
+import { MailService } from "../../mail/mail.service";
 import { VoyageService } from "./voyage.service";
 const voyageService  = new VoyageService();
+const mailService    = new MailService();
 export class VoyageController {
       
   
@@ -11,11 +13,10 @@ export class VoyageController {
     logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     logger.info(req.body);
     const result = await voyageService.setupFirstStep(req.body);
-    new WhatsappService()
-    .setBody(relationShipMailler(result.returnObject.firstname,result.returnObject.lastname))
-    .setReceiver(result.returnObject.phone)
-    .send();
+    const mail   = await mailService.sendMailBienvenue({firstname : result.returnObject?.firstname ,lastname : result.returnObject?.lastname , phone : result.returnObject?.phone});
+    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     logger.info(result);
+    logger.info("Envoi de mail  ====>",mail);
     res.status(result.code).send(result);
   }
 

@@ -1,4 +1,4 @@
-var http = require("https");
+import { apiPost } from './../api/api.service';
 
 export class WhatsappService {
 
@@ -27,36 +27,27 @@ export class WhatsappService {
     send() {
         return this.configure();
     }
-    private configure() {
-        const options = {
-            "method": "POST",
-            "hostname": "api.ultramsg.com",
-            "port": null,
-            "path": "/instance51691/messages/chat",
-            "headers": {
-              "content-type": "application/json"
-            }
-          };
-          
-          const req = http.request(options, function (res) {
-            const chunks = [];
-          
-            res.on("data", function (chunk) {
-              chunks.push(chunk);
-            });
-          
-            res.on("end", function () {
-              const body = Buffer.concat(chunks);
-              console.log(body.toString());
-            });
-          }); 
-          var postData = JSON.stringify({
-              "token" : this.token,
-              "to"    : this.receiver,
-              "body"  :this.body
-          });
-          req.write(postData);
-          req.end();
+     private async configure() {
+      
+      var data = JSON.stringify({
+        "token": this.token,
+        "to": this.receiver,
+        "body": this.body,
+        "priority": 10,
+      });
+    
+      var config = {
+        method: 'post',
+        url: 'https://api.ultramsg.com/instance51691/messages/chat',
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        data : data
+      };
+
+
+      return await apiPost(config.url,data);
+
           
     }
 }
