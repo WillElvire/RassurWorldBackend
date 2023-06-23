@@ -12,7 +12,7 @@ export  const defaultWhatsappMessage  = (data : mailData)=> {
 export const relationShipMailler = (data : mailData)=>{
     return `
       Bienvenue chez Rassur ${data.firstname} ${data.lastname}.
-      Plus qu'une etape vers la fin de souscription.
+      Plus qu'une etape vers la fin de votre processus.
       nous sommes heureux de vous compter parmis nos clients.
       Equipe Rassur
     `;
