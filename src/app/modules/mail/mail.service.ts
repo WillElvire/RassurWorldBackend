@@ -1,6 +1,5 @@
 import { ReturnMessage } from './../../common/classes/message';
-import { defaultWhatsappMessage, paymentMessage, relationShipMailler } from '../../__moock__/message';
-import { mailData, mailDriver, mailType } from './dto/mail.dto';
+import { mailData} from './dto/mail.dto';
 import { MailBuilder } from './mail.builder';
 
 const mailBuilder = new MailBuilder();
