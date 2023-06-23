@@ -1,5 +1,3 @@
-import { defaultWhatsappMessage, relationShipMailler } from "../../../__moock__/message";
-import { WhatsappService } from "../../../services/mailing/message.service";
 import { logger } from "../../../utils/logger";
 import { MailService } from "../../mail/mail.service";
 import { AutoService } from "./auto.service";
