@@ -28,5 +28,7 @@ export class Assurance  extends BaseEntity{
    transaction  : Transactions;
    @CreateDateColumn({nullable : true}) 
    createdAt : Date;
+   @Column({default : false , nullable : true})
+   isAcepted : boolean;
 }
 

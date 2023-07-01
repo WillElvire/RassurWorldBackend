@@ -1,4 +1,4 @@
-import { defaultWhatsappMessage, paymentMessage, relationShipMailler } from '../../__moock__/message';
+import { cotationMessage, defaultWhatsappMessage, paymentMessage, relationShipMailler } from '../../__moock__/message';
 import { WhatsappService } from '../../services/mailing/message.service';
 import { mailDriver, mailType, mailData } from './dto/mail.dto';
 
@@ -47,6 +47,8 @@ export class MailBuilder {
              return paymentMessage;
           case "Relance" : 
              return defaultWhatsappMessage;
+          case "Cotation" : 
+             return cotationMessage;
         }
      }
  

@@ -15,6 +15,16 @@ export class MailController {
         res.status(result.code).send(result);
     }
 
+    async sendMailCotation(req,res) {
+        logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        logger.info(req.body);
+        const data : mailData = {firstname : req.body?.firstname,lastname  : req.body?.lastname ,phone : req.body?.phone }
+        const result = await mailService.sendMailBienvenue(data);
+        logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        logger.info(result);
+        res.status(result.code).send(result);
+    }
+
 
     async sendMailPayment(req,res) {
         logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
