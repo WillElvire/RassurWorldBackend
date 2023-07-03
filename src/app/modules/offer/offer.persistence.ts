@@ -16,9 +16,9 @@ export class OfferPersistence {
         const newOffer = offerRepository.create({...offer} as any);
         const result   = await offerRepository.save(newOffer);
 
-        message.code = 200;
+        message.code         = 200;
         message.returnObject = result;
-        message.message = "Offer created";
+        message.message      = "Offre  ajoutée avec succes";
        
       }catch(Exception) {
         message.code = 500;
@@ -32,13 +32,14 @@ export class OfferPersistence {
         let message = new ReturnMessage();
 
         try{
-            const result = await offerRepository.createQueryBuilder().where("libelle =:query OR description= :query OR id = :query",{query}).getExists();
-            message.code = 200;
+
+            const result         = await offerRepository.createQueryBuilder().where("libelle =:query OR description= :query OR id = :query",{query}).getExists();
+            message.code         = 200;
             message.returnObject = result;
 
         }catch(Exception) {
-        message.code = 500;
-        message.message = Exception.message;
+            message.code    = 500;
+            message.message = Exception.message;
         }
         return message;
     }
@@ -77,6 +78,22 @@ export class OfferPersistence {
 
         try{
             const result = await offerRepository.find();
+            message.code = 200;
+            message.returnObject = result;
+
+        }catch(Exception) {
+        message.code = 500;
+        message.message = Exception.message;
+        }
+        return message;
+    }
+
+
+    async delete(id : string) {
+        let message = new ReturnMessage();
+
+        try{
+            const result = await offerRepository.delete({id});
             message.code = 200;
             message.returnObject = result;
 

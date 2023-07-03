@@ -9,7 +9,10 @@ export class RolePersistence {
 
     async save(role : RoleDto) {
        let message = new ReturnMessage();
-       try {
+      try 
+      {
+
+         
 
          const roleFlagExists = await this._rRoleRepository.findOneBy({
             flag : role.flag
@@ -26,7 +29,6 @@ export class RolePersistence {
          message.message = "Role deja existant";
          return message;
          
-
        }catch(Exception) {
           message.code = 500;
           message.message = Exception.message;
@@ -47,6 +49,15 @@ export class RolePersistence {
         }
  
         return message; 
+    }
+
+
+    async getLastRoleFlag() {
+      let message          = new ReturnMessage();
+      const result         = (await this._rRoleRepository.findOne({order : { createdAt : 'desc'}})).flag;
+      message.returnObject = result;
+      message.code         = 200;
+      return message;
     }
 
     async isRoleExist(id) {

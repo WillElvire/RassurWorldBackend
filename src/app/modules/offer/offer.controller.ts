@@ -42,4 +42,14 @@ export class OfferController {
     }
 
 
+    async deleteOffer(req , res) {
+        logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        logger.info(req.body);
+        const result = await offerService.deleteOffer(req.params.id);
+        logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        logger.info(result);
+        res.status(result.code).send(result);
+    }
+
+
 }

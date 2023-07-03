@@ -18,8 +18,8 @@ export class MailController {
     async sendMailCotation(req,res) {
         logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         logger.info(req.body);
-        const data : mailData = {firstname : req.body?.firstname,lastname  : req.body?.lastname ,phone : req.body?.phone }
-        const result = await mailService.sendMailBienvenue(data);
+        const data : mailData = {firstname : req.body?.firstname,lastname  : req.body?.lastname ,phone : req.body?.phone ,cotation : req.body?.cotation }
+        const result = await mailService.sendMailCotation(data);
         logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         logger.info(result);
         res.status(result.code).send(result);

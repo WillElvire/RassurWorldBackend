@@ -25,9 +25,9 @@ export class PartnerService {
     }
 
     async getPartners() {
-        let message = new ReturnMessage();
-        message = await partnerPersistence.getPartners();
-        return message;
+      let message = new ReturnMessage();
+      message = await partnerPersistence.getPartners();
+      return message;
     }
 
     async addRate(partnerRateDto : PartnerRateDto) {

@@ -34,6 +34,10 @@ export class OfferService {
     async getOfferById(id : string) {
       return await offerPersistence.getOfferById(id);
     }
+    
+    async deleteOffer(id : string) {
+      return await offerPersistence.delete(id);
+    }
 
     async  getOfferByParamsLike(query : string){
         return await offerPersistence.getOfferByParamsLike(query);

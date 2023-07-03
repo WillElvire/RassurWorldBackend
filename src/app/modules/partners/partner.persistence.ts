@@ -16,7 +16,7 @@ export class PartnerPersistence {
 
     async addPartner(partner) {
 
-       let message = new ReturnMessage();
+       let message        = new ReturnMessage();
        const existPartner = await partnersRepository.findOneBy({phone : partner.phone});
 
        if(!existPartner) {
@@ -131,14 +131,15 @@ export class PartnerPersistence {
     }
 
    /********************************************************/ 
-   /*                     GET PARTNER BY ID                */
+   /*                   GET PARTNER BY ID                  */
    /********************************************************/
 
     async getPartnerById(id) {
 
         let message = new ReturnMessage();
 
-        try {
+        try 
+        {
 
             const partner = await partnersRepository.findOne({
                 where : {id }
@@ -156,12 +157,12 @@ export class PartnerPersistence {
                 rate : [ ...rate]
             };
   
-         }catch(Exception) {
+        }catch(Exception) {
             message.code = 500;
             message.message = Exception.message;
-         }
+        }
   
-         return message; 
+        return message; 
     }
 
 
