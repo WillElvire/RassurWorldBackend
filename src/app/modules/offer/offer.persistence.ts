@@ -95,7 +95,7 @@ export class OfferPersistence {
         try{
             const result = await offerRepository.delete({id});
             message.code = 200;
-            message.returnObject = result;
+            message.message = "Offre supprimé avec succes";
 
         }catch(Exception) {
         message.code = 500;

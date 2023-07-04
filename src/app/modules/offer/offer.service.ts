@@ -12,7 +12,7 @@ export class OfferService {
 
        if(!offer.description || !offer.libelle) {
           message.code = 421;
-          message.message = "Veuillez renseigné les champs";
+          message.message = "Veuillez renseigner les champs";
           return message;
        }
 

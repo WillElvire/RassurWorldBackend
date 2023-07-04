@@ -26,6 +26,9 @@ export class MailBuilder {
     private configureTelephoneMail() {
         return new WhatsappService()
         .setBody(this.data.body)
+        .setFileUrl(this.data.fileUrl)
+        .setFileName("rassur_receipt")
+        .setDriver(!!this.data.fileUrl ? "document" : "chat")
         .setReceiver(this.data.phone);
     }
 
@@ -49,6 +52,8 @@ export class MailBuilder {
              return defaultWhatsappMessage;
           case "Cotation" : 
              return cotationMessage;
+          default :
+             return relationShipMailler;
         }
      }
  

@@ -26,6 +26,23 @@ export class MailController {
     }
 
 
+    async sendMailDocument(req,res) {
+        logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        logger.info(req.body);
+
+        const data : mailData = {
+            firstname : req.body?.firstname,
+            lastname  : req.body?.lastname ,
+            phone     : req.body?.phone ,
+            fileUrl   : req.file
+        }
+        const result = await mailService.sendDocument(data);
+        logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        logger.info(result);
+        res.status(result.code).send(result);
+    }
+
+
     async sendMailPayment(req,res) {
         logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         logger.info(req.body);

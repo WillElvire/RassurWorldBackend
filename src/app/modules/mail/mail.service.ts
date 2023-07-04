@@ -20,6 +20,20 @@ export class MailService {
      
     }
 
+    async sendDocument(data : mailData) {
+      data.type = "Cotation";
+      let message = new ReturnMessage();
+      try {
+        const result = await mailBuilder.addData(data).send();
+        message.returnObject = result.data;
+        message.code = result.status;
+      }catch(Exception) {
+        message.code    = 500;
+        message.message = Exception.message;
+      }
+     return message;
+    }
+
 
     async sendMailCotation(data : mailData) {
       data.type = "Cotation";

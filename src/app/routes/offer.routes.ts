@@ -56,4 +56,5 @@ offerRoutes.get("/api/offer/find/:query",offerController.getOfferByQuery);
    *         description: App is up and running 
    */
 offerRoutes.get("/api/offer",offerController.getOffers);
+offerRoutes.delete("/api/offer/:id",offerController.deleteOffer);
 export default offerRoutes;

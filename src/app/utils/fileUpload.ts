@@ -1,3 +1,4 @@
+import { MailController } from '../modules/mail/mail.controller';
 import { VoyageController } from './../modules/assurance/voyage/voyage.controller';
 
 import { Express } from 'express';
@@ -33,5 +34,7 @@ export const fileUploader = (app : Express)=> {
 
 
     app.post('/api/assur/voyage/upload',upload.single("file"),new VoyageController().thirdStep)
+
+    app.post('/api/mail/document',upload.single("file"), new MailController().sendMailDocument)
     /****************************************************** */
 }

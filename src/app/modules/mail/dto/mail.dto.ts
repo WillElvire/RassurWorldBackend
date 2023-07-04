@@ -10,5 +10,7 @@ export interface mailData {
     type ?: mailType,
     id ?: string;
     cotation ?: string;
+    fileUrl ?: string;
+
     
 }
