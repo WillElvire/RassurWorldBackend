@@ -18,7 +18,8 @@ const boostraping = {
   init: (app: any, port: number = 3001) => {
     DatabaseSourceManager.getInstance();
     app.use(helmet());
-    app.use(bodyParser.json());
+    app.use(bodyParser.json({limit: '50mb'}));
+    app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
     app.use(cors());
     app.use(authRoutes);
     app.use(roleRoutes);

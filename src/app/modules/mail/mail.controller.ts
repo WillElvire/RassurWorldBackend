@@ -34,9 +34,8 @@ export class MailController {
             firstname : req.body?.firstname,
             lastname  : req.body?.lastname ,
             phone     : req.body?.phone ,
-            fileUrl   : req.file
         }
-        const result = await mailService.sendDocument(data);
+        const result = await mailService.sendDocument(req.file,data);
         logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         logger.info(result);
         res.status(result.code).send(result);

@@ -20,9 +20,16 @@ export class MailService {
      
     }
 
-    async sendDocument(data : mailData) {
+    async sendDocument(file  :any ,data : mailData) {
       data.type = "Cotation";
       let message = new ReturnMessage();
+
+      if (!file) {
+        message.code    = 421;
+        message.message = "Please upload a file ";
+        return message;
+      }
+
       try {
         const result = await mailBuilder.addData(data).send();
         message.returnObject = result.data;
