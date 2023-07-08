@@ -44,7 +44,7 @@ export class WhatsappService {
     if (this.driver == "document") {
       return this.configureDoc();
     }
-    return this.configure();
+    return this.configureDoc();
   }
 
   private async configureDoc() {

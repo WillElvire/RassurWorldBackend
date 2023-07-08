@@ -20,11 +20,11 @@ export class MailService {
      
     }
 
-    async sendDocument(file  :any ,data : mailData) {
+    async sendDocument(data : mailData) {
       data.type = "Cotation";
       let message = new ReturnMessage();
 
-      if (!file) {
+      if (!data.fileUrl) {
         message.code    = 421;
         message.message = "Please upload a file ";
         return message;

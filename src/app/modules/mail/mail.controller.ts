@@ -2,6 +2,7 @@ import { mailData } from './dto/mail.dto';
 
 import { logger } from "../../utils/logger";
 import { MailService } from "./mail.service";
+import { read } from 'fs';
 const mailService = new MailService();
 export class MailController {
 
@@ -34,8 +35,9 @@ export class MailController {
             firstname : req.body?.firstname,
             lastname  : req.body?.lastname ,
             phone     : req.body?.phone ,
+            fileUrl   : req?.file
         }
-        const result = await mailService.sendDocument(req.file,data);
+        const result = await mailService.sendDocument({...data});
         logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         logger.info(result);
         res.status(result.code).send(result);

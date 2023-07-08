@@ -29,7 +29,6 @@ export class VoyageController {
     res.status(result.code).send(result);
   }
   
-
   async thirdStep(req,res){
     logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     logger.info(req.body);

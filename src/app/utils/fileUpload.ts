@@ -24,6 +24,9 @@ const upload     = multer({ storage });
 export const fileUploader = (app : Express)=> {
 
     /****************************************************** */
+
+    app.post('/api/mail/document/upload', upload.single("file"),new MailController().sendMailDocument) 
+
     app.post('/upload',upload.single("file"), (req : any, res : any) => {
         const file = req.file
         if (!file) {
@@ -35,6 +38,5 @@ export const fileUploader = (app : Express)=> {
 
     app.post('/api/assur/voyage/upload',upload.single("file"),new VoyageController().thirdStep)
 
-    app.post('/api/mail/document',upload.single("file"), new MailController().sendMailDocument)
-    /****************************************************** */
+      /****************************************************** */
 }
