@@ -27,7 +27,7 @@ export class MailController {
     }
 
 
-    async sendMailDocument(req,res) {
+    async uploadDocument(req,res) {
         logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         logger.info(req.body);
 

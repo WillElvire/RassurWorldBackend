@@ -10,11 +10,8 @@ export class DatabaseSourceManager {
 
   public static getInstance() {
     if (this.INSTANCE == null || this.INSTANCE == undefined) {
-      console.log("this.INSTANCE 1" + this.INSTANCE);
       return (this.INSTANCE = new DatabaseSourceManager());
     }
-
-    console.log("this.INSTANCE 2" + this.INSTANCE);
     return this.INSTANCE;
   }
 

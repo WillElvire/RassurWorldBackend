@@ -25,7 +25,7 @@ export const fileUploader = (app : Express)=> {
 
     /****************************************************** */
 
-    app.post('/api/mail/document/upload', upload.single("file"),new MailController().sendMailDocument) 
+    app.post('/api/receipt/upload', upload.single("file"),new MailController().uploadDocument) 
 
     app.post('/upload',upload.single("file"), (req : any, res : any) => {
         const file = req.file
