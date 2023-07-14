@@ -11,9 +11,6 @@ export class RolePersistence {
        let message = new ReturnMessage();
       try 
       {
-
-         
-
          const roleFlagExists = await this._rRoleRepository.findOneBy({
             flag : role.flag
          });
@@ -24,7 +21,7 @@ export class RolePersistence {
             message.message = "Role enregisté avec succes";
             return message;
          }
-
+         
          message.code = 500;
          message.message = "Role deja existant";
          return message;
