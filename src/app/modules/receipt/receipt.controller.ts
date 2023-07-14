@@ -9,7 +9,7 @@ const receiptService  = new ReceiptService();
 
 export class ReceiptController {
     
-    async addRole(req : any , res : any) {
+    async addReceipt(req : any , res : any) {
         logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         logger.info(req.body);
         const role = req.body as ReceiptDto;

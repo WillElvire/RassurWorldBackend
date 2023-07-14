@@ -1,9 +1,13 @@
 import { mailData } from './dto/mail.dto';
-
 import { logger } from "../../utils/logger";
 import { MailService } from "./mail.service";
-import { read } from 'fs';
-const mailService = new MailService();
+import { ReceiptService } from '../receipt/receipt.service';
+
+/***************************************** */
+const mailService    = new MailService();
+const receiptService = new ReceiptService();
+/***************************************** */
+
 export class MailController {
 
     async sendMailBienvenue(req,res) {
@@ -28,16 +32,27 @@ export class MailController {
 
 
     async uploadDocument(req,res) {
+
         logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         logger.info(req.body);
 
-        const data : mailData = {
-            firstname : req.body?.firstname,
-            lastname  : req.body?.lastname ,
-            phone     : req.body?.phone ,
-            fileUrl   : req?.file
+
+        let result = await receiptService.save({photoUrl : req.file,user : req.id});
+
+        if(result.code == 200) {
+
+            const data : mailData = {
+                firstname : req.body?.firstname,
+                lastname  : req.body?.lastname ,
+                phone     : req.body?.phone ,
+            }
+            
+            result = await mailService.sendMailReceipt({...data});
+            logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            logger.info(result);
+            res.status(result.code).send(result);
         }
-        const result = await mailService.sendDocument({...data});
+       
         logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         logger.info(result);
         res.status(result.code).send(result);

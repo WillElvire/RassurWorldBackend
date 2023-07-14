@@ -1,5 +1,5 @@
 export type mailDriver = "Email" | "Telephone";
-export type mailType   = "Relance" | "Lien" | "Bienvenue"| "Cotation";
+export type mailType   = "Relance" | "Lien" | "Bienvenue"| "Cotation" | "Receipt";
 export interface mailData {
     body ?: string,
     phone ?: string
