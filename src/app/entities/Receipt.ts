@@ -7,6 +7,7 @@ export class Receipt extends BaseEntity {
   public id: string;
   @Column()
   public user : string;
+  @Column()
   public photoUrl: string;
   @CreateDateColumn({nullable : true})
   public createdAt : string;

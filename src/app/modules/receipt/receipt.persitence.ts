@@ -10,7 +10,10 @@ export class ReceiptPersistence {
         let message = new ReturnMessage();
        try 
        {
-            this._rReceiptRepository.save({...receipt});
+        
+            const newUser   = this._rReceiptRepository.create({...receipt} as any);
+            const result    = await this._rReceiptRepository.save(newUser);
+            message.returnObject = result;
             message.code = OK;
             message.message = "Role enregisté avec succes";
             return message;

@@ -11,6 +11,6 @@ export interface mailData {
     id ?: string;
     cotation ?: string;
     fileUrl ?: string;
-
+    photoUrl ? : string;
     
 }

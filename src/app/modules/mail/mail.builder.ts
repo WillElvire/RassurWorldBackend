@@ -26,9 +26,7 @@ export class MailBuilder {
     private configureTelephoneMail() {
         return new WhatsappService()
         .setBody(this.data.body)
-        .setFileUrl(this.data.fileUrl)
-        .setFileName("rassur_receipt")
-        .setDriver(!!this.data.fileUrl ? "document" : "chat")
+        .setDriver("chat")
         .setReceiver(this.data.phone);
     }
 

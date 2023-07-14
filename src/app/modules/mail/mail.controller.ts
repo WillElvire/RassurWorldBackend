@@ -37,7 +37,7 @@ export class MailController {
         logger.info(req.body);
 
 
-        let result = await receiptService.save({photoUrl : req.file,user : req.id});
+        let result = await receiptService.save({photoUrl : req.file.filename,user : req.body.id});
 
         if(result.code == 200) {
 
@@ -45,12 +45,14 @@ export class MailController {
                 firstname : req.body?.firstname,
                 lastname  : req.body?.lastname ,
                 phone     : req.body?.phone ,
+                photoUrl  : result?.returnObject?.photoUrl,
             }
-            
-            result = await mailService.sendMailReceipt({...data});
+
+            result = await mailService.sendMailReceipt(data);
             logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             logger.info(result);
             res.status(result.code).send(result);
+            return;
         }
        
         logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");

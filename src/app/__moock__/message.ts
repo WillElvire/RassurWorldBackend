@@ -45,7 +45,7 @@ export const receiptMessage = (data : mailData) => {
   Cher client .
   Merci pour la confiance que vous nous avez accoré .
   votre recu de souscription est disponible via le lien ci dessous : .
-  http://localhost:3200/public/uploads/${data.id}
+  http://localhost:3200/public/uploads/${data.photoUrl}
   N'hesistez pas a nous contacter si vous avez un quelconque probleme
   Equipe Rassur
 `
