@@ -34,7 +34,7 @@ export const cotationMessage = (data : mailData) => {
   Cher client .
   Une cotation a été ajouté a votre demande.
   Vous pouvez des a present  payer votre demande de souscription via le lien ci dessous : .
-  http://localhost:4200/payment/${data.id}
+  http://localhost:3002/payment/${data.id}
   N'hesistez pas a nous contacter si vous avez un quelconque probleme
   Equipe Rassur
 `
