@@ -51,6 +51,6 @@
     "seed": "ts-node ./node_modules/typeorm-extension/dist/cli/index.js seed -d src/app/database/data-source.ts",
     "db:refresh": "npm run typeorm:cli schema:drop && npm run migration:run && npm run seed:run",
     "build": "tsc --build",
-    "clean": "tsc --build --clean"
+    "clean": "tsc --build --clean" 
   }
 }
