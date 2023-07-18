@@ -35,7 +35,7 @@ jobs:
           password: ${{ secrets.ftp_password }}
           dangerous-clean-slate  : true
           local-dir : ./build/
-          server-dir: ./api.bcgauto.com/
+          server-dir: ./api.myrassurance.com/
           
 
 
