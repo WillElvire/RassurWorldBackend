@@ -147,6 +147,23 @@ export class AssurancePersistence {
 
  
 
+  async activeCotation(id : string) {
+
+    let message  = new ReturnMessage();
+  
+    try {
+      const newDetail  = await assuranceRepository.createQueryBuilder().update().set({
+        isAcepted : true
+      }).where("id = :id",{id : id}).execute();
+    }
+    catch(Exception) {
+      message.message = Exception.message;
+      message.code    = 500;
+    }
+    return message;
+
+  }
+
   async addTripFile(tripDetail : any){
     let message  = new ReturnMessage();
     try {

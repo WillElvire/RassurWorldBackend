@@ -47,6 +47,17 @@ export class AutoController {
 
   }
 
+
+  async valideCotation(req,res) {
+    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    logger.info(req.params.id);
+    const result = await autoService.validateCotation(req.params.id);
+    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    logger.info(result);
+    res.status(result.code).send(result);
+
+  }
+
   
 
 }

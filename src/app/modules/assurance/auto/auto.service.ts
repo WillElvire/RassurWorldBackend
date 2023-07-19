@@ -54,4 +54,15 @@ export class AutoService {
     }
     return await assurancePersistence.getInsurrance(assurId);
   }
+
+
+  async validateCotation(assurId) {
+    let message =  new ReturnMessage();
+    if(!assurId){
+      message.code    = 421;
+      message.message = "Kindly fill requested fields";
+      return message;
+    }
+    return await assurancePersistence.activeCotation(assurId);
+  }
 }
