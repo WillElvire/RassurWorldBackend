@@ -103,7 +103,7 @@ export class AssurancePersistence {
   async findAll(){
     let message  = new ReturnMessage();
     try{
-      const assurance = await assuranceRepository.find({relations : ["detail","user","offer","transaction"]});
+      const assurance = await assuranceRepository.find({relations : ["detail","user","offer","transaction"], order : {createdAt : 'DESC'}});
       message.returnObject = assurance;
       message.code = 200;
     }
