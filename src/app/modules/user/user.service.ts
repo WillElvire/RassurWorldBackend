@@ -24,6 +24,56 @@ export class UserService {
         return await userPersistence.getUserById(id);
     }
 
+
+    async addIntermediary(user : userVoyageFirstStepDto ) {
+
+        let   message  = new ReturnMessage();
+
+        if(!user.email || !user.firstname || !user.lastname || !user.phone){
+            message.code = 421;
+            message.message = "Kindly fill all required fields";
+            return message;
+        }
+
+
+        message = await roleService.getRole(UserRoles.APPORTEUR);
+
+        if(message.code != 200) {
+           return message;
+        }
+
+        const role  = message.returnObject;
+
+        if(!role) {
+          message.message = "Role does'nt exsits contact admin";
+          message.code = 500;
+          return message;
+        }
+
+        const userToCreate  : UserDto = {...user , password : hash(user.password), role : role.id };
+
+
+        message = await userPersistence.isEmailExists(userToCreate.email);
+
+        if(message.returnObject) {
+            message.code = 500;
+            message.message = "User with this email already exsits";
+            return message;
+        }
+
+        message = await userPersistence.isPhoneExists(userToCreate.phone);
+
+        if(message.returnObject) {
+            message.code = 500;
+            message.message = "User with this phone already exsits";
+            return message;
+        }
+
+        message = await  userPersistence.addPartialUser(userToCreate);
+        return message;
+
+    }
+
     async addPartialUser(user : userVoyageFirstStepDto | userAutoFirstStepDto, source ?: string) {
 
         let   message  = new ReturnMessage();

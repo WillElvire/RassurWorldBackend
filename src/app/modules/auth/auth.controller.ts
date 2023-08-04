@@ -19,4 +19,11 @@ export class AuthController  {
       logger.info("register response : ",req.body)
       res.status(result.code).send(result);
     }
+
+    async addBusinessAccount(req: any ,res : any) {
+      logger.info("register : ",req.body);
+      const result =  await authService.register({...req.body});
+      logger.info("register response : ",req.body)
+      res.status(result.code).send(result);
+    }
 }
