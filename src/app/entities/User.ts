@@ -19,6 +19,10 @@ export class User  extends BaseEntity {
     public role : string;
     @Column({nullable : true})
     public password : string;
+    @Column({nullable : true, default : 0})
+    public useWhatsapp ?: boolean;
+    @Column({nullable : true, default : 0})
+    public isCollaborateur ?: boolean;
     @CreateDateColumn()
     public date_naissance !: string;
     @Column({default : 0 , nullable : true})

@@ -3,7 +3,6 @@ import { VoyageController } from './../modules/assurance/voyage/voyage.controlle
 import  express  from 'express';
 import { AutoController } from '../modules/assurance/auto/auto.controller';
 import { AdminController } from '../modules/admin/admin.controller';
-import { Transaction } from 'typeorm';
 import { TransactionController } from '../modules/transaction/transaction.controller';
 
 /********************************************************/
