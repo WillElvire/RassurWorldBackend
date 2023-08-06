@@ -19,7 +19,7 @@ export class MailBuilder {
     }
 
     private configure(){
-      if(this.mailDriver == "Telephone") return this.configureTelephoneMail();
+      if(this.mailDriver == "Telephone" && this.data.useWhatsapp ) return this.configureTelephoneMail();
       return this.configureEMail();
     }
 

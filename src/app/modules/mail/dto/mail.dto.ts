@@ -12,5 +12,6 @@ export interface mailData {
     cotation ?: string;
     fileUrl ?: string;
     photoUrl ? : string;
+    useWhatsapp ?: boolean;
     
 }

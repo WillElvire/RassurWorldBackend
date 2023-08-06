@@ -1,9 +1,9 @@
 import { TransactionRepository } from './../../repository/Transaction.repository';
 import { DatabaseSourceManager } from './../../common/classes/init';
-import { AssuranceRepository } from './../../repository/Assurance.repository';
-import { ReturnMessage } from './../../common/classes/message';
-import { DetailRepository } from '../../repository/Detail.repository';
-import { fullTripDetail } from './voyage/dto/field.dto';
+import { AssuranceRepository }   from './../../repository/Assurance.repository';
+import { ReturnMessage }         from './../../common/classes/message';
+import { DetailRepository }      from '../../repository/Detail.repository';
+import { fullTripDetail }        from './voyage/dto/field.dto';
 
 
 const assuranceRepository   = AssuranceRepository;
@@ -19,18 +19,18 @@ export class AssurancePersistence {
 
   async statistics() {
     
-    let message = new ReturnMessage();
+    let message   = new ReturnMessage();
     const statics = {
       approvedPayment  : "",
       waitingPayment   : "",
       activatedRequest : ""
     }
     try {
-      statics.activatedRequest = (await assuranceRepository.count({where : {isActive : true}})).toString();
-      statics.approvedPayment  = (await  assuranceRepository.count({where  : {isPayed : true , isActive : true}})).toString();
-      statics.waitingPayment   = (await assuranceRepository.count({where : {isPayed : false , isActive : true}})).toString();
-      message.code = 200;
-      message.returnObject = statics;
+      statics.activatedRequest = (await assuranceRepository.count({ where : {isActive : true}})).toString();
+      statics.approvedPayment  = (await  assuranceRepository.count({where : {isPayed : true , isActive : true}})).toString();
+      statics.waitingPayment   = (await assuranceRepository.count({ where : {isPayed : false , isActive : true}})).toString();
+      message.code             = 200;
+      message.returnObject     = statics;
     }
     catch(Exception){
       message.message = Exception.message;
@@ -43,7 +43,7 @@ export class AssurancePersistence {
   async addNewTripRequest(tripDetail : fullTripDetail) {
 
     const queryRunner = DatabaseSourceManager.getInstance().source().createQueryRunner();
-    let message  = new ReturnMessage();
+    let message       = new ReturnMessage();
 
     try {
 
@@ -54,21 +54,21 @@ export class AssurancePersistence {
       try {
 
         const newTransaction = transactionRepository.create();
-        const transaction = await queryRunner.manager.save(newTransaction);
+        const transaction    = await queryRunner.manager.save(newTransaction);
 
         try {
 
           const newInsurance = assuranceRepository.create({
-            isPayed : false,
-            isActive : true,
-            user : tripDetail.user,
-            offer : tripDetail.offer,
-            detail : detail.id,
+            isPayed     : false,
+            isActive    : true,
+            user        : tripDetail.user,
+            offer       : tripDetail.offer,
+            detail      : detail.id,
             transaction : transaction.id
           }as any)
   
-          const insurance = await  queryRunner.manager.save(newInsurance);
-          message.code = 200;
+          const insurance      = await  queryRunner.manager.save(newInsurance);
+          message.code         = 200;
           message.returnObject = {
             ...insurance,
           }
