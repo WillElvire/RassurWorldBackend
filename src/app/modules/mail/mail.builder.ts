@@ -1,4 +1,5 @@
 import { cotationMessage, defaultWhatsappMessage, paymentMessage, receiptMessage, relationShipMailler } from '../../__moock__/message';
+import { EmailService } from '../../services/mailing/mail.service';
 import { WhatsappService } from '../../services/mailing/message.service';
 import { mailDriver, mailType, mailData } from './dto/mail.dto';
 
@@ -19,11 +20,11 @@ export class MailBuilder {
     }
 
     private configure(){
-      if(this.mailDriver == "Telephone" && this.data.useWhatsapp ) return this.configureTelephoneMail();
+      if(this.mailDriver == "Telephone" && this.data.useWhatsapp ) return this.configureWhatsapp();
       return this.configureEMail();
     }
 
-    private configureTelephoneMail() {
+    private configureWhatsapp() {
         return new WhatsappService()
         .setBody(this.data.body)
         .setDriver("chat")
@@ -31,7 +32,7 @@ export class MailBuilder {
     }
 
     private configureEMail() {
-        return new WhatsappService()
+        return new EmailService()
         .setBody(this.data.body)
         .setReceiver(this.data.email);
     }

@@ -13,5 +13,6 @@ export interface mailData {
     fileUrl ?: string;
     photoUrl ? : string;
     useWhatsapp ?: boolean;
+    subject ?: string;
     
 }
