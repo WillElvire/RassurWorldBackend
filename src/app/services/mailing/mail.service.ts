@@ -1,9 +1,7 @@
-import { nodemailer } from 'nodemailer';
-import { mailData, mailDriver } from "../../modules/mail/dto/mail.dto";
-import { apiPost } from "./../api/api.service";
+import { mailData} from "../../modules/mail/dto/mail.dto";
 import { mailConfigs } from '../../config/mail';
-
 export type chatDriver = "email" | "document";
+const nodemailer = require("nodemailer");
 
 export class EmailService {
 
@@ -16,6 +14,10 @@ export class EmailService {
   constructor() {}
 
  
+  setData(data : mailData) {
+    this.data = data;
+    return this;
+  }
   
   setBody(body: string) {
     this.body = body;
@@ -46,8 +48,8 @@ export class EmailService {
     return this.mailTransport().sendMail({
       from     : "info@myrassurance.com", // sender address
       to       : this.receiver, // list of receivers
-      subject  : this.data.subject, // Subject line
-      text     : this.data.body, // plain text body
+      subject  : "", // Subject line
+      text     : this.body, // plain text body
       //html     : this.data.html, // html body
     }).send;
    }

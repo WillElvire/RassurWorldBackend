@@ -20,7 +20,7 @@ export class MailBuilder {
     }
 
     private configure(){
-      if(this.mailDriver == "Telephone" && this.data.useWhatsapp ) return this.configureWhatsapp();
+      if(this.data.useWhatsapp ) return this.configureWhatsapp();
       return this.configureEMail();
     }
 
@@ -33,6 +33,7 @@ export class MailBuilder {
 
     private configureEMail() {
         return new EmailService()
+        .setData(this.data)
         .setBody(this.data.body)
         .setReceiver(this.data.email);
     }
