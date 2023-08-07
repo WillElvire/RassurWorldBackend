@@ -3,7 +3,6 @@ import { Role } from "./Role";
 
 @Entity("User")
 export class User  extends BaseEntity {
-
     @PrimaryGeneratedColumn("uuid")
     public id: string
     @Column()
@@ -23,6 +22,8 @@ export class User  extends BaseEntity {
     public useWhatsapp ?: boolean;
     @Column({nullable : true, default : 0})
     public isCollaborateur ?: boolean;
+    @Column({nullable : true})
+    public photoUrl ?: string;
     @CreateDateColumn()
     public date_naissance !: string;
     @Column({default : 0 , nullable : true})
@@ -33,5 +34,4 @@ export class User  extends BaseEntity {
     public lastConnection !: string
     @Column({nullable:true})
     country  : string;
-
 }
