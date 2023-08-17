@@ -37,4 +37,16 @@ authRoutes.post("/api/login",authController.login);
    *         description: App is up and running
    */
 authRoutes.post("/api/register",authController.register);
+  /**
+   * @openapi
+   * /api/business/registration:
+   *  post:
+   *     tags:
+   *     - Register
+   *     description: Responds if the app is up and running
+   *     responses:
+   *       200:
+   *         description: App is up and running
+   */
+authRoutes.post("/api/business/registration",authController.addBusinessAccount);
 export default authRoutes;

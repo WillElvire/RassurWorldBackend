@@ -151,7 +151,8 @@ export class AssurancePersistence {
 
     let message  = new ReturnMessage();
   
-    try {
+    try 
+    {
       const newDetail  = await assuranceRepository.createQueryBuilder().update().set({
         isAcepted : true
       }).where("id = :id",{id : id}).execute();

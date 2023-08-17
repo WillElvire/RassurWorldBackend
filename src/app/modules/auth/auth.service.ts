@@ -4,6 +4,7 @@ import { ReturnMessage } from "../../common/classes/message";
 import { authLoginDto } from "./dto/auth.dto";
 import { AuthPersistence } from "./auth.persistence";
 import { TokenManager } from "../../common/plugins/token/token";
+import { UserRoles } from '../roles/dto/role.dto';
 
 
 export class AuthService {
@@ -32,7 +33,7 @@ export class AuthService {
 
 
 
-  async register(data : UserDto): Promise<ReturnMessage> {
+  async register(data : UserDto,_role : UserRoles  = UserRoles.MEMBER): Promise<ReturnMessage> {
 
     let returnMessage = new ReturnMessage();
 
@@ -42,7 +43,7 @@ export class AuthService {
       return returnMessage;
     }
 
-    returnMessage = await this.authPersistance.register(data);
+    returnMessage = await this.authPersistance.register(data,_role);
     return returnMessage;
   }
 }

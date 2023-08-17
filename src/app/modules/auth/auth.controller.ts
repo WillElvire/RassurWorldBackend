@@ -1,4 +1,5 @@
 import { logger } from "../../utils/logger";
+import { UserRoles } from "../roles/dto/role.dto";
 import { AuthService } from "./auth.service";
 
 const authService =  new AuthService();
@@ -20,9 +21,12 @@ export class AuthController  {
       res.status(result.code).send(result);
     }
 
+
+   
+
     async addBusinessAccount(req: any ,res : any) {
       logger.info("register : ",req.body);
-      const result =  await authService.register({...req.body});
+      const result =  await authService.register({...req.body},UserRoles.APPORTEUR);
       logger.info("register response : ",req.body)
       res.status(result.code).send(result);
     }
