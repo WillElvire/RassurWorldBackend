@@ -1,3 +1,4 @@
+import { generateUniqueCodeForUser } from './../../common/plugins/data/data';
 import { UserDto } from './../user/dto/user.dto';
 import { OK } from "http-status-codes";
 import { ReturnMessage } from "../../common/classes/message";
@@ -42,7 +43,7 @@ export class AuthService {
       returnMessage.code = 421;
       return returnMessage;
     }
-
+    data.code = generateUniqueCodeForUser();
     returnMessage = await this.authPersistance.register(data,_role);
     return returnMessage;
   }

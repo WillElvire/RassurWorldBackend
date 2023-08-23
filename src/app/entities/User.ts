@@ -13,6 +13,8 @@ export class User  extends BaseEntity {
     public email: string;
     @Column({unique : true}) 
     public phone : string;
+    @Column({unique : true,nullable : true}) 
+    public code : string;
     @ManyToOne(()=> Role)
     @JoinColumn()
     public role : string;

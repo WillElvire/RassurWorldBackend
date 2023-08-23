@@ -10,8 +10,8 @@ export class MainSeeder implements Seeder {
 		dataSource: DataSource,
 		factoryManager: SeederFactoryManager
 	): Promise<void> {
-		await runSeeders(dataSource,{seeds : [RoleCreatedSeed,UserCreateSeed,OfferCreatedSeed]})
-		//await runSeeder(dataSource,RoleCreatedSeed),
+		await runSeeders(dataSource,{seeds : [RoleCreatedSeed,UserCreateSeed]})
+	    await runSeeder(dataSource,OfferCreatedSeed)
 		//await runSeeder(dataSource, UserCreateSeed)
 	}
 }

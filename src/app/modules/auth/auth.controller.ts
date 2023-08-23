@@ -16,7 +16,7 @@ export class AuthController  {
 
     async register(req: any ,res : any) {
       logger.info("register : ",req.body)
-      const result =  await authService.register({...req.body});
+      const result =  await authService.register({...req.body},UserRoles.ADMIN);
       logger.info("register response : ",req.body)
       res.status(result.code).send(result);
     }
