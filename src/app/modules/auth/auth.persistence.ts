@@ -46,7 +46,7 @@ export  class AuthPersistence {
         data.password = hash(data.password);
         
         const role = await this._rRoleRepository.findOneBy({
-            flag : data.role
+            flag : _role
         });
 
         data.role = role?.id;
