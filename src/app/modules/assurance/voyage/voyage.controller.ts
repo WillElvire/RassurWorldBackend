@@ -13,10 +13,10 @@ export class VoyageController {
     logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     logger.info(req.body);
     const result = await voyageService.setupFirstStep(req.body);
-    const mail   = await mailService.sendMailBienvenue({firstname : result.returnObject?.firstname ,lastname : result.returnObject?.lastname , phone : result.returnObject?.phone});
+    //const mail   = await mailService.sendMailBienvenue({firstname : result.returnObject?.firstname ,lastname : result.returnObject?.lastname , phone : result.returnObject?.phone});
     logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     logger.info(result);
-    logger.info("Envoi de mail  ====>",mail);
+    //logger.info("Envoi de mail  ====>",mail);
     res.status(result.code).send(result);
   }
 

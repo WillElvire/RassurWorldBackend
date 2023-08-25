@@ -64,7 +64,9 @@ export class AssurancePersistence {
             user        : tripDetail.user,
             offer       : tripDetail.offer,
             detail      : detail.id,
-            transaction : transaction.id
+            transaction : transaction.id,
+            parrainCode : tripDetail.parrainCode
+            
           }as any)
   
           const insurance      = await  queryRunner.manager.save(newInsurance);
@@ -145,6 +147,7 @@ export class AssurancePersistence {
   }
 
 
+ 
  
 
   async activeCotation(id : string) {

@@ -1,3 +1,5 @@
+import { OK } from 'http-status-codes';
+import { NOT_FOUND } from 'http-status-codes';
 import { UserRepository } from "../../repository/User.repository";
 import { ReturnMessage } from '../../common/classes/message';
 
@@ -56,7 +58,23 @@ export class UserPersistence{
         }
         return message;
 
-    } 
+    }
+    
+    
+
+    async fetchByCode(code : string ) {
+        let message = new ReturnMessage();
+        const user  = await userRepository.findOne({where : { code }});
+
+        if(!user) {
+            message.message = "Aucun apporteur avec ce code n'a été trouvé:( ! ";
+            message.code = 500;
+            return message;
+        }
+        message.returnObject = user;
+        message.code = OK;
+        return message;
+    }
 
 
     async getUserByEmail(email : string) {

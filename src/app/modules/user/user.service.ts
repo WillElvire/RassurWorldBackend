@@ -25,6 +25,11 @@ export class UserService {
     }
 
 
+    async fetchUserByCode(code : string ) {
+        return await userPersistence.fetchByCode(code);
+    }
+
+
     async addIntermediary(user : userVoyageFirstStepDto ) {
 
         let   message  = new ReturnMessage();

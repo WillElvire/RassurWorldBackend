@@ -39,6 +39,10 @@ export  class AuthPersistence {
        
     }
 
+
+
+   
+
     async register(data : any , _role : UserRoles  = UserRoles.MEMBER){
 
         let message = new ReturnMessage();
@@ -78,4 +82,6 @@ export  class AuthPersistence {
             return message;
         }
     }
+
+
 }

@@ -14,6 +14,8 @@ export class Assurance  extends BaseEntity{
    isPayed : boolean;
    @Column()
    isActive  : boolean;
+   @Column({nullable:true})
+   parrainCode : string;
    @CreateDateColumn({nullable : true}) 
    date : string;
    @ManyToOne(()=> User)

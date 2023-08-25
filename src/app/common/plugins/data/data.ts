@@ -11,5 +11,5 @@ export const isEmptyField = (obj : {},logType : string = "error") => {
 }
 
 export const generateUniqueCodeForUser = ()=> {
-  return "R"+Math.floor(Math.random() * 1000000);
+  return "RA"+Math.floor(Math.random() * 1000000);
 }

@@ -1,3 +1,4 @@
+import { OK } from 'http-status-codes';
 import { ReturnMessage } from "../../../common/classes/message";
 import { UserService } from "../../user/user.service";
 import { AssurancePersistence } from "../assurance.persitence";
@@ -6,6 +7,7 @@ const userService = new UserService();
 const assurancePersistence = new AssurancePersistence();
 
 export class AutoService {
+  
   async setupFirstStep(user) {
     let message = new ReturnMessage();
     if (!user.email || !user.firstname || !user.lastname || !user.phone) {
@@ -30,6 +32,12 @@ export class AutoService {
       message.code = 500;
       message.message = "Error during second step creation";
       return message;
+    }
+
+    if(!!trip.parrainCode) {
+      message = await userService.fetchUserByCode(trip.parrainCode);
+      if(message.code != OK)  return message;
+      return await assurancePersistence.addNewTripRequest(trip);
     }
     return await assurancePersistence.addNewTripRequest(trip);
   }

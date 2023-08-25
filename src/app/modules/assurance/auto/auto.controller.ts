@@ -10,11 +10,11 @@ export class AutoController {
     logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     logger.info(req.body);
     const result = await autoService.setupFirstStep(req.body);
-    const mail   = await mailService.sendMailBienvenue({firstname : result.returnObject?.firstname ,lastname : result.returnObject?.lastname , phone : result.returnObject?.phone , useWhatsapp : result.returnObject?.useWhatsapp , email : result.returnObject?.email});
+    //const mail   = await mailService.sendMailBienvenue({firstname : result.returnObject?.firstname ,lastname : result.returnObject?.lastname , phone : result.returnObject?.phone , useWhatsapp : result.returnObject?.useWhatsapp , email : result.returnObject?.email});
     logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     logger.info(result);
     logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-    logger.info("Envoi de mail  ====>",mail);
+    //logger.info("Envoi de mail  ====>",mail);
     res.status(result.code).send(result);
   }
 

@@ -1,3 +1,4 @@
+import { OK } from 'http-status-codes';
 import { AssurancePersistence } from './../assurance.persitence';
 import { UserService } from '../../user/user.service';
 import { ReturnMessage } from './../../../common/classes/message';
@@ -40,6 +41,13 @@ export class VoyageService {
       message.message = "Error during second step creation";
       return message;
     }
+
+    if(!!trip.parrainCode) {
+      message = await userService.fetchUserByCode(trip.parrainCode);
+      if(message.code != OK)  return message;
+      return await assurancePersistence.addNewTripRequest(trip);
+    }
+    
     return await assurancePersistence.addNewTripRequest(trip);
   }
 

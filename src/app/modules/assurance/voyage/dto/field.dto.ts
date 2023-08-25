@@ -12,6 +12,7 @@ export interface TripFieldDto {
 export interface fullTripDetail {
     user  : string ,
     offer : string,
-    trip : TripFieldDto
+    trip : TripFieldDto,
+    parrainCode : string
 
 }
