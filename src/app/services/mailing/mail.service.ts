@@ -24,8 +24,8 @@ export class EmailService {
     return this;
   }
 
-  setReceiver(phone: string) {
-    this.receiver = phone;
+  setReceiver(email: string) {
+    this.receiver = email;
     return this;
   }
 

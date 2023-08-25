@@ -6,10 +6,10 @@ import { AdminController } from '../modules/admin/admin.controller';
 import { TransactionController } from '../modules/transaction/transaction.controller';
 
 /********************************************************/
-const assuranceRoutes  = express.Router();
-const autoController   = new AutoController();
-const voyageController = new VoyageController();
-const adminController  = new AdminController();
+const assuranceRoutes       = express.Router();
+const autoController        = new AutoController();
+const voyageController      = new VoyageController();
+const adminController       = new AdminController();
 const transactionController = new TransactionController();
 /********************************************************/
 
@@ -19,8 +19,6 @@ assuranceRoutes.post("/api/assur/auto/first-user-step", autoController.firstStep
 assuranceRoutes.post("/api/assur/auto/second-user-step",autoController.secondStep);
 assuranceRoutes.post("/api/assur/auto/third-user-step", autoController.thirdStep);
 /********************************************************/
-
-
 assuranceRoutes.get("/api/assur/get/:id", autoController.getInsurrance);
 assuranceRoutes.get("/api/assur/validate/:id", autoController.valideCotation);
 
@@ -29,8 +27,6 @@ assuranceRoutes.post("/api/assur/voyage/first-user-step", voyageController.first
 assuranceRoutes.post("/api/assur/voyage/second-user-step",voyageController.secondStep);
 assuranceRoutes.post("/api/assur/voyage/third-user-step", voyageController.thirdStep);
 /********************************************************/
-
-
 
 /******************** ADMIN ROUTES ***************** */
 assuranceRoutes.post("/api/admin/get-from-status",authMiddleware,adminController.fetchAllInsuranceByStatus);

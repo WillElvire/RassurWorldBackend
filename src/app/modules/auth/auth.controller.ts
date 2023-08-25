@@ -1,8 +1,10 @@
 import { logger } from "../../utils/logger";
+import { MailService } from "../mail/mail.service";
 import { UserRoles } from "../roles/dto/role.dto";
 import { AuthService } from "./auth.service";
 
 const authService =  new AuthService();
+const mailService = new MailService();
 
 export class AuthController  {
   
@@ -27,6 +29,7 @@ export class AuthController  {
     async addBusinessAccount(req: any ,res : any) {
       logger.info("register : ",req.body);
       const result =  await authService.register({...req.body},UserRoles.APPORTEUR);
+      const mail   =  await mailService.sendMailBienvenue({firstname : result.returnObject?.firstname ,email : result.returnObject?.email,lastname : result.returnObject?.lastname , phone : result.returnObject?.phone});
       logger.info("register response : ",req.body)
       res.status(result.code).send(result);
     }
