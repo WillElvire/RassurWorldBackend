@@ -2,7 +2,7 @@ import { ReturnMessage } from './../../common/classes/message';
 import { hash } from "../../common/plugins/encryption/encryption";
 import { userAutoFirstStepDto } from "../assurance/auto/dto/user.dto";
 import { userVoyageFirstStepDto } from "../assurance/voyage/dto/user.dto";
-import { UserRoles } from "../roles/dto/role.dto";
+import { RoleDto, UserRoles } from "../roles/dto/role.dto";
 import { RoleService } from "../roles/roles.service";
 import { UserDto } from "./dto/user.dto";
 import { UserPersistence } from './user.persitence';
@@ -29,6 +29,55 @@ export class UserService {
         return await userPersistence.fetchByCode(code);
     }
 
+
+    a
+
+    
+
+    async fetchBusinessAccount() {
+        let   message      = new ReturnMessage();
+        const businessRole = UserRoles.APPORTEUR;
+        message            = await roleService.findRoleByFlag(businessRole);
+      
+        console.log(message);
+        if(!!message.returnObject) {
+            const role:RoleDto    =  message.returnObject;
+            message = await userPersistence.fetchBusinessAccount(role.id);
+            return message;
+        }
+
+        message.code = 500;
+        message.message = "Internal server error";
+        return message;
+    }
+
+
+    async fetchTeamAccount() {
+        let   message      = new ReturnMessage();
+        const businessRole = UserRoles.ADMIN;
+        message            = await roleService.findRoleByFlag(businessRole);
+      
+        console.log(message);
+        if(!!message.returnObject) {
+            const role:RoleDto    =  message.returnObject;
+            message = await userPersistence.fetchBusinessAccount(role.id);
+            return message;
+        }
+
+        message.code = 500;
+        message.message = "Internal server error";
+        return message;
+    }
+
+
+    async deleteTeamMember(memberId : string) {
+       return await userPersistence.deleteTeamMember(memberId);
+    }
+
+    async activeUserAccount(userId : string , prevStatus : boolean) {
+       return await userPersistence.activeUserAccount(userId,prevStatus);
+    }
+    
 
     async addIntermediary(user : userVoyageFirstStepDto ) {
 

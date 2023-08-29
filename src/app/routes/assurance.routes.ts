@@ -26,6 +26,7 @@ assuranceRoutes.get("/api/assur/validate/:id", autoController.valideCotation);
 assuranceRoutes.post("/api/assur/voyage/first-user-step", voyageController.firstStep);
 assuranceRoutes.post("/api/assur/voyage/second-user-step",voyageController.secondStep);
 assuranceRoutes.post("/api/assur/voyage/third-user-step", voyageController.thirdStep);
+assuranceRoutes.post("/api/assur/sponsorship", voyageController.fetchInsurranceByParrainId);
 /********************************************************/
 
 /******************** ADMIN ROUTES ***************** */

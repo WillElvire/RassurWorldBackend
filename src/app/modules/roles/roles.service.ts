@@ -25,7 +25,7 @@ export class RoleService {
         return this.rolePersistence.getRole(id);
     }
 
-    findRoleByFlag() {
-
+    findRoleByFlag(role : any) {
+        return this.rolePersistence.findRoleByFlag(role);
     }
 }

@@ -1,3 +1,4 @@
+import { OK } from 'http-status-codes';
 import { TransactionRepository } from './../../repository/Transaction.repository';
 import { DatabaseSourceManager } from './../../common/classes/init';
 import { AssuranceRepository }   from './../../repository/Assurance.repository';
@@ -188,6 +189,21 @@ export class AssurancePersistence {
     return message;
   }
 
+
+  async fetchInsurranceByParrainId(parrainId : string ) {
+    let message = new ReturnMessage();
+    try {
+      const insuranceUsers = await assuranceRepository.find({where : { parrainCode : parrainId},relations : ['user','detail','transaction','offer']},);
+      message.code         = OK;
+      message.returnObject = insuranceUsers;
+      return message;
+
+    }catch(Exception) {
+      message.message = Exception.message;
+      message.code    = 500;
+      return message;
+    }
+  }
 
   async addAutoFile(tripDetail : any){
     let message  = new ReturnMessage();

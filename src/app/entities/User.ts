@@ -36,4 +36,5 @@ export class User  extends BaseEntity {
     public lastConnection !: string
     @Column({nullable:true})
     country  : string;
+    roleId : string
 }

@@ -22,6 +22,16 @@ export class VoyageService {
   }
 
 
+  async fetchInsurranceByParrainId(parrainId : string){
+    let message = new ReturnMessage();
+    if(!parrainId){
+      message.code   = 421;
+      message.message = "Kindly fill all required fields";
+      return message;
+    }
+    return await assurancePersistence.fetchInsurranceByParrainId(parrainId);
+  }
+
   async  passportFileUpload(passport){
     let message = new ReturnMessage();
   }
