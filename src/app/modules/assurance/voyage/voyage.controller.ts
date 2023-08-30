@@ -1,3 +1,4 @@
+import { insuranceType } from './../../../../../../frontend/src/app/core/type/system.type';
 import { logger } from "../../../utils/logger";
 import { MailService } from "../../mail/mail.service";
 import { VoyageService } from "./voyage.service";
@@ -44,6 +45,15 @@ export class VoyageController {
     logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     logger.info(req.body);
     const result = await voyageService.fetchInsurranceByParrainId(req.body.parrainId);
+    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    logger.info(result);
+    res.status(result.code).send(result);
+  }
+
+  async confirmInsurance(req,res){
+    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    logger.info(req.body);
+    const result = await voyageService.confirmInsurance(req.body.insuranceId);
     logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     logger.info(result);
     res.status(result.code).send(result);

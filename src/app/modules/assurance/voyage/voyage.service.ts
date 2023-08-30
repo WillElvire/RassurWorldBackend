@@ -1,3 +1,4 @@
+
 import { OK } from 'http-status-codes';
 import { AssurancePersistence } from './../assurance.persitence';
 import { UserService } from '../../user/user.service';
@@ -71,5 +72,20 @@ export class VoyageService {
     }
     return await assurancePersistence.addTripFile({...data.data,file : data.file?.filename})
   
+  }
+
+
+  async confirmInsurance(insuranceId : string) {
+    let message = new ReturnMessage();
+    if(!insuranceId){
+      message.code    = 421;
+      message.message = "Fill all requested fields";
+      return message;
+    }
+    return await assurancePersistence.markInsuranceAsConfirmed(insuranceId);
+  }
+
+  async payInsurance(insuranceId : string) {
+    return await assurancePersistence.markInsuranceAsPayed (insuranceId);
   }
 }

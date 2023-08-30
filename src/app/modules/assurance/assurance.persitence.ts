@@ -190,6 +190,41 @@ export class AssurancePersistence {
   }
 
 
+  async  markInsuranceAsConfirmed(insurranceId : string) {
+    let message = new ReturnMessage();
+    try 
+    {
+       const insurance = await assuranceRepository.createQueryBuilder().update({isAcepted : true}).where("id=:insurranceId",{insurranceId}).execute();
+       message.code    = OK;
+       message.message = "Demande confirmé avec success";
+    }
+    catch(Exception)
+    {
+      message.message = Exception.message;
+      message.code    = 500;
+    }
+
+    return message;
+  }
+
+
+  async  markInsuranceAsPayed(insurranceId : string) {
+    let message = new ReturnMessage();
+    try 
+    {
+       const insurance = await assuranceRepository.createQueryBuilder().update({isPayed : true}).where("id=:insurranceId",{insurranceId});
+       message.code    = OK;
+       message.message = "Demande confirmé avec success"
+    }
+    catch(Exception)
+    {
+      message.message = Exception.message;
+      message.code    = 500;
+    }
+
+    return message;
+  }
+
   async fetchInsurranceByParrainId(parrainId : string ) {
     let message = new ReturnMessage();
     try {

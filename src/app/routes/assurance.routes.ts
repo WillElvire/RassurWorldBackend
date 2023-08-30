@@ -28,7 +28,7 @@ assuranceRoutes.post("/api/assur/voyage/second-user-step",voyageController.secon
 assuranceRoutes.post("/api/assur/voyage/third-user-step", voyageController.thirdStep);
 assuranceRoutes.post("/api/assur/sponsorship", voyageController.fetchInsurranceByParrainId);
 /********************************************************/
-
+assuranceRoutes.post("/api/admin/insurance/confirm",authMiddleware,voyageController.confirmInsurance);
 /******************** ADMIN ROUTES ***************** */
 assuranceRoutes.post("/api/admin/get-from-status",authMiddleware,adminController.fetchAllInsuranceByStatus);
 assuranceRoutes.get("/api/admin/statistics",authMiddleware,adminController.getAppStatistics);
