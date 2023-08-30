@@ -3,7 +3,6 @@ import { Role } from "./Role";
 
 @Entity("User")
 export class User  extends BaseEntity {
-
     @PrimaryGeneratedColumn("uuid")
     public id: string
     @Column()
@@ -14,11 +13,19 @@ export class User  extends BaseEntity {
     public email: string;
     @Column({unique : true}) 
     public phone : string;
+    @Column({unique : true,nullable : true}) 
+    public code : string;
     @ManyToOne(()=> Role)
     @JoinColumn()
     public role : string;
     @Column({nullable : true})
     public password : string;
+    @Column({nullable : true, default : 0})
+    public useWhatsapp ?: boolean;
+    @Column({nullable : true, default : 0})
+    public isCollaborateur ?: boolean;
+    @Column({nullable : true})
+    public photoUrl ?: string;
     @CreateDateColumn()
     public date_naissance !: string;
     @Column({default : 0 , nullable : true})
@@ -29,5 +36,5 @@ export class User  extends BaseEntity {
     public lastConnection !: string
     @Column({nullable:true})
     country  : string;
-
+    roleId : string
 }

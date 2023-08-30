@@ -1,9 +1,10 @@
+import { OK } from 'http-status-codes';
 import { TransactionRepository } from './../../repository/Transaction.repository';
 import { DatabaseSourceManager } from './../../common/classes/init';
-import { AssuranceRepository } from './../../repository/Assurance.repository';
-import { ReturnMessage } from './../../common/classes/message';
-import { DetailRepository } from '../../repository/Detail.repository';
-import { fullTripDetail } from './voyage/dto/field.dto';
+import { AssuranceRepository }   from './../../repository/Assurance.repository';
+import { ReturnMessage }         from './../../common/classes/message';
+import { DetailRepository }      from '../../repository/Detail.repository';
+import { fullTripDetail }        from './voyage/dto/field.dto';
 
 
 const assuranceRepository   = AssuranceRepository;
@@ -19,18 +20,18 @@ export class AssurancePersistence {
 
   async statistics() {
     
-    let message = new ReturnMessage();
+    let message   = new ReturnMessage();
     const statics = {
       approvedPayment  : "",
       waitingPayment   : "",
       activatedRequest : ""
     }
     try {
-      statics.activatedRequest = (await assuranceRepository.count({where : {isActive : true}})).toString();
-      statics.approvedPayment  = (await  assuranceRepository.count({where  : {isPayed : true , isActive : true}})).toString();
-      statics.waitingPayment   = (await assuranceRepository.count({where : {isPayed : false , isActive : true}})).toString();
-      message.code = 200;
-      message.returnObject = statics;
+      statics.activatedRequest = (await assuranceRepository.count({ where : {isActive : true}})).toString();
+      statics.approvedPayment  = (await  assuranceRepository.count({where : {isPayed : true , isActive : true}})).toString();
+      statics.waitingPayment   = (await assuranceRepository.count({ where : {isPayed : false , isActive : true}})).toString();
+      message.code             = 200;
+      message.returnObject     = statics;
     }
     catch(Exception){
       message.message = Exception.message;
@@ -43,7 +44,7 @@ export class AssurancePersistence {
   async addNewTripRequest(tripDetail : fullTripDetail) {
 
     const queryRunner = DatabaseSourceManager.getInstance().source().createQueryRunner();
-    let message  = new ReturnMessage();
+    let message       = new ReturnMessage();
 
     try {
 
@@ -54,21 +55,23 @@ export class AssurancePersistence {
       try {
 
         const newTransaction = transactionRepository.create();
-        const transaction = await queryRunner.manager.save(newTransaction);
+        const transaction    = await queryRunner.manager.save(newTransaction);
 
         try {
 
           const newInsurance = assuranceRepository.create({
-            isPayed : false,
-            isActive : true,
-            user : tripDetail.user,
-            offer : tripDetail.offer,
-            detail : detail.id,
-            transaction : transaction.id
+            isPayed     : false,
+            isActive    : true,
+            user        : tripDetail.user,
+            offer       : tripDetail.offer,
+            detail      : detail.id,
+            transaction : transaction.id,
+            parrainCode : tripDetail.parrainCode
+            
           }as any)
   
-          const insurance = await  queryRunner.manager.save(newInsurance);
-          message.code = 200;
+          const insurance      = await  queryRunner.manager.save(newInsurance);
+          message.code         = 200;
           message.returnObject = {
             ...insurance,
           }
@@ -103,7 +106,7 @@ export class AssurancePersistence {
   async findAll(){
     let message  = new ReturnMessage();
     try{
-      const assurance = await assuranceRepository.find({relations : ["detail","user","offer","transaction"]});
+      const assurance = await assuranceRepository.find({relations : ["detail","user","offer","transaction"], order : {createdAt : 'DESC'}});
       message.returnObject = assurance;
       message.code = 200;
     }
@@ -129,11 +132,11 @@ export class AssurancePersistence {
   }
 
 
-  async getAllInsuranceRequestByStatus(isPayed :boolean,isActive : boolean, limit : number ) {
+  async getAllInsuranceRequestByStatus(isPayed :boolean,isActive : boolean, isAcepted : boolean ) {
     let message = new ReturnMessage();
     try {
 
-      const assurance = await assuranceRepository.find({where : {isPayed  , isActive},relations :["detail","user","offer","transaction"],take : limit});
+      const assurance = await assuranceRepository.find({where : {isPayed  , isActive , isAcepted},relations :["detail","user","offer","transaction"]});
       message.returnObject = assurance;
       message.code = 200;
 
@@ -146,15 +149,19 @@ export class AssurancePersistence {
 
 
  
+ 
 
   async activeCotation(id : string) {
 
     let message  = new ReturnMessage();
   
-    try {
+    try 
+    {
       const newDetail  = await assuranceRepository.createQueryBuilder().update().set({
         isAcepted : true
       }).where("id = :id",{id : id}).execute();
+      message.message = "Cotation validé";
+      message.code = 200;
     }
     catch(Exception) {
       message.message = Exception.message;
@@ -184,6 +191,56 @@ export class AssurancePersistence {
     return message;
   }
 
+
+  async  markInsuranceAsConfirmed(insurranceId : string) {
+    let message = new ReturnMessage();
+    try 
+    {
+       const insurance = await assuranceRepository.createQueryBuilder().update({isAcepted : true}).where("id=:insurranceId",{insurranceId}).execute();
+       message.code    = OK;
+       message.message = "Cotation validé";
+    }
+    catch(Exception)
+    {
+      message.message = Exception.message;
+      message.code    = 500;
+    }
+
+    return message;
+  }
+
+
+  async  markInsuranceAsPayed(insurranceId : string) {
+    let message = new ReturnMessage();
+    try 
+    {
+       const insurance = await assuranceRepository.createQueryBuilder().update({isPayed : true}).where("id=:insurranceId",{insurranceId});
+       message.code    = OK;
+       message.message = "Demande confirmé avec success"
+    }
+    catch(Exception)
+    {
+      message.message = Exception.message;
+      message.code    = 500;
+    }
+
+    return message;
+  }
+
+  async fetchInsurranceByParrainId(parrainId : string ) {
+    let message = new ReturnMessage();
+    try {
+      const insuranceUsers = await assuranceRepository.find({where : { parrainCode : parrainId},relations : ['user','detail','transaction','offer']},);
+      message.code         = OK;
+      message.returnObject = insuranceUsers;
+      return message;
+
+    }catch(Exception) {
+      message.message = Exception.message;
+      message.code    = 500;
+      return message;
+    }
+  }
 
   async addAutoFile(tripDetail : any){
     let message  = new ReturnMessage();

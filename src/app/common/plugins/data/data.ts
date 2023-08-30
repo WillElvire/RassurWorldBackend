@@ -9,3 +9,7 @@ export const isEmptyField = (obj : {},logType : string = "error") => {
     })
     return   {count , index };
 }
+
+export const generateUniqueCodeForUser = ()=> {
+  return "RA"+Math.floor(Math.random() * 1000000);
+}

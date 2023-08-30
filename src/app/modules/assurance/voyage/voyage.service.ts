@@ -1,3 +1,5 @@
+
+import { OK } from 'http-status-codes';
 import { AssurancePersistence } from './../assurance.persitence';
 import { UserService } from '../../user/user.service';
 import { ReturnMessage } from './../../../common/classes/message';
@@ -21,6 +23,16 @@ export class VoyageService {
   }
 
 
+  async fetchInsurranceByParrainId(parrainId : string){
+    let message = new ReturnMessage();
+    if(!parrainId){
+      message.code   = 421;
+      message.message = "Kindly fill all required fields";
+      return message;
+    }
+    return await assurancePersistence.fetchInsurranceByParrainId(parrainId);
+  }
+
   async  passportFileUpload(passport){
     let message = new ReturnMessage();
   }
@@ -40,6 +52,13 @@ export class VoyageService {
       message.message = "Error during second step creation";
       return message;
     }
+
+    if(!!trip.parrainCode) {
+      message = await userService.fetchUserByCode(trip.parrainCode);
+      if(message.code != OK)  return message;
+      return await assurancePersistence.addNewTripRequest(trip);
+    }
+    
     return await assurancePersistence.addNewTripRequest(trip);
   }
 
@@ -53,5 +72,20 @@ export class VoyageService {
     }
     return await assurancePersistence.addTripFile({...data.data,file : data.file?.filename})
   
+  }
+
+
+  async confirmInsurance(insuranceId : string) {
+    let message = new ReturnMessage();
+    if(!insuranceId){
+      message.code    = 421;
+      message.message = "Fill all requested fields";
+      return message;
+    }
+    return await assurancePersistence.markInsuranceAsConfirmed(insuranceId);
+  }
+
+  async payInsurance(insuranceId : string) {
+    return await assurancePersistence.markInsuranceAsPayed (insuranceId);
   }
 }

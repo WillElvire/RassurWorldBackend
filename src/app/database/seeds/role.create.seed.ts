@@ -22,7 +22,12 @@ export class RoleCreatedSeed implements Seeder {
             libelle : "customer"
         }
 
-        const roles = [{...admin} , {...member},{...customer}];
+        const apporteur : Omit<RoleDto , 'id'> = {
+            flag : UserRoles.APPORTEUR,
+            libelle : "apporteur"
+        }
+
+        const roles = [{...admin} , {...member},{...customer},{...apporteur}];
 
         console.log(roles);
 

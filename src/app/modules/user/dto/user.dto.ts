@@ -9,4 +9,5 @@ export interface UserDto {
   lastConnection?: number;
   role: any;
   id?: string;
+  code ?:string;
 }

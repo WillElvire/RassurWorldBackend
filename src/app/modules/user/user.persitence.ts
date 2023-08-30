@@ -1,5 +1,8 @@
+import { OK } from 'http-status-codes';
+import { NOT_FOUND } from 'http-status-codes';
 import { UserRepository } from "../../repository/User.repository";
 import { ReturnMessage } from '../../common/classes/message';
+import { User } from '../../entities/User';
 
 const userRepository  = UserRepository;
 
@@ -56,7 +59,78 @@ export class UserPersistence{
         }
         return message;
 
-    } 
+    }
+
+
+
+    async activeUserAccount(accountId : string,prevStatus : boolean) {
+        let message = new ReturnMessage();
+        try {
+            const user = await userRepository.createQueryBuilder().update({isActive : !prevStatus}).where("id=:accountId",{accountId}).execute();
+            message.code = 200;
+            if(!prevStatus == false){
+                message.message = "Compte desactivé avec succes";
+            }else{
+                message.message = "Compte activé avec succes";
+            }
+            
+        }
+        catch(Exception) {
+            message.message = Exception.message;
+            message.code = 500;
+           
+        }
+        return message;
+    }
+
+    async deleteTeamMember(memberId : string) {
+        let message = new ReturnMessage();
+        try {
+           const user = await userRepository.delete({id : memberId});
+           console.log(user);
+           message.code = OK;
+           message.message = "Utilisateur supprimé avec succes";
+           return message;
+        }
+        catch(Exception) {
+            message.message = Exception.message;
+            message.code = 500;
+            return message;
+        }
+    }
+    
+
+
+    async fetchBusinessAccount(roleId : string ) {
+        let message = new ReturnMessage();
+        try {
+            const user  = await userRepository.createQueryBuilder().innerJoin("role",'user.roleId = role.id').where("roleId=:roleId",{roleId}).orderBy('lastConnection','DESC').getMany()
+            message.returnObject = user;
+            message.code = OK;
+            return message;
+        }
+        catch(Exception) {
+            message.message = Exception.message;
+            message.code = 500;
+            return message;
+        } 
+       
+    }
+    
+
+    async fetchByCode(code : string ) {
+        let message = new ReturnMessage();
+        const user  = await userRepository.findOne({where : { code }});
+
+        if(!user) {
+            message.message = "Aucun apporteur avec ce code n'a été trouvé:( ! ";
+            message.code = 500;
+            return message;
+        }
+        message.returnObject = user;
+        message.code = OK;
+        return message;
+    }
 
 
     async getUserByEmail(email : string) {
@@ -106,4 +180,7 @@ export class UserPersistence{
         }
         return message;
     }
+
+
+    
 }

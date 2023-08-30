@@ -4,7 +4,7 @@ export class AdminService{
 
     private assurancePersistence = new AssurancePersistence;
 
-    async fetchAllInsuranceByStatus(active : string ,payed : string ,limit : number = 2){
+    async fetchAllInsuranceByStatus(active : string ,payed : string ,acepted : string ){
 
         let message = new ReturnMessage();
         const keywordArray = ["active","inactive","payed","unpaid"];
@@ -13,7 +13,7 @@ export class AdminService{
           const result  = await this.assurancePersistence.getAllInsuranceRequestByStatus(
           this.insuranceStatusConvertion(payed),
           this.insuranceStatusConvertion(active),
-          limit
+          this.insuranceStatusConvertion(acepted)
           );
           return result;
         }
@@ -32,6 +32,10 @@ export class AdminService{
           case "active" : 
             return true;
           case "inactive":
+            return false;
+          case "acepted":
+            return true;
+          case "inacepted":
             return false;
           case "payed" :
             return true;

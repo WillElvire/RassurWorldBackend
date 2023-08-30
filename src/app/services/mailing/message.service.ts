@@ -3,9 +3,9 @@ import { apiPost } from "./../api/api.service";
 export type chatDriver = "chat" | "document";
 
 export class WhatsappService {
-  private readonly apiUrl = "https://api.ultramsg.com/instance51691/";
-  private readonly instance = "instance51691";
-  private readonly token = "dpgghzdzdxlxqhdg";
+  private readonly apiUrl    = "https://api.ultramsg.com/instance51691/";
+  private readonly instance  = "instance51691";
+  private readonly token     = "dpgghzdzdxlxqhdg";
   private driver: chatDriver = "chat";
 
   private body: string;

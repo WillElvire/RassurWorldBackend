@@ -6,6 +6,7 @@ import { compare, hash } from "../../common/plugins/encryption/encryption";
 import { RoleRepository } from "../../repository/Role.repository";
 import { UserRoles } from "../roles/dto/role.dto";
 
+
 export  class AuthPersistence {
 
     private _rUserRepository = UserRepository;
@@ -38,13 +39,18 @@ export  class AuthPersistence {
        
     }
 
-    async register(data : any){
+
+
+   
+
+    async register(data : any , _role : UserRoles  = UserRoles.MEMBER){
 
         let message = new ReturnMessage();
 
         data.password = hash(data.password);
+        
         const role = await this._rRoleRepository.findOneBy({
-            flag : !!data.role ? data.role : UserRoles.MEMBER
+            flag : !!_role ? _role : data.role  
         });
 
         data.role = role?.id;
@@ -76,4 +82,6 @@ export  class AuthPersistence {
             return message;
         }
     }
+
+
 }

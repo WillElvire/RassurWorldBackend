@@ -49,6 +49,18 @@ export class RolePersistence {
     }
 
 
+    async findRoleByFlag(flag : any) {
+      let message  = new ReturnMessage();
+      const result = await this._rRoleRepository.findOneBy({
+         flag : flag
+      });
+
+      message.returnObject = result;
+      message.code = OK;
+      return message;
+    }
+
+
     async getLastRoleFlag() {
       let message          = new ReturnMessage();
       const result         = (await this._rRoleRepository.findOne({order : { createdAt : 'desc'}})).flag;
