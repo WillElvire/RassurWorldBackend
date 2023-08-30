@@ -132,11 +132,11 @@ export class AssurancePersistence {
   }
 
 
-  async getAllInsuranceRequestByStatus(isPayed :boolean,isActive : boolean, limit : number ) {
+  async getAllInsuranceRequestByStatus(isPayed :boolean,isActive : boolean, isAcepted : boolean ) {
     let message = new ReturnMessage();
     try {
 
-      const assurance = await assuranceRepository.find({where : {isPayed  , isActive},relations :["detail","user","offer","transaction"],take : limit});
+      const assurance = await assuranceRepository.find({where : {isPayed  , isActive , isAcepted},relations :["detail","user","offer","transaction"]});
       message.returnObject = assurance;
       message.code = 200;
 
@@ -160,6 +160,8 @@ export class AssurancePersistence {
       const newDetail  = await assuranceRepository.createQueryBuilder().update().set({
         isAcepted : true
       }).where("id = :id",{id : id}).execute();
+      message.message = "Cotation validé";
+      message.code = 200;
     }
     catch(Exception) {
       message.message = Exception.message;
@@ -196,7 +198,7 @@ export class AssurancePersistence {
     {
        const insurance = await assuranceRepository.createQueryBuilder().update({isAcepted : true}).where("id=:insurranceId",{insurranceId}).execute();
        message.code    = OK;
-       message.message = "Demande confirmé avec success";
+       message.message = "Cotation validé";
     }
     catch(Exception)
     {
