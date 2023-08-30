@@ -1,4 +1,3 @@
-import { insuranceType } from './../../../../../../frontend/src/app/core/type/system.type';
 import { logger } from "../../../utils/logger";
 import { MailService } from "../../mail/mail.service";
 import { VoyageService } from "./voyage.service";
