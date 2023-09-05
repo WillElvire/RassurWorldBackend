@@ -1,8 +1,6 @@
 import { OK } from 'http-status-codes';
-import { NOT_FOUND } from 'http-status-codes';
 import { UserRepository } from "../../repository/User.repository";
 import { ReturnMessage } from '../../common/classes/message';
-import { User } from '../../entities/User';
 
 const userRepository  = UserRepository;
 
@@ -10,7 +8,7 @@ const userRepository  = UserRepository;
 export class UserPersistence{
 
     async addPartialUser(user) {
-       let message = new ReturnMessage();
+      let message = new ReturnMessage();
 
       try {
 
