@@ -30,10 +30,6 @@ export class UserService {
     }
 
 
-    a
-
-    
-
     async fetchBusinessAccount() {
         let   message      = new ReturnMessage();
         const businessRole = UserRoles.APPORTEUR;

@@ -40,6 +40,43 @@ export class Detail  extends BaseEntity {
    periodicity : string;
    @Column({nullable : true})
    price : string;
+   @Column({nullable : true})
+   principal_activity : string;
+   @Column({nullable : true})
+   warn_tool_used : string;
+   @Column({nullable : true})
+   other_activity : string;
+   @Column({nullable : true})
+   sport_activity : string;
+   @Column({nullable : true,default : true})
+   circulation : boolean;
+   @Column({nullable : true,default : false})
+   isAssured : boolean;
+   @Column({nullable : true})
+   society : string;
+   @Column({nullable : true})
+   salary : string;
+   @Column({nullable : true})
+   taille : string;
+   @Column({nullable : true})
+   poids : string;
+   @Column({nullable : true})
+   usage : string;
+   @Column({nullable : true})
+   surdite : string;
+   @Column({nullable : true})
+   vision : string;
+   @Column({nullable : true})
+   pathologie : string;
+   @Column({nullable : true})
+   infirmite : string;
+   @Column({nullable : true})
+   degre_infirmite : string;
+   @Column({nullable : true})
+   maladie_chronique : string;
+   @Column({nullable : true})
+   autre : string;
+   
    @CreateDateColumn()
    public createdAt !: string;
    @ManyToOne(()=>Rate)

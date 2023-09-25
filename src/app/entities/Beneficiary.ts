@@ -1,9 +1,9 @@
 import { Assurance } from './Assurance';
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./User";
 
 @Entity()
-export class Beneficiary {
+export class Beneficiary extends BaseEntity {
     @PrimaryGeneratedColumn("uuid")
     public id : string;
     @Column({nullable : true})

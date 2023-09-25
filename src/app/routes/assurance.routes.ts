@@ -1,3 +1,4 @@
+import { IndividuelController } from './../modules/assurance/individuel/individuel.controller';
 import { authMiddleware } from './../common/middleware/auth';
 import { VoyageController } from './../modules/assurance/voyage/voyage.controller';
 import  express  from 'express';
@@ -10,6 +11,7 @@ const assuranceRoutes       = express.Router();
 const autoController        = new AutoController();
 const voyageController      = new VoyageController();
 const adminController       = new AdminController();
+const individuelController  = new IndividuelController();
 const transactionController = new TransactionController();
 /********************************************************/
 
@@ -21,13 +23,19 @@ assuranceRoutes.post("/api/assur/auto/third-user-step", autoController.thirdStep
 /********************************************************/
 assuranceRoutes.get("/api/assur/get/:id", autoController.getInsurrance);
 assuranceRoutes.get("/api/assur/validate/:id", autoController.valideCotation);
-
 /******************** ASSURANCE VOYAGE ***************** */
 assuranceRoutes.post("/api/assur/voyage/first-user-step", voyageController.firstStep);
 assuranceRoutes.post("/api/assur/voyage/second-user-step",voyageController.secondStep);
 assuranceRoutes.post("/api/assur/voyage/third-user-step", voyageController.thirdStep);
 assuranceRoutes.post("/api/assur/sponsorship", voyageController.fetchInsurranceByParrainId);
 /********************************************************/
+
+/******************** ASSURANCE INDIVIDUELLE ACCIDENT ***************** */
+assuranceRoutes.post("/api/assur/individuel/first-user-step", individuelController.setupUser);
+assuranceRoutes.post("/api/assur/individuel/second-user-step",individuelController.setupSecondStep);
+assuranceRoutes.post("/api/assur/individuel/third-user-step",individuelController.setupThirdStep); 
+/********************************************************/
+
 assuranceRoutes.post("/api/admin/insurance/confirm",authMiddleware,voyageController.confirmInsurance);
 /******************** ADMIN ROUTES ***************** */
 assuranceRoutes.post("/api/admin/get-from-status",authMiddleware,adminController.fetchAllInsuranceByStatus);
