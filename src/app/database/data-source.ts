@@ -10,12 +10,12 @@ export const options : DataSourceOptions & SeederOptions = {
   username: "root",
   password: "password",
   database: "rassur_world",
-  synchronize: false,
+  synchronize: true,
   logging: true,
   entities: [__dirname + "./../entities/**/*.ts"],
   migrationsTableName : "migrations",
   migrations : [ __dirname + "./database/migrations/**/*.ts"] ,
-  dropSchema : false,
+  dropSchema : true,
   seeds : [MainSeeder]
 }
 

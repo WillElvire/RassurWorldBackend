@@ -9,7 +9,11 @@ export class Transactions  extends BaseEntity{
     @Column({nullable : true})
     quantity : number;
     @Column({nullable : true})
+    total_net : number;
+    @Column({nullable : true})
     total : number;
+    @Column({nullable : true})
+    fees : number;
     @CreateDateColumn()
     createdAt : Date;
     @Column({nullable : true})
