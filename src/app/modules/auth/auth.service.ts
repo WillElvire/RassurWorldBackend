@@ -8,11 +8,13 @@ import { TokenManager } from "../../common/plugins/token/token";
 import { UserRoles } from '../roles/dto/role.dto';
 import { AuditService } from '../audit/audit.service';
 import { AuditAction } from '../audit/dto/audit.dto';
+import { WalletService } from '../wallet/wallet.service';
 
 
 export class AuthService {
   private authPersistance = new AuthPersistence;
   private auditService = new AuditService;
+  private walletService = new WalletService;
 
   async login(data : authLoginDto): Promise<ReturnMessage> {
 
@@ -55,6 +57,10 @@ export class AuthService {
     }
     data.code = generateUniqueCodeForUser();
     returnMessage = await this.authPersistance.register(data,_role);
+
+    if(_role == UserRoles.APPORTEUR) {
+      this.walletService.addWallet({user : returnMessage.code == OK ? returnMessage.returnObject.id : "",balance : 0,freeze_amount : 0})
+    }
     this.auditService.addAudit({
       user : returnMessage.returnObject?.id , 
       source : "Inscription utilisateur",
@@ -62,6 +68,7 @@ export class AuthService {
       old_value : "",
       new_value : JSON.stringify(returnMessage.returnObject)
     });
+
     return returnMessage;
   }
 }
