@@ -4,10 +4,13 @@ import { ReturnMessage } from "../../../common/classes/message";
 import { UserService } from "../../user/user.service";
 import { AssurancePersistence } from "../assurance.persitence";
 import { BeneficiaryDto } from './dto/field.dto';
+import { AuditService } from '../../audit/audit.service';
+import { AuditAction } from '../../audit/dto/audit.dto';
 
 const userService = new UserService();
 const assurancePersistence = new AssurancePersistence();
 const beneficiaryService = new BeneficiaryService();
+const auditService = new AuditService;
 
 export class IndividuelService {
     
@@ -42,13 +45,31 @@ export class IndividuelService {
           message.message = "Error during second step creation";
           return message;
         }
-    
+
+
         if(!!trip.parrainCode) {
           message = await userService.fetchUserByCode(trip.parrainCode);
           if(message.code != OK)  return message;
-          return await assurancePersistence.addNewTripRequest(trip);
+         
+          message = await assurancePersistence.addNewTripRequest(trip);
+          auditService.addAudit({
+            user : trip.user, 
+            source : "Individuel accident",
+            action : AuditAction.DEMANDE,
+            old_value : "",
+            new_value : JSON.stringify(message.returnObject)
+          });
+          return message;
         }
-        return await assurancePersistence.addNewTripRequest(trip);
+        message =  await assurancePersistence.addNewTripRequest(trip);
+        auditService.addAudit({
+          user : trip.user, 
+          source : "Individuel accident",
+          action : AuditAction.DEMANDE,
+          old_value : "",
+          new_value : JSON.stringify(message.returnObject)
+        });
+        return message;
       }
 
 }

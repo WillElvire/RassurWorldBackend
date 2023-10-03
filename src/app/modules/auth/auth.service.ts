@@ -6,10 +6,13 @@ import { authLoginDto } from "./dto/auth.dto";
 import { AuthPersistence } from "./auth.persistence";
 import { TokenManager } from "../../common/plugins/token/token";
 import { UserRoles } from '../roles/dto/role.dto';
+import { AuditService } from '../audit/audit.service';
+import { AuditAction } from '../audit/dto/audit.dto';
 
 
 export class AuthService {
   private authPersistance = new AuthPersistence;
+  private auditService = new AuditService;
 
   async login(data : authLoginDto): Promise<ReturnMessage> {
 
@@ -28,6 +31,13 @@ export class AuthService {
     }
     const token = new TokenManager().sign(data);
     result.returnObject = {user  : result.returnObject , token};
+    this.auditService.addAudit({
+      user : result.returnObject?.user?.id , 
+      source : 'login',
+      action : AuditAction.CONNECTION,
+      old_value : "",
+      new_value : JSON.stringify(result.returnObject?.user)
+    });
     return result;
   }
 
@@ -45,6 +55,13 @@ export class AuthService {
     }
     data.code = generateUniqueCodeForUser();
     returnMessage = await this.authPersistance.register(data,_role);
+    this.auditService.addAudit({
+      user : returnMessage.returnObject?.id , 
+      source : "Inscription utilisateur",
+      action : AuditAction.INSCRIPTION,
+      old_value : "",
+      new_value : JSON.stringify(returnMessage.returnObject)
+    });
     return returnMessage;
   }
 }

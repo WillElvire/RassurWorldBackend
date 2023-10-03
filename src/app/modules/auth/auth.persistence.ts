@@ -66,6 +66,7 @@ export  class AuthPersistence {
             if(userExists == 0) {
                 const result  = await this._rUserRepository.save(data);
                 message.code = OK;
+                message.returnObject = result;
                 message.message = "Utilisateur crée avec succes";
                 return message;
             }

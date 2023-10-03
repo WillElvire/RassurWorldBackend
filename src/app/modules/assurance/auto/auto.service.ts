@@ -2,10 +2,12 @@ import { OK } from 'http-status-codes';
 import { ReturnMessage } from "../../../common/classes/message";
 import { UserService } from "../../user/user.service";
 import { AssurancePersistence } from "../assurance.persitence";
+import { AuditService } from '../../audit/audit.service';
+import { AuditAction } from '../../audit/dto/audit.dto';
 
 const userService = new UserService();
 const assurancePersistence = new AssurancePersistence();
-
+const auditService = new  AuditService;
 export class AutoService {
   
   async setupFirstStep(user) {
@@ -37,9 +39,27 @@ export class AutoService {
     if(!!trip.parrainCode) {
       message = await userService.fetchUserByCode(trip.parrainCode);
       if(message.code != OK)  return message;
-      return await assurancePersistence.addNewTripRequest(trip);
+     
+      message =  await assurancePersistence.addNewTripRequest(trip);
+      auditService.addAudit({
+        user : trip.user, 
+        source : "Assurance auto",
+        action : AuditAction.DEMANDE,
+        old_value : "",
+        new_value : JSON.stringify(message.returnObject)
+      });
+      return message;
     }
-    return await assurancePersistence.addNewTripRequest(trip);
+   
+    message =  await assurancePersistence.addNewTripRequest(trip);
+    auditService.addAudit({
+      user : trip.user, 
+      source : "Individuel accident",
+      action : AuditAction.DEMANDE,
+      old_value : "",
+      new_value : JSON.stringify(message.returnObject)
+    });
+    return message;
   }
 
   async setupThirdStep(data : Required<{file : any , data : any}>) {
