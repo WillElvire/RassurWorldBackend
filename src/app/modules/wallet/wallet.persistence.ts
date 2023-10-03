@@ -7,6 +7,7 @@ const walletRepository = WalletRepository;
 export class WalletPersistence {
 
     async addWallet(wallet : WalletDto) {
+      console.log(wallet);
       let message= new ReturnMessage();
       try {
         const newWallet   = walletRepository.create({wallet} as any);

@@ -59,7 +59,7 @@ export class AuthService {
     returnMessage = await this.authPersistance.register(data,_role);
 
     if(_role == UserRoles.APPORTEUR) {
-      this.walletService.addWallet({user : returnMessage.code == OK ? returnMessage.returnObject.id : "",balance : 0,freeze_amount : 0})
+      this.walletService.addWallet({userId : returnMessage.code == OK ? returnMessage.returnObject.id : "",balance : 0,freeze_amount : 0})
     }
     this.auditService.addAudit({
       user : returnMessage.returnObject?.id , 
