@@ -7,7 +7,7 @@ export class TransactionPersistence  {
 
     private _rTransactionRepository = TransactionRepository;
 
-    async save(transaction : TransactionDto) {
+    async save(transaction : any) {
 
         let message = new ReturnMessage();
 
@@ -37,7 +37,9 @@ export class TransactionPersistence  {
                meanOfPayment : transactionDto?.meanOfPayment,
                quantity : transactionDto?.quantity,
                transactionNumb : transactionDto?.transactionNumb,
-               total : transactionDto.total
+               total : transactionDto.total,
+               fees : Number(transactionDto.fees) ,
+               total_net : Number(transactionDto.total_net)
             }).where("id = :id",{id : transactionDto.id}).execute();
 
             message.returnObject = newTransaction;

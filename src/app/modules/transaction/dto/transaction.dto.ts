@@ -7,4 +7,6 @@ export interface TransactionDto {
     updatedAt ?: string;
     meanOfPayment ?: string;
     transactionNumb ?: string;
+    fees ?: Number;
+    total_net ?:Number;
 }

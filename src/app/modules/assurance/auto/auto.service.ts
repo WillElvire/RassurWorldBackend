@@ -42,7 +42,7 @@ export class AutoService {
      
       message =  await assurancePersistence.addNewTripRequest(trip);
       auditService.addAudit({
-        user : trip.user, 
+        userId : trip.user, 
         source : "Assurance auto",
         action : AuditAction.DEMANDE,
         old_value : "",
@@ -53,7 +53,7 @@ export class AutoService {
    
     message =  await assurancePersistence.addNewTripRequest(trip);
     auditService.addAudit({
-      user : trip.user, 
+      userId : trip.user, 
       source : "Individuel accident",
       action : AuditAction.DEMANDE,
       old_value : "",

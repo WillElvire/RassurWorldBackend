@@ -1,3 +1,4 @@
+import { LogAppender } from "../../../common/classes/appender";
 import { logger } from "../../../utils/logger";
 import { MailService } from "../../mail/mail.service";
 import { VoyageService } from "./voyage.service";
@@ -9,31 +10,25 @@ const mailService    = new MailService();
 export class VoyageController {
       
   async firstStep(req,res) {
-    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-    logger.info(req.body);
+    
     const result = await voyageService.setupFirstStep(req.body);
     //const mail   = await mailService.sendMailBienvenue({firstname : result.returnObject?.firstname ,lastname : result.returnObject?.lastname , phone : result.returnObject?.phone});
-    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-    logger.info(result);
+    LogAppender.writeLogFromBody(req,result,"VoyageController");
     //logger.info("Envoi de mail  ====>",mail);
     res.status(result.code).send(result);
   }
 
   async secondStep(req,res){
-    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-    logger.info(req.body);
+    
     const result = await voyageService.setupSecondStep(req.body);
-    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-    logger.info(result);
+    LogAppender.writeLogFromBody(req,result,"VoyageController");
     res.status(result.code).send(result);
   }
   
   async thirdStep(req,res){
-    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-    logger.info(req.body);
+   
     const result = await voyageService.setupThirdStep({file : req.file , data : req.body});
-    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-    logger.info(result);
+    LogAppender.writeLogFromBody(req,result,"VoyageController");
     res.status(result.code).send(result);
   }
   
@@ -41,20 +36,15 @@ export class VoyageController {
   
 
   async fetchInsurranceByParrainId(req,res){
-    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-    logger.info(req.body);
+   
     const result = await voyageService.fetchInsurranceByParrainId(req.body.parrainId);
-    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-    logger.info(result);
+    LogAppender.writeLogFromBody(req,result,"VoyageController"); 
     res.status(result.code).send(result);
   }
 
   async confirmInsurance(req,res){
-    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-    logger.info(req.body);
     const result = await voyageService.confirmInsurance(req.body.insuranceId);
-    logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-    logger.info(result);
+    LogAppender.writeLogFromBody(req,result,"VoyageController");
     res.status(result.code).send(result);
   }
 }

@@ -34,7 +34,7 @@ export class AuthService {
     const token = new TokenManager().sign(data);
     result.returnObject = {user  : result.returnObject , token};
     this.auditService.addAudit({
-      user : result.returnObject?.user?.id , 
+      userId : result.returnObject?.user?.id , 
       source : 'login',
       action : AuditAction.CONNECTION,
       old_value : "",
@@ -62,7 +62,7 @@ export class AuthService {
       this.walletService.addWallet({userId : returnMessage.code == OK ? returnMessage.returnObject.id : "",balance : 0,freeze_amount : 0})
     }
     this.auditService.addAudit({
-      user : returnMessage.returnObject?.id , 
+      userId : returnMessage.returnObject?.id , 
       source : "Inscription utilisateur",
       action : AuditAction.INSCRIPTION,
       old_value : "",

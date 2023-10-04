@@ -1,7 +1,7 @@
 
 export interface AuditDto {
   id?: string;
-  user?: string;
+  userId?: string;
   source?: string;
   old_value?: string;
   new_value?: string;

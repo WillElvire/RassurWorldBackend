@@ -5,8 +5,8 @@ import { User } from "./User";
 export class Audit extends BaseEntity {
     @PrimaryGeneratedColumn("uuid")
     public id: string
-    @ManyToOne(()=> User)
-    user : User;
+    @Column({nullable : true  })
+    userId : string;
     @Column()
     source : string;
     @Column({nullable : true,type : 'text'})

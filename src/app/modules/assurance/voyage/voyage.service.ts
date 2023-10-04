@@ -60,7 +60,7 @@ export class VoyageService {
       if(message.code != OK)  return message;
       message =  await assurancePersistence.addNewTripRequest(trip);
       auditService.addAudit({
-        user : trip.user, 
+        userId : trip.user, 
         source : "Assurance Voyage",
         action : AuditAction.DEMANDE,
         old_value : "",
@@ -71,7 +71,7 @@ export class VoyageService {
     
     message =  await assurancePersistence.addNewTripRequest(trip);
     auditService.addAudit({
-      user : trip.user, 
+      userId : trip.user, 
       source : "Assurance Voyage",
       action : AuditAction.DEMANDE,
       old_value : "",
