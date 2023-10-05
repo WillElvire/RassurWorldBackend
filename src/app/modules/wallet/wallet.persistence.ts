@@ -1,4 +1,5 @@
-import { ReturnMessage } from './../../../../../jobs/relationship/src/domain/modules/mail/dto/message';
+
+import { ReturnMessage } from "../../common/classes/message";
 import { WalletRepository } from "../../repository/Wallet.repository";
 import { WalletDto } from './dto/wallet.dto';
 
