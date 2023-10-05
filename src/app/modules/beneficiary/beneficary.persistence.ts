@@ -27,4 +27,60 @@ export class BeneficiaryPersistence {
         }
         return message;
     }
+
+
+    async getBeneficiaryFromUserId(userId : any) {
+        let message = new ReturnMessage();
+        try 
+        {
+            const beneficiary = await beneficiaryRepository.find({
+                where: { user :  userId },
+            });
+            message.code          = 200;
+            message.returnObject  =  beneficiary;
+        }catch(Exception)
+        {
+            message.message = Exception.message;
+            message.code    = 500;
+        }
+
+        return message;
+    }
+
+
+    async getBeneficiaryFromInsuranceId(insuranceId : any) {
+        let message = new ReturnMessage();
+        console.log(insuranceId)
+        try 
+        {
+            const beneficiary = await beneficiaryRepository.findBy({assuranceId : insuranceId});
+            message.code          = 200;
+            message.returnObject  =  beneficiary;
+        }catch(Exception)
+        {
+            message.message = Exception.message;
+            message.code    = 500;
+        }
+
+        return message;
+    }
+
+    async getBeneficiaryUsingInsuranceIdAndUserId(insurId : any , userId : any ) {
+        let message = new ReturnMessage();
+        try 
+        {
+            const beneficiary = await beneficiaryRepository.find({
+                where: { user : userId , assuranceId : insurId },
+            });
+            message.code          = 200;
+            message.returnObject  =  beneficiary;
+        }catch(Exception)
+        {
+            message.message = Exception.message;
+            message.code    = 500;
+        }
+
+        return message;
+      
+    }
 }

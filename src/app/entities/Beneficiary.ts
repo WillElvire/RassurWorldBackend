@@ -19,11 +19,11 @@ export class Beneficiary extends BaseEntity {
     @Column({nullable : true})
     public ipt : string;
     @Column({nullable : true})
-    public medicalFees : string;
+    public medicalFees : string
     @ManyToOne(()=> User)
     user : User;
-    @ManyToOne(()=>Assurance)
-    assurance : Assurance;
+    @Column({nullable: true})
+    assuranceId : string;
     @Column({nullable:true})
     isActive  : boolean;
     @CreateDateColumn({nullable : true}) 

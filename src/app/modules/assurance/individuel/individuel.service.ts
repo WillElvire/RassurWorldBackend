@@ -25,7 +25,8 @@ export class IndividuelService {
     }
 
 
-    async setupThirdStep(beneficaries:BeneficiaryDto[]) {
+    async setupThirdStep(data:any) {
+        const beneficaries : BeneficiaryDto[]    = data?.beneficaries;
         return await beneficiaryService.addBeneficiary(beneficaries);
     }
 

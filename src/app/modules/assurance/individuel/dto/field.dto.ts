@@ -21,12 +21,13 @@ export interface IndividuelleSanteDto {
 }
 
 export interface BeneficiaryDto {
-  id: string;
-  firstname: string;
-  lastname: string;
-  dateOfBirth: string;
-  job: string;
-  death: string;
-  ipt: string;
-  medicalFees: string;
+  id?: string;
+  firstname?: string;
+  lastname?: string;
+  dateOfBirth?: string;
+  job?: string;
+  death?: string;
+  ipt?: string;
+  medicalFees?: string;
+  user?:string;
 }

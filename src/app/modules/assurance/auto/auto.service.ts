@@ -1,3 +1,4 @@
+import { BeneficiaryService } from './../../beneficiary/beneficiary.service';
 import { OK } from 'http-status-codes';
 import { ReturnMessage } from "../../../common/classes/message";
 import { UserService } from "../../user/user.service";
@@ -8,6 +9,7 @@ import { AuditAction } from '../../audit/dto/audit.dto';
 const userService = new UserService();
 const assurancePersistence = new AssurancePersistence();
 const auditService = new  AuditService;
+const beneficiaryService = new BeneficiaryService;
 export class AutoService {
   
   async setupFirstStep(user) {
@@ -80,7 +82,16 @@ export class AutoService {
       message.message = "Kindly fill requested fields";
       return message;
     }
-    return await assurancePersistence.getInsurrance(assurId);
+    message =  await assurancePersistence.getInsurrance(assurId);
+    if(message.code == OK) {
+      message.returnObject = {
+        ...message.returnObject,
+        beneficiary : (await beneficiaryService.getBeneficiary(assurId)).returnObject
+      }
+      console.log(message.returnObject.beneficiary)
+      return message;
+    }
+    return message;
   }
 
 

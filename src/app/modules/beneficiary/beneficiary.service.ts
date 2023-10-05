@@ -6,6 +6,9 @@ import { logger } from '../../utils/logger';
 const beneficiaryPersistence = new BeneficiaryPersistence();
 export class BeneficiaryService {
 
+    async getBeneficiary (insurId : string){
+        return beneficiaryPersistence.getBeneficiaryFromInsuranceId(insurId);
+    }
     async addBeneficiary(beneficiaries : BeneficiaryDto[]) {
         let message = new ReturnMessage();
        
