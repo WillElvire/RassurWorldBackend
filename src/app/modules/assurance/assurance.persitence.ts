@@ -40,6 +40,12 @@ export class AssurancePersistence {
     return message;
 
   }
+
+
+  async addNewIndividuelAccidentRequest(insuranceDetail : fullTripDetail ) {
+    const queryRunner = DatabaseSourceManager.getInstance().source().createQueryRunner();
+    let message       = new ReturnMessage();
+  }
   
   async addNewTripRequest(tripDetail : fullTripDetail) {
 

@@ -1,3 +1,5 @@
+import { IndividuelleSanteDto } from "../../individuel/dto/field.dto"
+
 export interface TripFieldDto {
     dateOfLeft : string,
     dateOfBack : string,
@@ -12,7 +14,10 @@ export interface TripFieldDto {
 export interface fullTripDetail {
     user  : string ,
     offer : string,
-    trip : TripFieldDto,
+    trip : TripFieldDto  | IndividuelleSanteDto,
     parrainCode : string
-
 }
+
+
+
+

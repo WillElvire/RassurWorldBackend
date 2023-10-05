@@ -91,7 +91,7 @@ export class RolePersistence {
       let message  = new ReturnMessage();
       try {
 
-         const result = await this._rRoleRepository.createQueryBuilder().where("id =  :id or libelle  = :id or flag = :id",{
+         const result = await this._rRoleRepository.createQueryBuilder().where("flag = :id",{
             id
          }).getOne();
 

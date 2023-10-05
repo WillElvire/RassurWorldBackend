@@ -5,10 +5,12 @@ import { UserService } from '../../user/user.service';
 import { ReturnMessage } from './../../../common/classes/message';
 import {  fullTripDetail } from './dto/field.dto';
 import { userVoyageFirstStepDto } from './dto/user.dto';
+import { AuditService } from '../../audit/audit.service';
+import { AuditAction } from '../../audit/dto/audit.dto';
 
 const userService =  new UserService();
 const assurancePersistence = new AssurancePersistence();
-
+const auditService = new AuditService;
 export class VoyageService {
 
     
@@ -56,10 +58,26 @@ export class VoyageService {
     if(!!trip.parrainCode) {
       message = await userService.fetchUserByCode(trip.parrainCode);
       if(message.code != OK)  return message;
-      return await assurancePersistence.addNewTripRequest(trip);
+      message =  await assurancePersistence.addNewTripRequest(trip);
+      auditService.addAudit({
+        userId : trip.user, 
+        source : "Assurance Voyage",
+        action : AuditAction.DEMANDE,
+        old_value : "",
+        new_value : JSON.stringify(message.returnObject)
+      });
+      return message;
     }
     
-    return await assurancePersistence.addNewTripRequest(trip);
+    message =  await assurancePersistence.addNewTripRequest(trip);
+    auditService.addAudit({
+      userId : trip.user, 
+      source : "Assurance Voyage",
+      action : AuditAction.DEMANDE,
+      old_value : "",
+      new_value : JSON.stringify(message.returnObject)
+    });
+    return message;
   }
 
   async setupThirdStep(data : Required<{file : any , data : any}>) {
