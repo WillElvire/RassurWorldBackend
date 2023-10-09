@@ -11,7 +11,7 @@ export class WalletPersistence {
       console.log(wallet);
       let message= new ReturnMessage();
       try {
-        const newWallet   = walletRepository.create({wallet} as any);
+        const newWallet   = walletRepository.create({...wallet} as any);
         const result    = await walletRepository.save(newWallet);
         message.code    = 200;
         message.returnObject = result;

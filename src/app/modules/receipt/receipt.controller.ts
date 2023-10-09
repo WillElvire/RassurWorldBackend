@@ -1,6 +1,4 @@
 import { LogAppender } from "../../common/classes/appender";
-import { logger } from "../../utils/logger";
-import { MailService } from "../mail/mail.service";
 import { ReceiptDto } from "./dto/receipt.dto";
 import { ReceiptService } from "./receipt.service";
 
