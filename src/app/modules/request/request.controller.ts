@@ -10,4 +10,21 @@ export class RequestController {
      LogAppender.writeLogFromBody(req, result, "RequestController");
      res.status(result.code).send(result);
     }
+
+    async getRequestById(req:any , res : any){
+        const result = await requestService.getRequestById(req.params.id);
+        LogAppender.writeLogFromBody(req, result, "RequestController");
+        res.status(result.code).send(result);
+    }
+
+    async getRequestByUserId(req:any , res : any){
+        const result = await requestService.getRequestByUserId(req.body.user);
+        LogAppender.writeLogFromBody(req, result, "RequestController");
+        res.status(result.code).send(result);
+    }
+    async getRequest(req : any , res : any) {
+        const result = await requestService.getRequest();
+        LogAppender.writeLogFromBody(req, result, "RequestController");
+        res.status(result.code).send(result);
+    }
 }
