@@ -13,7 +13,7 @@ export class RequestController {
 
     async getRequestById(req:any , res : any){
         const result = await requestService.getRequestById(req.params.id);
-        LogAppender.writeLogFromBody(req, result, "RequestController");
+        LogAppender.writeLogFromParams(req, result, "RequestController");
         res.status(result.code).send(result);
     }
 
@@ -24,6 +24,12 @@ export class RequestController {
     }
     async getRequest(req : any , res : any) {
         const result = await requestService.getRequest();
+        LogAppender.writeLogFromBody(req, result, "RequestController");
+        res.status(result.code).send(result);
+    }
+
+    async confirmRequest(req : any , res : any){
+        const result = await requestService.confirmRequest(req.body.id,req.body.amount,req.body.userId);
         LogAppender.writeLogFromBody(req, result, "RequestController");
         res.status(result.code).send(result);
     }

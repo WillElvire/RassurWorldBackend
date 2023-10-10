@@ -47,7 +47,7 @@ export class UserPersistence{
         let message = new ReturnMessage();
         try {
 
-            const result = await userRepository.createQueryBuilder().where("id=:id",{id}).getOne();
+            const result = await userRepository.findOne({where : {id},relations : ["wallet"]});
             message.code = 200;
             message.returnObject = result;
 

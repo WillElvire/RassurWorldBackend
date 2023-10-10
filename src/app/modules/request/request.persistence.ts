@@ -24,20 +24,34 @@ export class RequestPersistence {
 
 
     async getRequest() {
-        let message = new ReturnMessage();
-        try {
-  
-          const result = await  _rRequestRepository.find({relations : ["user"]});
-          message.code = OK;
-          message.returnObject = result;
-  
-        }catch(Exception) {
-          message.code = 500;
-          message.message = Exception.message;
-        }
-          return message;
+      let message = new ReturnMessage();
+      try {
+
+        const result = await  _rRequestRepository.find({relations : ["user"]});
+        message.code = OK;
+        message.returnObject = result;
+
+      }catch(Exception) {
+        message.code = 500;
+        message.message = Exception.message;
+      }
+      return message;
     }
 
+
+    async confirmRequest(id : string) {
+      let message = new ReturnMessage();
+      try {
+        const result = await _rRequestRepository.createQueryBuilder().update({isConfirmed : true}).where("id=:id",{id}).execute();
+        message.message = "Transaction confirmé avec succes";
+        message.code = OK;
+        message.returnObject = result;
+      }catch(Exception) {
+        message.code = 500;
+        message.message = Exception.message;
+      }
+      return message;
+    }
 
     
 

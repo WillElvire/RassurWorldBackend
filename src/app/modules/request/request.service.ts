@@ -1,6 +1,9 @@
+import { OK } from "http-status-codes";
+import { ReturnMessage } from "../../../../../jobs/relationship/src/domain/modules/mail/dto/message";
+import { WalletService } from "../wallet/wallet.service";
 import { RequestDto } from "./dto/request.dto";
 import { RequestPersistence } from "./request.persistence";
-
+const walletService = new WalletService;
 export class RequestService {
     private requestPersistence  =  new RequestPersistence();
     async save(request : RequestDto) {
@@ -17,6 +20,17 @@ export class RequestService {
 
     async getRequest() {
         return await this.requestPersistence.getRequest();
+    }
+    async confirmRequest(id : string,amount : string , userId : string){
+        let message = new ReturnMessage();
+        message = await this.requestPersistence.confirmRequest(id);
+        if(message.code == OK) {
+            message = await walletService.debitAccount(amount,userId);
+            message.message = "Transaction confirmé avec succes";
+            return message;
+        }
+        return message;
+       
     }
     
 }

@@ -1,3 +1,4 @@
+import { OK } from 'http-status-codes';
 
 import { ReturnMessage } from "../../common/classes/message";
 import { WalletRepository } from "../../repository/Wallet.repository";
@@ -23,11 +24,21 @@ export class WalletPersistence {
       return message;
     }
 
-    async deposit(amount : number , userId : string) {
+    async credit(amount : number , userId : string) {
         
     }
 
-    async withdrawall(userId) {
-        
+    async debit(newBalance : number , id : string) {
+        let message = new ReturnMessage();
+        try {
+          const result = walletRepository.createQueryBuilder().update({balance : newBalance}).where("id = :balanceId",{balanceId:id}).execute();
+          message.code = OK;
+          message.returnObject = result;
+        }
+        catch(Exception) {
+          message.message = Exception.Message;
+          message.code    = 500;
+        }
+        return message;
     }
 }

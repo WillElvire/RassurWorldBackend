@@ -9,4 +9,5 @@ export interface RequestDto {
   fees?: string;
   isPayed?: boolean;
   createdAt?: string;
+  isConfirmed?:boolean;
 }
