@@ -12,7 +12,7 @@ export class VoyageController {
   async firstStep(req,res) {
     
     const result = await voyageService.setupFirstStep(req.body);
-    //const mail   = await mailService.sendMailBienvenue({firstname : result.returnObject?.firstname ,lastname : result.returnObject?.lastname , phone : result.returnObject?.phone});
+    const mail   = await mailService.sendMailBienvenue({firstname : result.returnObject?.firstname ,lastname : result.returnObject?.lastname , phone : result.returnObject?.phone});
     LogAppender.writeLogFromBody(req,result,"VoyageController");
     //logger.info("Envoi de mail  ====>",mail);
     res.status(result.code).send(result);
