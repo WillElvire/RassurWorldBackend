@@ -1,4 +1,4 @@
-import { cotationMessage, defaultWhatsappMessage, paymentMessage, receiptMessage, relationShipMailler } from '../../__moock__/message';
+import { businessAccountMessage, cotationMessage, defaultWhatsappMessage, paymentMessage, receiptMessage, relationShipMailler } from '../../__moock__/message';
 import { EmailService } from '../../services/mailing/mail.service';
 import { WhatsappService } from '../../services/mailing/message.service';
 import { mailDriver, mailType, mailData } from './dto/mail.dto';
@@ -54,6 +54,8 @@ export class MailBuilder {
              return cotationMessage;
           case "Receipt"  : 
              return receiptMessage;
+           case "Business" : 
+             return businessAccountMessage;
           default :
              return relationShipMailler;
         }

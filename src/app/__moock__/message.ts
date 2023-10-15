@@ -9,6 +9,16 @@ export  const defaultWhatsappMessage  = (data : mailData)=> {
     `;
 }
 
+
+export const businessAccountMessage = (data : mailData) => {
+  return `
+  Cher client ${data.firstname} ${data.lastname}.
+  Votre demande de rejoindre notre equipe d'apporteur est en cours de traitement .
+  Vous pouvez maintenant vous connecter a la plateforme afin d'avoir un appercu de notre mode de fonctionnement
+  Equipe Rassur
+  `
+}
+
 export const relationShipMailler = (data : mailData)=>{
     return `
       Bienvenue chez Rassur ${data.firstname} ${data.lastname}.
@@ -34,7 +44,7 @@ export const cotationMessage = (data : mailData) => {
   Cher client .
   Une cotation a été ajouté a votre demande.
   Vous pouvez des a present  payer votre demande de souscription via le lien ci dessous : .
-  http://localhost:3002/payment/${data.id}
+  http://localhost:4200/payment/${data.id}
   N'hesistez pas a nous contacter si vous avez un quelconque probleme
   Equipe Rassur
 `

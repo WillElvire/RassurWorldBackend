@@ -20,6 +20,22 @@ export class MailService {
      
     }
 
+    async sendBusinessAccount(data : mailData)  {
+      
+      data.type = "Business";
+      let message = new ReturnMessage();
+
+      try {
+        const result = await mailBuilder.addData(data).send();
+        message.returnObject = result?.data;
+        message.code = 200;
+      }catch(Exception) {
+        message.code    = 500;
+        message.message = Exception.message;
+      }
+     return message;
+    }
+
     async sendMailReceipt(data : mailData) {
       data.type = "Receipt";
       let message = new ReturnMessage();

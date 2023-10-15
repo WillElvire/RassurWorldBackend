@@ -30,7 +30,7 @@ export class AuthController  {
     async addBusinessAccount(req: any ,res : any) {
       const result =  await authService.register({...req.body},UserRoles.APPORTEUR);
       if(result.code == OK){
-        const mail   =  await mailService.sendMailBienvenue({firstname : result.returnObject?.firstname ,email : result.returnObject?.email,lastname : result.returnObject?.lastname , phone : result.returnObject?.phone});
+        const mail   =  await mailService.sendBusinessAccount({firstname : result.returnObject?.firstname ,email : result.returnObject?.email,lastname : result.returnObject?.lastname , phone : result.returnObject?.phone});
       }
       LogAppender.writeLogFromBody(req,result,"AuthController");
       res.status(result.code).send(result);
