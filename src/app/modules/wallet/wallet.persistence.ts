@@ -24,8 +24,18 @@ export class WalletPersistence {
       return message;
     }
 
-    async credit(amount : number , userId : string) {
-        
+    async credit(amount : number , id : string) {
+      let message = new ReturnMessage();
+      try {
+        const result = walletRepository.createQueryBuilder().update({balance : amount}).where("id = :balanceId",{balanceId:id}).execute();
+        message.code = OK;
+        message.returnObject = result;
+      }
+      catch(Exception) {
+        message.message = Exception.Message;
+        message.code    = 500;
+      }
+      return message;
     }
 
     async debit(newBalance : number , id : string) {

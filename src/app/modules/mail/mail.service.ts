@@ -80,6 +80,34 @@ export class MailService {
       return message;
     }
 
+    async sendDebitMessage(data : mailData) {
+      data.type = "Debit";
+      let message = new ReturnMessage();
+      try {
+        const result = await mailBuilder.addData(data).send();
+        message.returnObject = result?.data;
+        message.code = 200;
+      }catch(Exception) {
+         message.code    = 500;
+         message.message = Exception.message;
+      }
+      return message;
+    }
+
+    async sendCreditMessage(data : mailData) {
+      data.type = "Credit";
+      let message = new ReturnMessage();
+      try {
+        const result = await mailBuilder.addData(data).send();
+        message.returnObject = result?.data;
+        message.code = 200;
+      }catch(Exception) {
+         message.code    = 500;
+         message.message = Exception.message;
+      }
+      return message;
+    }
+
     async sendMailPayment(data : mailData){
       data.type  = "Lien";
       let message = new ReturnMessage();

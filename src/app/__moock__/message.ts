@@ -10,6 +10,23 @@ export  const defaultWhatsappMessage  = (data : mailData)=> {
 }
 
 
+export const debitClientMessage  = (data : mailData) => {
+   return `
+   Cher client ${data.firstname} ${data.lastname}.
+   Votre compte a été debiter d'un montant de ${data.amount} FCFA . 
+   votre nouveau solde est de ${data.newBalance} FCFA . 
+   Equipe Rassur `
+}
+
+
+export const creditClientMessage  = (data : mailData) => {
+  return `
+  Cher client ${data.firstname} ${data.lastname}.
+  Votre compte a été crediter d'un montant de ${data.amount} FCFA . 
+  votre nouveau solde est de ${data.newBalance} FCFA . 
+  Equipe Rassur `
+}
+
 export const businessAccountMessage = (data : mailData) => {
   return `
   Cher client ${data.firstname} ${data.lastname}.

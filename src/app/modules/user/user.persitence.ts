@@ -26,6 +26,19 @@ export class UserPersistence{
     }
 
 
+    async getUserByParrainCode(code : string) {
+        let message = new ReturnMessage();
+        try {
+            const result = await userRepository.findOne({where : {code},relations : ["wallet"]});
+            message.code = 200;
+            message.returnObject = result;
+        }catch(Exception ) {
+            message.message = Exception.message;
+            message.code =  500;
+        }
+        return message;
+    }
+
     async isEmailExists(email : string) {
         let message = new ReturnMessage();
         try {

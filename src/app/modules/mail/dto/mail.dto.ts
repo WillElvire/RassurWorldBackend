@@ -1,5 +1,5 @@
 export type mailDriver = "Email" | "Telephone";
-export type mailType   = "Relance" | "Lien" | "Bienvenue"| "Cotation" | "Receipt" | "Business";
+export type mailType   = "Relance" | "Lien" | "Bienvenue"| "Cotation" | "Receipt" | "Business" | "Debit" | "Credit";
 export interface mailData {
     body ?: string,
     phone ?: string
@@ -14,5 +14,7 @@ export interface mailData {
     photoUrl ? : string;
     useWhatsapp ?: boolean;
     subject ?: string;
+    amount ?:string,
+    newBalance ?:string;
     
 }
