@@ -51,16 +51,21 @@ export class AuthService {
     let returnMessage = new ReturnMessage();
 
     if (!data.firstname || !data.lastname || !data.email || !data.password  || !data.phone) {
-      returnMessage.message = "Veuillez verifier les données renseigné";
+      returnMessage.message = "Veuillez verifier vos données";
       returnMessage.code = 421;
       return returnMessage;
     }
     data.code = generateUniqueCodeForUser();
-    returnMessage = await this.authPersistance.register(data,_role);
 
     if(_role == UserRoles.APPORTEUR) {
-      this.walletService.addWallet({userId : returnMessage.code == OK ? returnMessage.returnObject.id : "",balance : 0,freeze_amount : 0})
+      returnMessage = await  this.walletService.addWallet({});
+      if(returnMessage.code == OK) {
+        data.wallet = returnMessage?.returnObject?.id;
+      }
     }
+    returnMessage = await this.authPersistance.register(data,_role);
+
+   
     this.auditService.addAudit({
       userId : returnMessage.returnObject?.id , 
       source : "Inscription utilisateur",
@@ -68,7 +73,6 @@ export class AuthService {
       old_value : "",
       new_value : JSON.stringify(returnMessage.returnObject)
     });
-
     return returnMessage;
   }
 }

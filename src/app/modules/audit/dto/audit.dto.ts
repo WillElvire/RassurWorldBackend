@@ -17,5 +17,6 @@ export enum AuditAction {
   DECONNEXION = 7,
   DEPOSIT = 8,
   WITHDRAWALL = 9,
-  INSCRIPTION = 10
+  INSCRIPTION = 10,
+  CREATION_WALLET =11
 }

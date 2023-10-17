@@ -48,7 +48,7 @@ export class EmailService {
     return this.mailTransport().sendMail({
       from     : "info@myrassurance.com", // sender address
       to       : this.receiver, // list of receivers
-      subject  : "", // Subject line
+      subject  : "Information R'assur", // Subject line
       text     : this.body, // plain text body
       //html     : this.data.html, // html body
     }).send;

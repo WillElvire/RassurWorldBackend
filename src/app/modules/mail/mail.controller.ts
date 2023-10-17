@@ -33,6 +33,7 @@ export class MailController {
       email: req.body?.email,
       useWhatsapp: req.body?.useWhatsapp,
       subject: req.body?.subject,
+      id : req.body?.id
     };
     const result = await mailService.sendMailCotation(data);
     LogAppender.writeLogFromBody(req,result,"MailController");
@@ -50,6 +51,8 @@ export class MailController {
         firstname: req.body?.firstname,
         lastname: req.body?.lastname,
         phone: req.body?.phone,
+        email : req.body?.email,    
+        
         photoUrl: result?.returnObject?.photoUrl,
       };
 

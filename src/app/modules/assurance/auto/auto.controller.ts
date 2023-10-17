@@ -12,7 +12,7 @@ export class AutoController {
   async firstStep(req , res ) {
    
     const result = await autoService.setupFirstStep(req.body);
-    //const mail   = await mailService.sendMailBienvenue({firstname : result.returnObject?.firstname ,lastname : result.returnObject?.lastname , phone : result.returnObject?.phone , useWhatsapp : result.returnObject?.useWhatsapp , email : result.returnObject?.email});
+    const mail   = await mailService.sendMailBienvenue({firstname : result.returnObject?.firstname ,lastname : result.returnObject?.lastname , phone : result.returnObject?.phone , useWhatsapp : result.returnObject?.useWhatsapp , email : result.returnObject?.email});
     LogAppender.writeLogFromBody(req,result,"AutoController");
     //logger.info("Envoi de mail  ====>",mail);
     res.status(result.code).send(result);

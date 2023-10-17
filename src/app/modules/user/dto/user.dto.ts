@@ -10,4 +10,5 @@ export interface UserDto {
   role: any;
   id?: string;
   code ?:string;
+  wallet?:string;
 }

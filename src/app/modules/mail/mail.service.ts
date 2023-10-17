@@ -10,8 +10,8 @@ export class MailService {
       let message = new ReturnMessage();
       try {
         const result = await mailBuilder.addData(data).send();
-        message.returnObject = result.data;
-        message.code = result.status;
+        message.returnObject = result?.data;
+        message.code = 200;
       }catch(Exception) {
          message.code    = 500;
          message.message = Exception.message;
@@ -20,14 +20,30 @@ export class MailService {
      
     }
 
+    async sendBusinessAccount(data : mailData)  {
+      
+      data.type = "Business";
+      let message = new ReturnMessage();
+
+      try {
+        const result = await mailBuilder.addData(data).send();
+        message.returnObject = result?.data;
+        message.code = 200;
+      }catch(Exception) {
+        message.code    = 500;
+        message.message = Exception.message;
+      }
+     return message;
+    }
+
     async sendMailReceipt(data : mailData) {
       data.type = "Receipt";
       let message = new ReturnMessage();
 
       try {
         const result = await mailBuilder.addData(data).send();
-        message.returnObject = result.data;
-        message.code = result.status;
+        message.returnObject = result?.data;
+        message.code = 200;
       }catch(Exception) {
         message.code    = 500;
         message.message = Exception.message;
@@ -41,8 +57,8 @@ export class MailService {
       let message = new ReturnMessage();
       try {
         const result = await mailBuilder.addData(data).send();
-        message.returnObject = result.data;
-        message.code = result.status;
+        message.returnObject = result?.data;
+        message.code = 200;
       }catch(Exception) {
         message.code    = 500;
         message.message = Exception.message;
@@ -55,8 +71,36 @@ export class MailService {
       let message = new ReturnMessage();
       try {
         const result = await mailBuilder.addData(data).send();
-        message.returnObject = result.data;
-        message.code = result.status;
+        message.returnObject = result?.data;
+        message.code = 200;
+      }catch(Exception) {
+         message.code    = 500;
+         message.message = Exception.message;
+      }
+      return message;
+    }
+
+    async sendDebitMessage(data : mailData) {
+      data.type = "Debit";
+      let message = new ReturnMessage();
+      try {
+        const result = await mailBuilder.addData(data).send();
+        message.returnObject = result?.data;
+        message.code = 200;
+      }catch(Exception) {
+         message.code    = 500;
+         message.message = Exception.message;
+      }
+      return message;
+    }
+
+    async sendCreditMessage(data : mailData) {
+      data.type = "Credit";
+      let message = new ReturnMessage();
+      try {
+        const result = await mailBuilder.addData(data).send();
+        message.returnObject = result?.data;
+        message.code = 200;
       }catch(Exception) {
          message.code    = 500;
          message.message = Exception.message;
@@ -69,8 +113,8 @@ export class MailService {
       let message = new ReturnMessage();
       try {
         const result = await mailBuilder.addData(data).send();
-        message.returnObject = result.data;
-        message.code = result.status;
+        message.returnObject = result?.data;
+        message.code = 200;
       }catch(Exception) {
          message.code    = 500;
          message.message = Exception.message;

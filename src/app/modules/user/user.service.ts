@@ -124,6 +124,11 @@ export class UserService {
 
     }
 
+
+    async getUserByParrainCode(code : string){
+        return await userPersistence.getUserByParrainCode(code);
+    }
+
     async addPartialUser(user : userVoyageFirstStepDto | userAutoFirstStepDto, source ?: string) {
 
         let   message  = new ReturnMessage();

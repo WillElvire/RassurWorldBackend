@@ -6,3 +6,9 @@ export class ReturnMessage {
     message : string;
     code :  StatusCodes ;   
 }
+
+
+export enum RequestType {
+    WITHDRAWALL = 1 ,
+    DEPOSIT = 2
+}

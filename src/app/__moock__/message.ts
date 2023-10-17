@@ -9,6 +9,33 @@ export  const defaultWhatsappMessage  = (data : mailData)=> {
     `;
 }
 
+
+export const debitClientMessage  = (data : mailData) => {
+   return `
+   Cher client ${data.firstname} ${data.lastname}.
+   Votre compte a été debiter d'un montant de ${data.amount} FCFA . 
+   votre nouveau solde est de ${data.newBalance} FCFA . 
+   Equipe Rassur `
+}
+
+
+export const creditClientMessage  = (data : mailData) => {
+  return `
+  Cher client ${data.firstname} ${data.lastname}.
+  Votre compte a été crediter d'un montant de ${data.amount} FCFA . 
+  votre nouveau solde est de ${data.newBalance} FCFA . 
+  Equipe Rassur `
+}
+
+export const businessAccountMessage = (data : mailData) => {
+  return `
+  Cher client ${data.firstname} ${data.lastname}.
+  Votre demande de rejoindre notre equipe d'apporteur est en cours de traitement .
+  Vous pouvez maintenant vous connecter a la plateforme afin d'avoir un appercu de notre mode de fonctionnement
+  Equipe Rassur
+  `
+}
+
 export const relationShipMailler = (data : mailData)=>{
     return `
       Bienvenue chez Rassur ${data.firstname} ${data.lastname}.
@@ -34,7 +61,7 @@ export const cotationMessage = (data : mailData) => {
   Cher client .
   Une cotation a été ajouté a votre demande.
   Vous pouvez des a present  payer votre demande de souscription via le lien ci dessous : .
-  http://localhost:3002/payment/${data.id}
+  http://localhost:4200/payment/${data.id}
   N'hesistez pas a nous contacter si vous avez un quelconque probleme
   Equipe Rassur
 `

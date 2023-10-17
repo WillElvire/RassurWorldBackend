@@ -14,6 +14,8 @@ export class Transactions  extends BaseEntity{
     total : number;
     @Column({nullable : true})
     fees : number;
+    @Column({nullable : true})
+    primeApporteur : number;
     @CreateDateColumn()
     createdAt : Date;
     @Column({nullable : true})

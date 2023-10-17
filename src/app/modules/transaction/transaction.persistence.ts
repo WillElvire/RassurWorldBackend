@@ -38,6 +38,7 @@ export class TransactionPersistence  {
                quantity : transactionDto?.quantity,
                transactionNumb : transactionDto?.transactionNumb,
                total : transactionDto.total,
+               primeApporteur : transactionDto?.primeApporteur,
                fees : Number(transactionDto.fees) ,
                total_net : Number(transactionDto.total_net)
             }).where("id = :id",{id : transactionDto.id}).execute();
