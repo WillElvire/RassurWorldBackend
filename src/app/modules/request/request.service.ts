@@ -1,8 +1,8 @@
 import { OK } from "http-status-codes";
-import { ReturnMessage } from "../../../../../jobs/relationship/src/domain/modules/mail/dto/message";
 import { WalletService } from "../wallet/wallet.service";
 import { RequestDto } from "./dto/request.dto";
 import { RequestPersistence } from "./request.persistence";
+import { ReturnMessage } from "../../common/classes/message";
 const walletService = new WalletService;
 export class RequestService {
     private requestPersistence  =  new RequestPersistence();
