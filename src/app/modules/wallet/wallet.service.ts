@@ -1,10 +1,11 @@
-import { ReturnMessage } from './../../../../../jobs/relationship/src/domain/modules/mail/dto/message';
+
 import { AuditAction } from '../audit/dto/audit.dto';
 import { AuditService } from './../audit/audit.service';
 import { WalletDto } from './dto/wallet.dto';
 import { WalletPersistence } from './wallet.persistence';
 import { UserService } from '../user/user.service';
 import { MailService } from '../mail/mail.service';
+import { ReturnMessage } from '../../common/classes/message';
 const walletPersistence = new WalletPersistence;
 const  auditService     = new AuditService;
 const userService       = new UserService;
