@@ -33,7 +33,7 @@ export class WalletService {
       let user = message.returnObject;
       let balance = Number(user?.wallet?.balance) + Number(amount);
       mailService.sendCreditMessage({
-        amount : amount,
+        amount ,
         newBalance : balance.toString(),
         firstname : user?.firstname,
         lastname : user?.lastname,
