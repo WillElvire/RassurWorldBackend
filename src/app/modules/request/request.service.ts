@@ -26,8 +26,12 @@ export class RequestService {
         message = await this.requestPersistence.confirmRequest(id);
         if(message.code == OK) {
             message = await walletService.debitAccount(amount,userId);
-            message.message = "Transaction confirmé avec succes";
+            if(message.code == 200) {
+                message.message = "Transaction confirmé avec succes";
+                return message;
+            }
             return message;
+          
         }
         return message;
        

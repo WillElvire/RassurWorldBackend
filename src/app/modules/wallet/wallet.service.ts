@@ -56,7 +56,15 @@ export class WalletService {
       let message = new ReturnMessage();
       message = await userService.getUserById(userId);
       let user = message.returnObject;
+
+      if(Number(user?.wallet?.balance) < Number(amount)) {
+        message.message = "Impossible d'effectuer la transaction , fonds insuffisant";
+        message.code = 500;
+        return message;
+      }
+
       let balance = Number(user?.wallet?.balance) - Number(amount);
+
       mailService.sendDebitMessage({
         amount : amount,
         newBalance : balance.toString(),
