@@ -3,15 +3,19 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import { DatabaseSourceManager } from "./app/common/classes/init";
+
+import swaggerDocs from "./app/utils/swagger";
+
+import { fileUploader } from "./app/utils/fileUpload";
+
+import { logger } from "./app/utils/logger";
+
+import path from "path";
 import authRoutes from "./app/routes/auth.routes";
 import roleRoutes from "./app/routes/roles.routes";
-import swaggerDocs from "./app/utils/swagger";
 import partnersRoute from "./app/routes/partners.routes";
-import { fileUploader } from "./app/utils/fileUpload";
 import assuranceRoutes from "./app/routes/assurance.routes";
-import { logger } from "./app/utils/logger";
 import offerRoutes from "./app/routes/offer.routes";
-import path from "path";
 import { mailRoute } from "./app/routes/mail.routes";
 import userRoute from "./app/routes/user.routes";
 import { auditRoute } from "./app/routes/audit.routes";

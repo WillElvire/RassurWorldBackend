@@ -44,4 +44,12 @@ export class UserController {
         res.status(result.code).send(result);
     }
 
+    async updateUser(req , res) {
+        logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        logger.info(req.body);
+        const result = await userService.updateUser(req.body);
+        LogAppender.writeLogFromBody(req,result,"UserController");
+        res.status(result.code).send(result);
+    }
+
 }

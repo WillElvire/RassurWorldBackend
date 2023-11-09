@@ -1,3 +1,4 @@
+import { UserDto } from './../../../../../frontend/src/app/core/interfaces/dto';
 import { OK } from 'http-status-codes';
 import { UserRepository } from "../../repository/User.repository";
 import { ReturnMessage } from '../../common/classes/message';
@@ -72,6 +73,20 @@ export class UserPersistence{
 
     }
 
+
+    async updateUser(user: any) {
+      let message = new ReturnMessage();
+      try {
+        const accountId = user.id;
+        const newUser = await userRepository.createQueryBuilder().update({...user}).where("id=:accountId",{accountId}).execute();
+        message.code = 200;
+        message.message = "User updated Successfully"
+      }catch(Exception) {
+        message.message = Exception.message;
+        message.code = 500;
+      }
+      return message;
+    }
 
 
     async activeUserAccount(accountId : string,prevStatus : boolean) {
