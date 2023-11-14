@@ -8,23 +8,23 @@ export class OfferService {
 
     async addOffer(offer : OfferDto) {
 
-       let message = new ReturnMessage();
+      let message = new ReturnMessage();
 
-       if(!offer.description || !offer.libelle) {
-          message.code = 421;
-          message.message = "Veuillez renseigner les champs";
-          return message;
-       }
+      if(!offer.description || !offer.libelle) {
+        message.code = 421;
+        message.message = "Veuillez renseigner les champs";
+        return message;
+      }
 
-       message = await this.isExistOffer(offer.libelle);
+      message = await this.isExistOffer(offer.libelle);
 
-       if(message.returnObject){
-          message.code = 500;
-          message.message = "Offre deja existante";
-          return message;
-       }
+      if(message.returnObject){
+        message.code = 500;
+        message.message = "Offre deja existante";
+        return message;
+      }
 
-       return await offerPersistence.addOffer(offer);
+      return await offerPersistence.addOffer(offer);
     }
 
     async isExistOffer(query : string ){

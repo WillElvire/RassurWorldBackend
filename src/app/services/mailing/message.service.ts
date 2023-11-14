@@ -3,9 +3,9 @@ import { apiPost } from "./../api/api.service";
 export type chatDriver = "chat" | "document";
 
 export class WhatsappService {
-  private readonly apiUrl    = "https://api.ultramsg.com/instance51691/";
-  private readonly instance  = "instance51691";
-  private readonly token     = "dpgghzdzdxlxqhdg";
+  private readonly apiUrl    = process.env.ULTRA_API_URL;
+  private readonly instance  = process.env.ULTRA_API_INSTANCE;
+  private readonly token     = process.env.ULTRA_API_TOKEN;
   private driver: chatDriver = "chat";
 
   private body: string;
@@ -74,7 +74,8 @@ export class WhatsappService {
   private config(data) {
     return {
       method: "post",
-      url: "https://api.ultramsg.com/instance51691/messages/"+this.driver  ,
+      //url: "https://api.ultramsg.com/instance51691/messages/"+this.driver  ,
+      url : this.apiUrl + "messages/" + this.driver,
       headers: {
         "Content-Type": "application/json",
       },
