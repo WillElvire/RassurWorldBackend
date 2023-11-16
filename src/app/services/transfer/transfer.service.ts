@@ -9,7 +9,7 @@ export interface transferCredentials  {
 
 export class TransferService {
    
-    provider : transferProvider = "Hub2";
+    provider : transferProvider = process.env.TRANSFER_PROVIDER as transferProvider;
     baseUrl  : string ;
     credentials : transferCredentials ;
 

@@ -5,11 +5,11 @@ import { MainSeeder } from "./seeds/main.seed";
 
 
 export const options : DataSourceOptions & SeederOptions = {
-  host: "127.0.0.1",
+  host: process.env.DATABASE_HOST,
   type: "mysql",
-  username: "root",
-  password: "password",
-  database: "rassur_world",
+  username: process.env.DATABASE_USERNAME,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_DB,
   synchronize: false,
   logging: true,
   entities: [__dirname + "./../entities/**/*.ts"],

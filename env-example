@@ -1,7 +1,0 @@
-/* 
-LOG_LEVEL=info
-LOG_FILE=app.log
-AUTH_MAIL_USER =  "", // generated ethereal user
-AUTH_MAIL_PSWD =  "", // generated ethereal password
-MAIL_ADDRESSE  = "" 
-*/

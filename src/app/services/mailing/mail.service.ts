@@ -30,6 +30,7 @@ export class EmailService {
   }
 
   private mailTransport() {
+   
     return nodemailer.createTransport({
        host: mailConfigs.host,
        port: mailConfigs.port,
