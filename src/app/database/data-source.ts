@@ -3,13 +3,16 @@ import { DataSource, DataSourceOptions } from "typeorm";
 import { SeederOptions } from "typeorm-extension";
 import { MainSeeder } from "./seeds/main.seed";
 
-
+const DATABASE_HOST = "127.0.0.1";
+const DATABASE_USERNAME = "root";
+const DATABASE_PASSWORD = "password";
+const DATABASE_DB = "rassur_world";
 export const options : DataSourceOptions & SeederOptions = {
-  host: process.env.DATABASE_HOST,
+  host: DATABASE_HOST,
   type: "mysql",
-  username: process.env.DATABASE_USERNAME,
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE_DB,
+  username: DATABASE_USERNAME,
+  password: DATABASE_PASSWORD,
+  database: DATABASE_DB,
   synchronize: false,
   logging: true,
   entities: [__dirname + "./../entities/**/*.ts"],

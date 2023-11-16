@@ -7,7 +7,7 @@ export interface transferCredentials  {
   accessToken  : string
 }
 
-export class TransferService {
+export class TransferConfigurationService {
    
     provider : transferProvider = process.env.TRANSFER_PROVIDER as transferProvider;
     baseUrl  : string ;

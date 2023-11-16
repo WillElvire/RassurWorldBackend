@@ -7,21 +7,18 @@ const userService = new UserService();
 export class UserController {
 
     async register(req , res) {
-       
         const result = await userService.addIntermediary(req.body);
         LogAppender.writeLogFromBody(req,result,"UserController");
         res.status(result.code).send(result);
     }
 
     async fechApporteur(req , res ) {
-       
         const result = await userService.fetchBusinessAccount();
         LogAppender.writeLogFromBody(req,result,"UserController");
         res.status(result.code).send(result);
     }
 
     async fechTeam(req , res ) {
-       
         const result = await userService.fetchTeamAccount();
         LogAppender.writeLogFromBody(req,result,"UserController");
         res.status(result.code).send(result);

@@ -20,6 +20,7 @@ import { mailRoute } from "./app/routes/mail.routes";
 import userRoute from "./app/routes/user.routes";
 import { auditRoute } from "./app/routes/audit.routes";
 import requestRoute from "./app/routes/request.routes";
+import transferRoutes from "./app/routes/transfer.routes";
 
 
 const boostraping = {
@@ -38,6 +39,7 @@ const boostraping = {
     app.use(userRoute);
     app.use(auditRoute);
     app.use(requestRoute);
+    app.use(transferRoutes);
     fileUploader(app);
     swaggerDocs(app,port);
     app.get('*', function(req, res){

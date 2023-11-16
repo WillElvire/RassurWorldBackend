@@ -1,9 +1,13 @@
 import { AxiosRequestConfig } from "./../../../../node_modules/axios/index.d";
 import axios from "axios";
 
-const configs: AxiosRequestConfig = {
+export const configs: AxiosRequestConfig  = {
   headers: {
     "Content-Type": "application/json",
+    "Authorization": `Bearer ${process.env.BIZAO_ACCESS_TOKEN}`,
+    "country-code" : "ci",
+    "lang" : "fr",
+    "channel" : "web"
   },
 };
 
