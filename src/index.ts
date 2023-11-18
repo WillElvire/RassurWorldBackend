@@ -21,6 +21,7 @@ import userRoute from "./app/routes/user.routes";
 import { auditRoute } from "./app/routes/audit.routes";
 import requestRoute from "./app/routes/request.routes";
 import transferRoutes from "./app/routes/transfer.routes";
+import { RemoteConfig } from "./app/modules/transfer/dto/transfer.dto";
 
 
 const boostraping = {
@@ -48,6 +49,7 @@ const boostraping = {
     });
     app.use(morgan("combined"));
     app.use((req: any, res: any, next: any) => {
+      
       res.header(
         "Access-Control-Allow-Headers",
         "x-access-token, Origin, Content-Type, Accept",

@@ -1,8 +1,12 @@
 import { apiGet, configs } from './../../services/api/api.service';
 import { apiPost } from '../../services/api/api.service';
 import { ReturnMessage } from './../../common/classes/message';
-import { mobileMoneyPayload, momoProvider } from './dto/transfer.dto';
+import { RemoteConfig, TransferDto, mobileMoneyPayload, momoProvider } from './dto/transfer.dto';
 import { generateId, getApiPath } from '../../common/classes/apiConfig';
+import { TransferPersistence } from './transfer.persistence';
+
+const transferPersistence = new TransferPersistence;
+
 export class TransferService {
     
    constructor(){
@@ -11,25 +15,28 @@ export class TransferService {
 
     async mobileMoneyPayment(momoRequest : mobileMoneyPayload , paymentType : momoProvider  = "moov") {
       let message = new ReturnMessage();
+      const api = getApiPath("mobilemoney/v1");
+      const config  =  RemoteConfig.getInstance()?.getConfig();
       try {
         configs.headers["mno-name"]      = paymentType;
         configs.headers["Authorization"] = `Bearer ${process.env.BIZAO_ACCESS_TOKEN}`;
+       
+       
         //define request parameters
-        momoRequest.order_id   = generateId();
-        momoRequest.reference  = "Payment des frais d'assurance";
+        momoRequest = new mobileMoneyPayload(momoRequest.amount);
         momoRequest.currency   = "XOF";
         momoRequest.state      = "Initialisation";
-        momoRequest.return_url = "http://localhost:4200/payment/success";
-        momoRequest.cancel_url = "http://localhost:4200/payment/failed";
-        const response = await apiPost(getApiPath("mobilemoney/v1"),{...momoRequest});
+        const response         = await apiPost(api,{...momoRequest});
+        //transferPersistence.addTransfer(transfer  as TransferDto)
         message.code  = 200;
         message.returnObject = response;
       }
       catch(Exception) {
         message.code = 500;
         message.message = !!Exception.response.data ? Exception.response.data : Exception.message;
-        return message;
       }
+      transferPersistence.addTransfer(new TransferDto(api,"mobileMoneyPayment",momoRequest,!!message.message ? message.message : message.returnObject,config.browser,config.ipAddress));
+      return message;
     }
 
     async mobileMoneyStatus(orderId : string, paymentType : momoProvider  = "moov") {

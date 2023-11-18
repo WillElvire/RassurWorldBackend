@@ -13,13 +13,13 @@ export class TransactionPersistence  {
 
         try { 
             const newTransaction = this._rTransactionRepository.create(transaction); 
-            const result   = await this._rTransactionRepository.save(newTransaction);
-            message.code = OK;
+            const result         = await this._rTransactionRepository.save(newTransaction);
+            message.code         = OK;
             message.returnObject = result;
-            message.message = "Transaction successfully added !";
+            message.message      = "Transaction successfully added !";
         }
         catch(Exception) {
-           message.code = 500;
+           message.code    = 500;
            message.message = Exception.message;
         }
 
