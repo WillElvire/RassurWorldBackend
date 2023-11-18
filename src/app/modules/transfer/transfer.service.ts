@@ -39,19 +39,28 @@ export class TransferService {
       return message;
     }
 
+
+    async getTransfer() {
+      return await transferPersistence.getTransfer();
+    }
+
     async mobileMoneyStatus(orderId : string, paymentType : momoProvider  = "moov") {
-        let message = new ReturnMessage();
+        let message   = new ReturnMessage();
+        const api     = getApiPath("mobilemoney/v1/getStatus/"+orderId);
+        const config  =  RemoteConfig.getInstance()?.getConfig();
         try {
           configs.headers["mno-name"] = paymentType;
           configs.headers["Authorization"]= `Bearer ${process.env.BIZAO_ACCESS_TOKEN}`;
-          const response = await apiGet(getApiPath("mobilemoney/v1/getStatus/"+orderId));
+          const response = await apiGet(api);
           message.code  = 200;
           message.returnObject = response;
         }
         catch(Exception) {
           message.code = 500;
           message.message = !!Exception.response.data ? Exception.response.data : Exception.message;
-          return message;
+         
         }
+        transferPersistence.addTransfer(new TransferDto(api,"mobileMoneyPayment",orderId,!!message.message ? message.message : message.returnObject,config.browser,config.ipAddress));
+        return message;
     }
 }

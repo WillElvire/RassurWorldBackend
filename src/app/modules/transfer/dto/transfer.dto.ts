@@ -57,8 +57,8 @@ export class TransferDto {
 
     constructor(apiPath : string ,method : string, request = null , response = null , browser = null  , ip = null ){
        this.provider  = process.env.TRANSFER_PROVIDER;
-       this.request   = request;
-       this.response  = response;
+       this.request   = JSON.stringify(request);
+       this.response  = JSON.stringify(response);
        this.browser   = browser;
        this.apiPath   = apiPath;
        this.method    = method;

@@ -9,6 +9,20 @@ export class TransferPersistence { 
 
     private _rTransferRepository =  TransferRepository;
 
+
+    async getTransfer() {
+        let message = new ReturnMessage();
+        try 
+        {
+            const result = await this._rTransferRepository.find();
+            message.code = OK;
+            message.returnObject = result;
+        }catch(Exception) {
+            message.code    = 500;
+            message.message = Exception.message;
+        }
+        return message;
+    }
     async addTransfer(transfer : TransferDto) {
         let message = new ReturnMessage();
 
