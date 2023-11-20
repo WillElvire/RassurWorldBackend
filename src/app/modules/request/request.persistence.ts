@@ -68,7 +68,7 @@ export class RequestPersistence {
     try {
       const newUser = _rRequestRepository.create({ ...request } as any);
       const result = await _rRequestRepository.save(newUser);
-      message.returnObject = result;
+      
       message.code = OK;
       message.message = "Votre requette est en cours de traitement";
       return message;

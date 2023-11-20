@@ -22,6 +22,7 @@ import { auditRoute } from "./app/routes/audit.routes";
 import requestRoute from "./app/routes/request.routes";
 import transferRoutes from "./app/routes/transfer.routes";
 import { RemoteConfig } from "./app/modules/transfer/dto/transfer.dto";
+import walletRoutes from "./app/routes/wallet.routes";
 
 
 const boostraping = {
@@ -41,6 +42,7 @@ const boostraping = {
     app.use(auditRoute);
     app.use(requestRoute);
     app.use(transferRoutes);
+    app.use(walletRoutes);
     fileUploader(app);
     swaggerDocs(app,port);
     app.get('*', function(req, res){

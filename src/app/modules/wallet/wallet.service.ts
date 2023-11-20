@@ -12,6 +12,9 @@ const userService       = new UserService;
 const mailService       = new MailService;
 export class WalletService {
 
+  async getWalletById(walletId : string) {
+    return walletPersistence.getWalletById(walletId);
+  }
   async addWallet(wallet : WalletDto) {
       let returnMessage = new ReturnMessage();
       returnMessage =  await walletPersistence.addWallet(wallet);
@@ -52,6 +55,22 @@ export class WalletService {
   }
 
 
+  async verifyUserFunds(amount : string , userId : string) {
+    let message = new ReturnMessage();
+    message     = await userService.getUserById(userId);
+    let user    = message.returnObject;
+    if(Number(user?.wallet?.balance) < Number(amount)) {
+      message.message = "Impossible d'effectuer la transaction , fonds insuffisant";
+      message.code    = 500;
+      return message;
+    }
+    message.code = 200;
+    message.returnObject = {
+      balance : Number(user?.wallet?.balance) - Number(amount)
+    }
+    return message;
+
+  }
   async debitAccount(amount : string,userId : string) {
     let message = new ReturnMessage();
     message     = await userService.getUserById(userId);

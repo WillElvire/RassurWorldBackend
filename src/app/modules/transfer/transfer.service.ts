@@ -20,7 +20,7 @@ export class TransferService {
       try {
         configs.headers["mno-name"]      = paymentType;
         configs.headers["Authorization"] = `Bearer ${process.env.BIZAO_ACCESS_TOKEN}`;
-       
+        console.log(configs.headers)
        
         //define request parameters
         momoRequest = new mobileMoneyPayload(momoRequest.amount);

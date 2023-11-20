@@ -38,6 +38,19 @@ export class WalletPersistence {
       return message;
     }
 
+    async getWalletById(walletId : string) {
+      let message = new ReturnMessage();
+      try{
+        const result = await walletRepository.findOne({where : {id : walletId}});
+        message.code = OK;
+        message.returnObject = result;
+      }catch(Exception) {
+        message.message = Exception.Message;
+        message.code    = 500;
+      }
+      return message;
+    }
+
     async debit(newBalance : number , id : string) {
       let message = new ReturnMessage();
       try {
