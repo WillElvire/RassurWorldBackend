@@ -1,11 +1,14 @@
 import { apiGet, configs } from './../../services/api/api.service';
 import { apiPost } from '../../services/api/api.service';
 import { ReturnMessage } from './../../common/classes/message';
-import { RemoteConfig, TransferDto, mobileMoneyPayload, momoProvider } from './dto/transfer.dto';
+import { ImomoTransfer, RemoteConfig, TransferDto, mobileMoneyPayload, momoProvider } from './dto/transfer.dto';
 import { generateId, getApiPath } from '../../common/classes/apiConfig';
 import { TransferPersistence } from './transfer.persistence';
+import { TransactionService } from '../transaction/transaction.service';
+import { transactionStatus } from '../transaction/dto/transaction.dto';
 
 const transferPersistence = new TransferPersistence;
+const transactionService  = new TransactionService;
 
 export class TransferService {
     
@@ -13,29 +16,27 @@ export class TransferService {
     configs.headers["Authorization"]= `Bearer ${process.env.BIZAO_ACCESS_TOKEN}`;
    }
 
-    async mobileMoneyPayment(momoRequest : mobileMoneyPayload , paymentType : momoProvider  = "moov") {
+    async mobileMoneyPayment(momoRequest : ImomoTransfer) {
       let message = new ReturnMessage();
       const api = getApiPath("mobilemoney/v1");
       const config  =  RemoteConfig.getInstance()?.getConfig();
       try {
-        configs.headers["mno-name"]      = paymentType;
+        configs.headers["mno-name"]      = momoRequest.meanOfPayement;
         configs.headers["Authorization"] = `Bearer ${process.env.BIZAO_ACCESS_TOKEN}`;
-        console.log(configs.headers)
-       
-        //define request parameters
-        momoRequest = new mobileMoneyPayload(momoRequest.amount);
-        momoRequest.currency   = "XOF";
-        momoRequest.state      = "Initialisation";
-        const response         = await apiPost(api,{...momoRequest});
-        //transferPersistence.addTransfer(transfer  as TransferDto)
+        let request = new mobileMoneyPayload(momoRequest);
+        request.currency   = "XOF";
+        request.state      = momoRequest.insurranceId;
+        const response    = await apiPost(api,{...request}); 
         message.code  = 200;
-        message.returnObject = response;
+        message.returnObject = response.data;
+        transferPersistence.addTransfer(new TransferDto(api,"mobileMoneyPayment",JSON.stringify(momoRequest),JSON.stringify(message.returnObject),config.browser,config.ipAddress));
+        transactionService.update({id : momoRequest.transferId,quantity : 1,status : transactionStatus.PROCESSED,transactionNumb : request.order_id , apiResponse : JSON.stringify(message.returnObject) , meanOfPayment : momoRequest.meanOfPayement})
       }
       catch(Exception) {
         message.code = 500;
         message.message = !!Exception.response.data ? Exception.response.data : Exception.message;
+        transferPersistence.addTransfer(new TransferDto(api,"mobileMoneyPayment",JSON.stringify(momoRequest), JSON.stringify(message.message) ,config.browser,config.ipAddress));
       }
-      transferPersistence.addTransfer(new TransferDto(api,"mobileMoneyPayment",momoRequest,!!message.message ? message.message : message.returnObject,config.browser,config.ipAddress));
       return message;
     }
 
@@ -60,7 +61,7 @@ export class TransferService {
           message.message = !!Exception.response.data ? Exception.response.data : Exception.message;
          
         }
-        transferPersistence.addTransfer(new TransferDto(api,"mobileMoneyPayment",orderId,!!message.message ? message.message : message.returnObject,config.browser,config.ipAddress));
+        transferPersistence.addTransfer(new TransferDto(api,"mobileMoneyPayment",orderId,!!message.message ? JSON.stringify(message.message) : JSON.stringify(message.returnObject),config.browser,config.ipAddress));
         return message;
     }
 }

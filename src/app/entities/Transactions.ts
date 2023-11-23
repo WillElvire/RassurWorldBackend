@@ -1,4 +1,4 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Transactions  extends BaseEntity{
@@ -18,8 +18,10 @@ export class Transactions  extends BaseEntity{
     primeApporteur : number;
     @CreateDateColumn()
     createdAt : Date;
-    @Column({nullable : true})
+    @UpdateDateColumn({nullable : true})
     updatedAt : Date;
+    @Column({nullable : true})
+    status : string;
     @Column({nullable : true})
     meanOfPayment : string;
     @Column({nullable : true})

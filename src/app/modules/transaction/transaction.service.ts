@@ -1,7 +1,7 @@
 import { UserService } from '../user/user.service';
 import { WalletService } from '../wallet/wallet.service';
 import { ReturnMessage } from './../../common/classes/message';
-import { TransactionDto } from './dto/transaction.dto';
+import { TransactionDto, transactionStatus } from './dto/transaction.dto';
 import { TransactionPersistence } from "./transaction.persistence";
 
 export class TransactionService {
@@ -10,6 +10,7 @@ export class TransactionService {
     private userService           = new UserService();
 
     async save(transaction : TransactionDto) {
+        transaction.status = transactionStatus.INITIALISATION;
         return await this.transactionPeristence.save(transaction);
     }
 
@@ -30,7 +31,7 @@ export class TransactionService {
         return await this.transactionPeristence.find();
     }
 
-    async update(transaction :TransactionDto) {
+    async update(transaction :TransactionDto ) {
         let message =  await this.transactionPeristence.update(transaction);
         if(!!transaction.primeApporteur) {
           let message = await this.userService.getUserByParrainCode(transaction.code);

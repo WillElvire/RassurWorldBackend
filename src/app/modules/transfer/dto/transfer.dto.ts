@@ -24,6 +24,12 @@ export interface mobileMoneyTpeResponse {
     }
 }
 
+export interface ImomoTransfer {
+  amount : number;
+  transferId ?:string;
+  insurranceId ?:string;
+  meanOfPayement ?:momoProvider;
+}
 export class mobileMoneyPayload {
   currency    : currencyType
   order_id    : string;
@@ -33,13 +39,17 @@ export class mobileMoneyPayload {
   cancel_url  : string ;
   reference   : string;
   user_msisdn?: string;
+  meanOfPayement ?: momoProvider;
 
-  constructor(amount : number){
-    this.return_url = "http://localhost:4200/payment/success";
-    this.cancel_url = "http://localhost:4200/payment/failed";
-    this.amount = amount;
+
+
+  constructor(transfer : ImomoTransfer){
+    this.return_url = "http://localhost:4200/payment/"+this.state+"/processing";
+    this.cancel_url = "http://localhost:4200/payment/"+this.state+"/failed";
+    this.amount = transfer.amount;
+    this.meanOfPayement = transfer.meanOfPayement;
     this.order_id = generateId();
-    this.reference = "Payment des frais d'assurance"
+    this.reference = "Rassur"
   }
 
 }
@@ -57,8 +67,8 @@ export class TransferDto {
 
     constructor(apiPath : string ,method : string, request = null , response = null , browser = null  , ip = null ){
        this.provider  = process.env.TRANSFER_PROVIDER;
-       this.request   = JSON.stringify(request);
-       this.response  = JSON.stringify(response);
+       this.request   = request;
+       this.response  = response;
        this.browser   = browser;
        this.apiPath   = apiPath;
        this.method    = method;

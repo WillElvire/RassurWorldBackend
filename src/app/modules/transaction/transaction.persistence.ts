@@ -28,21 +28,12 @@ export class TransactionPersistence  {
     } 
 
 
-    async update(transactionDto : Partial<TransactionDto>) {
+    async update(transactionDto : TransactionDto) {
         let message = new ReturnMessage();
         try {
 
-            const newTransaction  = await this._rTransactionRepository.createQueryBuilder().update().set({
-               apiResponse : transactionDto?.apiResponse,
-               meanOfPayment : transactionDto?.meanOfPayment,
-               quantity : transactionDto?.quantity,
-               transactionNumb : transactionDto?.transactionNumb,
-               total : transactionDto.total,
-               primeApporteur : transactionDto?.primeApporteur,
-               fees : Number(transactionDto.fees) ,
-               total_net : Number(transactionDto.total_net)
-            }).where("id = :id",{id : transactionDto.id}).execute();
-
+            delete transactionDto?.code 
+            const newTransaction  = await this._rTransactionRepository.createQueryBuilder().update().set(transactionDto as any).where("id = :id",{id : transactionDto.id}).execute();
             message.returnObject = newTransaction;
             message.code = OK;
             message.message = "Transaction successfully added !";
