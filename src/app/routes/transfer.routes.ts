@@ -8,5 +8,6 @@ const transferRoutes = express.Router();
 const transferController = new TransferController()
 transferRoutes.post("/api/transfer/momo",remoteMiddleware,transferController.momoTransfer);
 transferRoutes.post("/api/transfer/detail",remoteMiddleware,transferController.momoTransDetail);
+transferRoutes.get("/api/transfer/detail/:idTransfer",transferController.momoTransDetailByTransId);
 transferRoutes.get("/api/transfer/list",authMiddleware,transferController.getTransfer)
 export default transferRoutes;

@@ -50,18 +50,28 @@ export class TransferService {
         const api     = getApiPath("mobilemoney/v1/getStatus/"+orderId);
         const config  =  RemoteConfig.getInstance()?.getConfig();
         try {
-          configs.headers["mno-name"] = paymentType;
+
+          const transaction =  await transactionService.getTransactionByTransNum(orderId);
+
+          if(transaction.code != 200 || !transaction?.returnObject) {
+            message.code = 500;
+            message.message = "Transaction doesn't exists";
+            return message;
+          }
+          configs.headers["mno-name"] = transaction.returnObject.meanOfPayment;
           configs.headers["Authorization"]= `Bearer ${process.env.BIZAO_ACCESS_TOKEN}`;
+          console.log(configs)
           const response = await apiGet(api);
           message.code  = 200;
-          message.returnObject = response;
+          message.returnObject = response.data;
+          
         }
         catch(Exception) {
           message.code = 500;
-          message.message = !!Exception.response.data ? Exception.response.data : Exception.message;
+          message.message = !!Exception.response?.data ? Exception.response?.data : Exception.message;
          
         }
-        transferPersistence.addTransfer(new TransferDto(api,"mobileMoneyPayment",orderId,!!message.message ? JSON.stringify(message.message) : JSON.stringify(message.returnObject),config.browser,config.ipAddress));
+        //transferPersistence.addTransfer(new TransferDto(api,"mobileMoneyPayment",orderId,!!message.message ? JSON.stringify(message.message) : JSON.stringify(message.returnObject),config.browser,config.ipAddress));
         return message;
     }
 }

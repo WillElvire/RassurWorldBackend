@@ -75,4 +75,20 @@ export class TransactionPersistence  {
         return message;
     }
 
+
+    async  findByTransId(id : string) {
+        let message = new ReturnMessage();
+        try {
+
+            const result = await this._rTransactionRepository.findOneBy({transactionNumb : id});
+            message.code = OK;
+            message.returnObject = result;
+
+        }catch(Exception) {
+            message.code = 500;
+            message.message = Exception.message;
+        }
+        return message;
+    }
+
 }

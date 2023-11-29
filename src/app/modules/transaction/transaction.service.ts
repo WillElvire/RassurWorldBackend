@@ -14,6 +14,10 @@ export class TransactionService {
         return await this.transactionPeristence.save(transaction);
     }
 
+
+    async getTransactionByTransNum ( transNumb : string) {
+        return await this.transactionPeristence.findByTransId(transNumb);
+    }
     async findById(id : string) {
 
         let message = new ReturnMessage();
