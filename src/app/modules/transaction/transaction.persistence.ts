@@ -13,13 +13,13 @@ export class TransactionPersistence  {
 
         try { 
             const newTransaction = this._rTransactionRepository.create(transaction); 
-            const result   = await this._rTransactionRepository.save(newTransaction);
-            message.code = OK;
+            const result         = await this._rTransactionRepository.save(newTransaction);
+            message.code         = OK;
             message.returnObject = result;
-            message.message = "Transaction successfully added !";
+            message.message      = "Transaction successfully added !";
         }
         catch(Exception) {
-           message.code = 500;
+           message.code    = 500;
            message.message = Exception.message;
         }
 
@@ -28,21 +28,12 @@ export class TransactionPersistence  {
     } 
 
 
-    async update(transactionDto : Partial<TransactionDto>) {
+    async update(transactionDto : TransactionDto) {
         let message = new ReturnMessage();
         try {
 
-            const newTransaction  = await this._rTransactionRepository.createQueryBuilder().update().set({
-               apiResponse : transactionDto?.apiResponse,
-               meanOfPayment : transactionDto?.meanOfPayment,
-               quantity : transactionDto?.quantity,
-               transactionNumb : transactionDto?.transactionNumb,
-               total : transactionDto.total,
-               primeApporteur : transactionDto?.primeApporteur,
-               fees : Number(transactionDto.fees) ,
-               total_net : Number(transactionDto.total_net)
-            }).where("id = :id",{id : transactionDto.id}).execute();
-
+            delete transactionDto?.code 
+            const newTransaction  = await this._rTransactionRepository.createQueryBuilder().update().set(transactionDto as any).where("id = :id",{id : transactionDto.id}).execute();
             message.returnObject = newTransaction;
             message.code = OK;
             message.message = "Transaction successfully added !";
@@ -74,6 +65,22 @@ export class TransactionPersistence  {
         try {
 
             const result = await this._rTransactionRepository.findBy({id});
+            message.code = OK;
+            message.returnObject = result;
+
+        }catch(Exception) {
+            message.code = 500;
+            message.message = Exception.message;
+        }
+        return message;
+    }
+
+
+    async  findByTransId(id : string) {
+        let message = new ReturnMessage();
+        try {
+
+            const result = await this._rTransactionRepository.findOneBy({transactionNumb : id});
             message.code = OK;
             message.returnObject = result;
 

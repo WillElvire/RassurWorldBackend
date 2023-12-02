@@ -10,5 +10,16 @@ export interface TransactionDto {
     fees ?: number;
     total_net ?:number;
     primeApporteur?:number;
+    status : transactionStatus;
     code ?:string
+}
+
+
+
+export enum transactionStatus {
+    PROCESSED = 2 ,
+    INITIALISATION = 1,
+    FAILED = 3 ,
+    BLOCKED = 4,
+    SUCCESS = 5
 }

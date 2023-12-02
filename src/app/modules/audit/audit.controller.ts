@@ -6,13 +6,11 @@ const auditService =  new AuditService();
 export class AuditController {
 
     async addAudit(req : any , res : any ) {
-       
         const result =  await auditService.addAudit({...req.body});
         LogAppender.writeLogFromBody(req,result,"AuditController");
         res.status(result.code).send(result);
     }
-
-
+    
     async getAuditById(req : any , res : any ) {
         const result =  await auditService.getAuditById(req.params.id);
         LogAppender.writeLogFromParams(req,result,"AuditController");

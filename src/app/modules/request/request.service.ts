@@ -7,7 +7,18 @@ const walletService = new WalletService;
 export class RequestService {
     private requestPersistence  =  new RequestPersistence();
     async save(request : RequestDto) {
-      return await this.requestPersistence.save(request);
+        let message = new ReturnMessage();
+        message = await walletService.verifyUserFunds(request.amount,request.user);
+        if(message.code == 200) {
+            const balance = message.returnObject;
+            message =  await this.requestPersistence.save(request);
+            if(message.code == 200) {
+                message.returnObject = balance;
+                return message;
+            }
+            return message;
+        }
+        return message;
     }
 
     async getRequestById(id : string) {
@@ -26,8 +37,12 @@ export class RequestService {
         message = await this.requestPersistence.confirmRequest(id);
         if(message.code == OK) {
             message = await walletService.debitAccount(amount,userId);
-            message.message = "Transaction confirmé avec succes";
+            if(message.code == 200) {
+                message.message = "Transaction confirmé avec succes";
+                return message;
+            }
             return message;
+          
         }
         return message;
        

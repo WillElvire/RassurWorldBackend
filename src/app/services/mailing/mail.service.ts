@@ -30,13 +30,14 @@ export class EmailService {
   }
 
   private mailTransport() {
+   
     return nodemailer.createTransport({
        host: mailConfigs.host,
        port: mailConfigs.port,
        secure: true, // true for 465, false for other ports
        auth: {
-         user: "_mainaccount@myrassurance.com", // generated ethereal user
-         pass: "pm3Y0@0Es(8IKq", // generated ethereal password
+         user: process.env.AUTH_MAIL_USER, // generated ethereal user
+         pass: process.env.AUTH_MAIL_PSWD, // generated ethereal password
        },
      })
    }
@@ -46,7 +47,7 @@ export class EmailService {
 
    private  mailSender() {
     return this.mailTransport().sendMail({
-      from     : "info@myrassurance.com", // sender address
+      from     : process.env.MAIL_ADDRESSE, // sender address
       to       : this.receiver, // list of receivers
       subject  : "Information R'assur", // Subject line
       text     : this.body, // plain text body

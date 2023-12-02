@@ -3,19 +3,26 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import { DatabaseSourceManager } from "./app/common/classes/init";
+
+import swaggerDocs from "./app/utils/swagger";
+
+import { fileUploader } from "./app/utils/fileUpload";
+
+import { logger } from "./app/utils/logger";
+
+import path from "path";
 import authRoutes from "./app/routes/auth.routes";
 import roleRoutes from "./app/routes/roles.routes";
-import swaggerDocs from "./app/utils/swagger";
 import partnersRoute from "./app/routes/partners.routes";
-import { fileUploader } from "./app/utils/fileUpload";
 import assuranceRoutes from "./app/routes/assurance.routes";
-import { logger } from "./app/utils/logger";
 import offerRoutes from "./app/routes/offer.routes";
-import path from "path";
 import { mailRoute } from "./app/routes/mail.routes";
 import userRoute from "./app/routes/user.routes";
 import { auditRoute } from "./app/routes/audit.routes";
 import requestRoute from "./app/routes/request.routes";
+import transferRoutes from "./app/routes/transfer.routes";
+import { RemoteConfig } from "./app/modules/transfer/dto/transfer.dto";
+import walletRoutes from "./app/routes/wallet.routes";
 
 
 const boostraping = {
@@ -34,6 +41,8 @@ const boostraping = {
     app.use(userRoute);
     app.use(auditRoute);
     app.use(requestRoute);
+    app.use(transferRoutes);
+    app.use(walletRoutes);
     fileUploader(app);
     swaggerDocs(app,port);
     app.get('*', function(req, res){
@@ -42,6 +51,7 @@ const boostraping = {
     });
     app.use(morgan("combined"));
     app.use((req: any, res: any, next: any) => {
+      
       res.header(
         "Access-Control-Allow-Headers",
         "x-access-token, Origin, Content-Type, Accept",

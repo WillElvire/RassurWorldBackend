@@ -73,6 +73,10 @@ export class UserService {
     async activeUserAccount(userId : string , prevStatus : boolean) {
        return await userPersistence.activeUserAccount(userId,prevStatus);
     }
+
+    async updateUser(user) {
+        return await userPersistence.updateUser(user);
+    }
     
 
     async addIntermediary(user : userVoyageFirstStepDto ) {

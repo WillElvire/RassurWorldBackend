@@ -7,21 +7,18 @@ const userService = new UserService();
 export class UserController {
 
     async register(req , res) {
-       
         const result = await userService.addIntermediary(req.body);
         LogAppender.writeLogFromBody(req,result,"UserController");
         res.status(result.code).send(result);
     }
 
     async fechApporteur(req , res ) {
-       
         const result = await userService.fetchBusinessAccount();
         LogAppender.writeLogFromBody(req,result,"UserController");
         res.status(result.code).send(result);
     }
 
     async fechTeam(req , res ) {
-       
         const result = await userService.fetchTeamAccount();
         LogAppender.writeLogFromBody(req,result,"UserController");
         res.status(result.code).send(result);
@@ -40,6 +37,14 @@ export class UserController {
         logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         logger.info(req.body.userId);
         const result = await userService.activeUserAccount(req.body.userId,req.body.prevStatus);
+        LogAppender.writeLogFromBody(req,result,"UserController");
+        res.status(result.code).send(result);
+    }
+
+    async updateUser(req , res) {
+        logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        logger.info(req.body);
+        const result = await userService.updateUser(req.body);
         LogAppender.writeLogFromBody(req,result,"UserController");
         res.status(result.code).send(result);
     }
