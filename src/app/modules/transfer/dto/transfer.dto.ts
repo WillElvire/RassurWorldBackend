@@ -45,7 +45,7 @@ export class mobileMoneyPayload {
 
   constructor(transfer : ImomoTransfer){
     this.return_url = "http://localhost:4200/payment/"+this.state+"/processing";
-    this.cancel_url = "http://localhost:4200/payment/"+this.state+"/failed";
+    this.cancel_url = "http://localhost:4200/transaction/failed";
     this.amount = transfer.amount;
     this.meanOfPayement = transfer.meanOfPayement;
     this.order_id = generateId();
