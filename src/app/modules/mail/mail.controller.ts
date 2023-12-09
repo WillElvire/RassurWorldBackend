@@ -92,4 +92,16 @@ export class MailController {
     LogAppender.writeLogFromBody(req,result,"MailController");
     res.status(result.code).send(result);
   }
+
+  async sendMailSuccess(req, res) {
+    const data: mailData = {
+      phone: req.body?.phone,
+      email: req.body?.email,
+      useWhatsapp: req.body?.useWhatsapp,
+      subject: req.body?.subject,
+    };
+    const result = await mailService.sendMailSuccess(data);
+    LogAppender.writeLogFromBody(req,result,"MailController");
+    res.status(result.code).send(result);
+  }
 }

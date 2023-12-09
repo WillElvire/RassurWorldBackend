@@ -77,3 +77,14 @@ export const receiptMessage = (data : mailData) => {
   Equipe Rassur
 `
 }
+
+export const transactionSuccessMessage  = (data : mailData) => {
+  return ` 
+  Cher client .
+  Votre transaction a été effectué avec succes .
+  N'hesistez pas a nous contacter si vous avez un quelconque problème
+  Equipe Rassur
+  
+  `;
+  
+} 

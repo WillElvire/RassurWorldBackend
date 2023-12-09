@@ -121,4 +121,18 @@ export class MailService {
       }
       return message;
     }
+
+    async sendMailSuccess(data : mailData) {
+      data.type = "Success";
+      let message = new ReturnMessage();
+      try {
+        const result = await mailBuilder.addData(data).send();
+        message.returnObject = result?.data;
+        message.code = 200;
+      }catch(Exception) {
+         message.code    = 500;
+         message.message = Exception.message;
+      }
+      return message;
+    }
 }

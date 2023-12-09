@@ -7,6 +7,7 @@ import {
   paymentMessage,
   receiptMessage,
   relationShipMailler,
+  transactionSuccessMessage,
 } from "../../__moock__/message";
 import { EmailService } from "../../services/mailing/mail.service";
 import { WhatsappService } from "../../services/mailing/message.service";
@@ -68,6 +69,8 @@ export class MailBuilder {
         return creditClientMessage;
       case "Debit":
         return debitClientMessage;
+      case "Success":
+        return transactionSuccessMessage;
       default:
         return relationShipMailler;
     }

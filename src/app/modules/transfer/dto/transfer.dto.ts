@@ -4,7 +4,7 @@ import { generateId } from './../../../common/classes/apiConfig';
 
 export type currencyType = "XOF" | "USD";
 export type channelType  = "ussd"| "tpe";
-export type momoProvider = "moov"| "orange" |"mtn";
+export type momoProvider = "moov"| "orange" |"mtn" | "wave";
 
 export interface mobileMoneyResponse {
     status      : number,
@@ -44,7 +44,7 @@ export class mobileMoneyPayload {
 
 
   constructor(transfer : ImomoTransfer){
-    this.return_url = "http://localhost:4200/payment/"+this.state+"/processing";
+    this.return_url = "http://localhost:4200/transaction/success";
     this.cancel_url = "http://localhost:4200/transaction/failed";
     this.amount = transfer.amount;
     this.meanOfPayement = transfer.meanOfPayement;

@@ -14,6 +14,15 @@ const auditService = new AuditService;
 export class VoyageService {
 
     
+  /*
+  * @param user : userVoyageFirstStepDto
+  * @return ReturnMessage
+  * @description : This method is used to setup the first step of the voyage insurance
+  * @access : Private
+  * @errors : 421 : Kindly fill all required fields
+  *          500 : Error during first step creation
+  *         200 : Success
+  * */
   async setupFirstStep(user : userVoyageFirstStepDto){
     let message = new ReturnMessage();
     if(!user.email || !user.firstname || !user.lastname || !user.phone){

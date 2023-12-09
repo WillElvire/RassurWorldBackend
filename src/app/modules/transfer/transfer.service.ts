@@ -7,8 +7,10 @@ import { TransferPersistence } from './transfer.persistence';
 import { TransactionService } from '../transaction/transaction.service';
 import { transactionStatus } from '../transaction/dto/transaction.dto';
 
+
 const transferPersistence = new TransferPersistence;
 const transactionService  = new TransactionService;
+
 
 export class TransferService {
     

@@ -10,35 +10,31 @@ export class UserCreateSeed implements Seeder {
     dataSource: DataSource,
     factoryManager: SeederFactoryManager
   ): Promise<void> {
-
     const userRepository = dataSource.getRepository(User);
     const roleRepository = dataSource.getRepository(Role);
 
-    const role =  await roleRepository.findOneBy({
-      flag : 1
+    const role = await roleRepository.findOneBy({
+      flag: 1,
     });
 
-    
-    if(!!role) {
-
-      const userData : UserDto = {
-        firstname: "Amitav Roy",
-        lastname: "koua",
-        email: "reachme@amitavroy.com",
-        password: hash("Password@123"),
-        phone : "1",
+    if (!!role) {
+      const userData: UserDto = {
+        email: "rassur@gmail.com",
+        password: hash("123456"),
+        firstname: "root",
+        lastname: "root",
+        phone: "0103659060",
         role: role.id,
       };
-  
+
       const userExists = await userRepository.findOneBy({
         email: userData.email,
       });
-  
+
       if (!userExists) {
         const newUser = userRepository.create(userData as any);
         await userRepository.save(newUser);
       }
     }
-   
   }
 }
